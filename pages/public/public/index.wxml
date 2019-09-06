@@ -1,0 +1,99 @@
+<!--pages/public/public/index.wxml-->
+<view class="public">
+  <view class="public_function">
+    <i-row>
+      <i-col span="8" i-class="col-class">
+        <view class="funciont_item">
+          <view>
+            <i-icon type="scan" size="40" color="#333333" />
+          </view>
+          <text>扫一扫</text>
+        </view>
+      </i-col>
+      <i-col span="8" i-class="col-class">
+        <view class="funciont_item">
+          <view>
+            <i-icon type="barrage" size="40" color="#333333" />
+          </view>
+          <text>发布投票</text>
+        </view>
+      </i-col>
+      <i-col span="8" i-class="col-class">
+        <view class="funciont_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>统计名单</text>
+        </view>
+      </i-col>
+    </i-row>
+  </view>
+  <view class="public_model">
+    <i-row class="public_model_row">
+      <i-col span="6" class="public_model_col">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+      <i-col span="6">
+        <view class="model_item">
+          <view>
+            <i-icon type="createtask" size="40" color="#333333" />
+          </view>
+          <text>同学会</text>
+        </view>
+      </i-col>
+    </i-row>
+  </view>
+</view>

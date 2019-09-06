@@ -1,0 +1,29 @@
+/* pages/public/public/index.wxss */
+page{
+  background: #fafafa;
+}
+.public_function, .public_model {
+  background: #ffffff;
+  margin-bottom: 40rpx;
+}
+.public_function .funciont_item {
+  text-align:  center;
+  padding: 20rpx 0 40rpx
+}
+.funciont_item text {
+  font-size: 28rpx;
+  color: #333;
+}
+.model_item {
+  padding: 40rpx 0;
+  text-align: center;
+  border-right: solid 1px #f2f2f2;
+  border-bottom: solid 1px #f2f2f2;
+}
+.model_item text {
+  font-size: 24rpx;
+  color: #333;
+}
+.public_model_row .public_model_col:nth-child(-n+8):nth-child(n+5) .model_item {
+  border-bottom: none;
+}

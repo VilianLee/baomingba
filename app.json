@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/home/home/index",
+    "pages/management/management/index",
+    "pages/public/public/index",
+    "pages/user/user/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home/index",
+        "iconPath": "",
+        "selectedIconPath": "",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/public/public/index",
+        "iconPath": "",
+        "selectedIconPath": "",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/management/management/index",
+        "text": "管理"
+      },
+      {
+        "pagePath": "pages/user/user/index",
+        "iconPath": "",
+        "selectedIconPath": "",
+        "text": "我"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "i-row": "/dist/row/index",
+    "i-col": "/dist/col/index",
+    "i-icon": "/dist/icon/index",
+    "i-grid": "/dist/grid/index",
+    "i-grid-item": "/dist/grid-item/index",
+    "i-grid-icon": "/dist/grid-icon/index",
+    "i-grid-label": "/dist/grid-label/index"
+  }
+}
