@@ -1,8 +1,5 @@
 /* pages/public/public/index.wxss */
-page{
-  background: #fafafa;
-}
-.public_function, .public_model {
+.public_function {
   background: #ffffff;
   margin-bottom: 40rpx;
 }
@@ -14,6 +11,10 @@ page{
   font-size: 28rpx;
   color: #333;
 }
+ .public_model{
+   background: #ffffff;
+   margin-bottom: 20rpx
+ }
 .model_item {
   padding: 40rpx 0;
   text-align: center;
@@ -26,4 +27,10 @@ page{
 }
 .public_model_row .public_model_col:nth-child(-n+8):nth-child(n+5) .model_item {
   border-bottom: none;
+}
+.my_model_title{
+  font-size: 20rpx;
+  color: #999999;
+  margin-bottom: 20rpx;
+  padding-left: 40rpx;
 }

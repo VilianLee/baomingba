@@ -1,0 +1,100 @@
+<!--pages/model/custom/index.wxml-->
+<title-bar color="{{title_color}}" icon_type="{{icon_type}}" bg_opacity="{{bg_opacity}}">
+  <view class="line-height:32px;">发布活动</view>
+</title-bar>
+
+<view class="theme_pic">
+  <view class="theme_pic_frame">
+    <view class="add_pic">
+      <i-icon type="camera_fill" size="30" color="#ffffff" />
+    </view>
+    <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.3)" indicator-active-color="#ffffff">
+      <block wx:for="{{pic_list}}" wx:key="*this">
+        <swiper-item>
+          <view class="swiper-item" style="background:url('../../../images/{{item}}');height:100%;"></view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
+
+<view class="theme_content" style="border-bottom: solid 1px #e5e5e5">
+  <view class="content_input">
+    <i-icon type="label_fill" size="18" class="input_icon" />
+    <input placeholder="活动主题（不超过35个字符）" />
+  </view>
+  <view class="content_input">
+    <i-icon type="time_fill" size="18" class="input_icon" />
+    <picker mode="multiSelector" value="{{startActTime}}" bindchange="changestartActTime" bindcolumnchange="changeStartTimeColumn" range="{{startActTimeArr}}">
+      <view class="time_picker_content">
+        {{startActTimeArr[0][startActTime[0]]}}年{{startActTimeArr[1][startActTime[1]]}}月{{startActTimeArr[2][startActTime[2]]}}日 {{startActTimeArr[3][startActTime[3]]}}:{{startActTimeArr[4][startActTime[4]]}} 开始
+      </view>
+    </picker>
+  </view>
+  <view class="content_input">
+    <picker mode="multiSelector" value="{{endActTime}}" bindchange="changeEndActTime" bindcolumnchange="changeEndTimeColumn" range="{{endActTimeArr}}">
+      <view class="time_picker_content" wx:if="{{endTimeInput}}">
+        {{endActTimeArr[0][endActTime[0]]}}年{{endActTimeArr[1][endActTime[1]]}}月{{endActTimeArr[2][endActTime[2]]}}日 {{endActTimeArr[3][endActTime[3]]}}:{{endActTimeArr[4][endActTime[4]]}} 结束
+        <view class="clear_selct" catchtap="clearEndTime">
+          <icon type="clear" size="18" color="#d5d5d5" />
+        </view>
+      </view>
+      <view class="time_picker_placeholder" wx:else>活动结束时间（选填）</view>
+    </picker>
+  </view>
+  <view class="content_input">
+    <i-icon type="coordinates_fill" size="18" class="input_icon" />
+    <input placeholder="活动详细地址（选填）" />
+  </view>
+  <view class="content_input">
+    <i-icon type="financial_fill" size="18" class="input_icon" />
+    <view class="content_cell">
+      <view class="content_cell_title">费用设置</view>
+      {{financial === 0 ? "免费" : financial}}、{{joinerNum === 0 ? "人数不限" : joinerNum}}
+    </view>
+  </view>
+</view>
+
+<view class="theme_content">
+  <view class="content_input">
+    <i-icon type="success_fill" size="18" class="input_icon" />
+    <picker bindchange="pravicyChange" value="{{pravicy}}" range="{{pravicy_arr}}">
+      <view class="time_picker_content">
+        {{pravicy_arr[pravicy]}}
+      </view>
+    </picker>
+  </view>
+</view>
+
+<view class="theme_content">
+  <view class="content_input">
+    <i-icon type="success_fill" size="18" class="input_icon" />
+    <picker bindchange="pravicyChange" value="{{real_name}}" range="{{real_name_arr}}">
+      <view class="time_picker_content">
+        {{real_name_arr[real_name]}}
+      </view>
+    </picker>
+  </view>
+</view>
+<view class="theme_content" style="height: 160rpx;">
+  <view class="theme_rich_text">
+    输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦
+  </view>
+</view>
+<view class="agreement_text">
+  <icon type="success" size="12" color="#fda402"/> 同意<text style="color:#fda402">《报名吧服务协议》</text>
+</view>
+
+<view class="theme_control">
+  <i-row>
+    <i-col span="6">
+      <button type="primary" size="mini" class="defult_btn"> 高级设置 </button>
+    </i-col>
+    <i-col span="6">
+      <button type="primary" size="mini" class="defult_btn"> 预览 </button>
+    </i-col>
+    <i-col span="12">
+      <button type="primary" size="mini" class="defult_btn public_btn"> 立即发布 </button>
+    </i-col>
+  </i-row>
+</view>

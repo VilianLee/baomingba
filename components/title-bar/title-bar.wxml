@@ -1,0 +1,11 @@
+<!--components/title-bar/title-bar.wxml-->
+  <view class="title" style="height:{{title_height}}px;padding-top:{{statusbarHeight}}px};background: rgba(255, 255, 255, {{bg_opacity}});">
+    <view 
+    wx:if="{{isShow}}" 
+    class="title_icon" 
+    bindtap="_goBack"
+    style="height:{{titleIcon_height}}px;line-height:{{titleIcon_height}}px;color:{{color}}">
+      <image class="back_icon" src="/images/{{icon_type}}.png"></image>
+    </view>
+    <view class="title_text" style="color:{{color}}"><slot></slot></view>
+  </view>

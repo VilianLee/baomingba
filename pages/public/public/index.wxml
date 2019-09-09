@@ -43,7 +43,7 @@
           <view>
             <i-icon type="createtask" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>聚会娱乐</text>
         </view>
       </i-col>
       <i-col span="6">
@@ -51,7 +51,7 @@
           <view>
             <i-icon type="createtask" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>运动健身</text>
         </view>
       </i-col>
       <i-col span="6">
@@ -59,7 +59,7 @@
           <view>
             <i-icon type="createtask" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>出游旅行</text>
         </view>
       </i-col>
       <i-col span="6">
@@ -67,7 +67,7 @@
           <view>
             <i-icon type="createtask" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>会议论坛</text>
         </view>
       </i-col>
       <i-col span="6">
@@ -75,7 +75,7 @@
           <view>
             <i-icon type="createtask" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>沙龙讲座</text>
         </view>
       </i-col>
       <i-col span="6">
@@ -83,15 +83,31 @@
           <view>
             <i-icon type="createtask" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>演出赛事</text>
         </view>
       </i-col>
       <i-col span="6">
+        <navigator url="/pages/model/custom/index">
+          <view class="model_item">
+            <view>
+              <i-icon type="createtask" size="40" color="#333333" />
+            </view>
+            <text>自定义
+          </text>
+          </view>
+        </navigator>
+      </i-col>
+    </i-row>
+  </view>
+  <view class="my_model_title">我的模板</view>
+  <view class="public_model">
+    <i-row class="public_model_row">
+      <i-col span="6" class="public_model_col">
         <view class="model_item">
           <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+            <i-icon type="add" size="40" color="#333333" />
           </view>
-          <text>同学会</text>
+          <text>添加</text>
         </view>
       </i-col>
     </i-row>

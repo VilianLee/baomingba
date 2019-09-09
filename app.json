@@ -3,7 +3,9 @@
     "pages/home/home/index",
     "pages/management/management/index",
     "pages/public/public/index",
-    "pages/user/user/index"
+    "pages/user/user/index",
+    "pages/model/custom/index",
+    "components/title-bar/title-bar"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,31 +14,33 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "color": "#888888",
+    "selectedColor": "#fda402",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/home/home/index",
-        "iconPath": "",
-        "selectedIconPath": "",
+        "iconPath": "images/icon_home.png",
+        "selectedIconPath": "images/icon_home_focuse.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/public/public/index",
-        "iconPath": "",
-        "selectedIconPath": "",
+        "iconPath": "images/icon_edit.png",
+        "selectedIconPath": "images/icon_edit_focuse.png",
         "text": "发布"
       },
       {
         "pagePath": "pages/management/management/index",
+        "iconPath": "images/icon_management.png",
+        "selectedIconPath": "images/icon_management_focuse.png",
         "text": "管理"
       },
       {
         "pagePath": "pages/user/user/index",
-        "iconPath": "",
-        "selectedIconPath": "",
+        "iconPath": "images/icon_user.png",
+        "selectedIconPath": "images/icon_user_focuse.png",
         "text": "我"
       }
     ]
@@ -49,6 +53,12 @@
     "i-grid": "/dist/grid/index",
     "i-grid-item": "/dist/grid-item/index",
     "i-grid-icon": "/dist/grid-icon/index",
-    "i-grid-label": "/dist/grid-label/index"
+    "i-grid-label": "/dist/grid-label/index",
+    "title-bar": "/components/title-bar/title-bar",
+    "i-button": "/dist/button/index",
+    "i-cell-group": "/dist/cell-group/index",
+    "i-cell": "/dist/cell/index",
+    "i-checkbox-group": "/dist/checkbox-group/index",
+    "i-checkbox": "/dist/checkbox/index"
   }
 }
