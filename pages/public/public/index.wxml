@@ -4,24 +4,24 @@
     <i-row>
       <i-col span="8" i-class="col-class">
         <view class="funciont_item">
-          <view>
-            <i-icon type="scan" size="40" color="#333333" />
+          <view class="funciont_item_img">
+            <image src="./images/icon_scan.png" mode="aspectFit"/>
           </view>
           <text>扫一扫</text>
         </view>
       </i-col>
       <i-col span="8" i-class="col-class">
         <view class="funciont_item">
-          <view>
-            <i-icon type="barrage" size="40" color="#333333" />
+          <view class="funciont_item_img">
+            <image src="./images/icon_vote.png" mode="aspectFit"/>
           </view>
           <text>发布投票</text>
         </view>
       </i-col>
       <i-col span="8" i-class="col-class">
         <view class="funciont_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="funciont_item_img">
+            <image src="./images/icon_statistics.png" mode="aspectFit"/>
           </view>
           <text>统计名单</text>
         </view>
@@ -32,56 +32,56 @@
     <i-row class="public_model_row">
       <i-col span="6" class="public_model_col">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/festerval.png" mode="aspectFit"/>
           </view>
-          <text>同学会</text>
+          <text>节日</text>
         </view>
       </i-col>
       <i-col span="6">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/lectures.png" mode="aspectFit"/>
           </view>
           <text>聚会娱乐</text>
         </view>
       </i-col>
       <i-col span="6">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/sports.png" mode="aspectFit"/>
           </view>
           <text>运动健身</text>
         </view>
       </i-col>
       <i-col span="6">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/travel.png" mode="aspectFit"/>
           </view>
           <text>出游旅行</text>
         </view>
       </i-col>
       <i-col span="6">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/meeting.png" mode="aspectFit"/>
           </view>
           <text>会议论坛</text>
         </view>
       </i-col>
       <i-col span="6">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/lectures.png" mode="aspectFit"/>
           </view>
           <text>沙龙讲座</text>
         </view>
       </i-col>
       <i-col span="6">
         <view class="model_item">
-          <view>
-            <i-icon type="createtask" size="40" color="#333333" />
+          <view class="model_item_img">
+            <image src="./images/scene/games.png" mode="aspectFit"/>
           </view>
           <text>演出赛事</text>
         </view>
@@ -89,9 +89,9 @@
       <i-col span="6">
         <navigator url="/pages/model/custom/index">
           <view class="model_item">
-            <view>
-              <i-icon type="createtask" size="40" color="#333333" />
-            </view>
+          <view class="model_item_img">
+            <image src="./images/scene/custom.png" mode="aspectFit"/>
+          </view>
             <text>自定义
           </text>
           </view>

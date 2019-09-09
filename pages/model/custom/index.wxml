@@ -6,7 +6,7 @@
 <view class="theme_pic">
   <view class="theme_pic_frame">
     <view class="add_pic">
-      <i-icon type="camera_fill" size="30" color="#ffffff" />
+       <image src="../images/icon_camera.png" mode="aspectFit"/>
     </view>
     <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.3)" indicator-active-color="#ffffff">
       <block wx:for="{{pic_list}}" wx:key="*this">
@@ -98,3 +98,7 @@
     </i-col>
   </i-row>
 </view>
+
+<i-modal title="纵向排列的按钮" visible="{{ visible4 }}" actions="{{ actions4 }}" action-mode="{{ vertical }}" bind:click="handleClick4">
+
+</i-modal>

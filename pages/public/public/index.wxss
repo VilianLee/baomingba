@@ -7,6 +7,13 @@
   text-align:  center;
   padding: 20rpx 0 40rpx
 }
+.funciont_item_img {
+  padding: 0 40rpx;
+}
+.funciont_item_img image{
+  width: 100rpx;
+  height: 100rpx;
+}
 .funciont_item text {
   font-size: 28rpx;
   color: #333;
@@ -20,6 +27,13 @@
   text-align: center;
   border-right: solid 1px #f2f2f2;
   border-bottom: solid 1px #f2f2f2;
+}
+.model_item_img{
+   text-align: center;
+}
+.model_item_img image{
+  width: 80rpx;
+  height: 80rpx;
 }
 .model_item text {
   font-size: 24rpx;

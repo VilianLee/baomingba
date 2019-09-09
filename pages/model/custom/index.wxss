@@ -131,9 +131,16 @@ page{
   bottom: 44rpx;
   width: 128rpx;
   height: 128rpx;
+  padding: 24rpx 0;
   border-radius: 12rpx;
   background: #2c2008;
   text-align: center;
   line-height: 120rpx;
-  z-index: 5
+  z-index: 5;
+  box-sizing: border-box;
+}
+.add_pic image{
+  width: 80rpx;
+  height: 80rpx;
+  opacity: 0.8
 }
