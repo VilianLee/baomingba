@@ -1,0 +1,33 @@
+/* pages/model/joinerInfo/index.wxss */
+
+
+.input_cell_row .select_tag_item {
+  float: left;
+  width: 25%;
+  padding: 0 15rpx;
+  box-sizing: border-box;
+  margin-bottom: 15rpx;
+}
+.input_cell_row .select_tag_item .tag {
+  height: 60rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  border: solid #d5d5d5 1rpx;
+  color: #333;
+  font-size: 24rpx;
+  line-height: 60rpx;
+  box-sizing: border-box;
+}
+
+.input_cell_row .select_tag::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.input_cell_row .select_tag .select_tag_item .require {
+  border: none;
+  color: #fff;
+  background: #fda402;
+}

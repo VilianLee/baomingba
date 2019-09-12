@@ -5,7 +5,9 @@
     "pages/public/public/index",
     "pages/user/user/index",
     "pages/model/custom/index",
-    "components/title-bar/title-bar"
+    "components/title-bar/title-bar",
+    "pages/model/seniorSetting/index",
+    "pages/model/joinerInfo/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

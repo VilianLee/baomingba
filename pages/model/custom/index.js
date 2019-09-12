@@ -24,7 +24,43 @@ Page({
     pravicy_arr: ["私密活动", "公开可见", "仅粉丝可见"],
     pravicy: "1",
     real_name_arr: ["无需身份实名", "需要身份实名", "查看实名认证包"],
-    real_name: "1"
+    real_name: "1",
+    seniorSetting: {
+      joinerNeedInfo: [{
+        name: "姓名",
+        require: true
+      }, {
+        name: "手机",
+        require: true
+      }, {
+        name: "公司",
+        require: false
+      }, {
+        name: "邮箱",
+        require: false
+      }, {
+        name: "职位",
+        require: false
+      }, {
+        name: "性别",
+        require: false
+      }, {
+        name: "年龄",
+        require: false
+      }, {
+        name: "备注",
+        require: false
+      }],
+      enrollStartTime: "",
+      enrollEndTime: "",
+      customSponsor: [],
+      sponsorMobile: "",
+      hideJoinerList: false,
+      hideActLocation: false,
+      hidePicWall: false,
+      hideRewardFn: false,
+      onlyJoinerCanComment: false
+    }
   },
 
   /**
@@ -88,24 +124,29 @@ Page({
       endActTime: this.data.startActTime
     });
   },
-  pravicyChange (e) {
+  pravicyChange(e) {
     console.log(e)
     this.setData({
       pravicy: e.detail.value
     })
   },
+  seniorSetting() {
+    let str = JSON.stringify(this.data.seniorSetting);
+    console.log(str)
+    wx.navigateTo({
+      url: '../seniorSetting/index?params=' + str
+    })
+  },
   /**
    * 监听滚动
    */
-  onPageScroll: function (ev) {
+  onPageScroll: function(ev) {
     const _this = this
-    console.log(ev.scrollTop)
     const base_height = wx.getSystemInfoSync().windowWidth * 0.5
-      console.log(wx.getSystemInfoSync().windowWidth)
     this.setData({
-      bg_opacity: ev.scrollTop/base_height
+      bg_opacity: ev.scrollTop / base_height
     })
-    if(ev.scrollTop >= base_height) {
+    if (ev.scrollTop >= base_height) {
       this.setData({
         title_color: "#333333",
         icon_type: "back_black"

@@ -1,0 +1,26 @@
+<!--pages/model/joinerInfo/index.wxml-->
+<view class="input_cell">
+  <view class="input_cell_row">
+    <view class="label">
+      <i-icon type="barrage_fill" size="20" color="#d5d5d5" style="margin-right:12rpx"/>
+      单文本
+    </view>
+  </view>
+  <view class="input_cell_row">
+    <view class="select_tag">
+      <view class="select_tag_item " wx:for="{{joinerNeedInfo.singleText}}" wx:key="name">
+        <view class="tag {{item.require ? 'require' : ''}}">{{item.name}} {{item.require ? "*" : ""}}</view>
+      </view>
+      <view class="select_tag_item">
+        <view class="tag">
+          <i-icon type="add" color="#d5d5d5" size="24"/>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="input_cell">
+  <view class="more_info" wx:for="{{joinerNeedInfo}}">
+    <view></view>
+  </view>
+</view>

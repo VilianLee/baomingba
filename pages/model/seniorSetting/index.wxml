@@ -1,0 +1,90 @@
+<!--pages/model/seniorSetting/index.wxml-->
+<view class="input_cell">
+  <view class="input_cell_row">
+    <view class="label">报名者需填写</view>
+  </view>
+  <view class="input_cell_row">
+    <view class="select_tag">
+      <view class="select_tag_item " wx:for="{{joinerNeedInfoSingle}}" wx:key="name">
+        <view class="tag {{item.require ? 'require' : ''}}">{{item.name}} {{item.require ? "*" : ""}}</view>
+      </view>
+      <view class="select_tag_item">
+        <view class="tag" bindtap="editMoreInfo">
+          <i-icon type="add" color="#d5d5d5" size="24"/>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="input_cell_row">
+    <view class="label">报名开始时间</view>
+    <view class="form_item"></view>
+  </view>
+  <view class="input_cell_row">
+    <view class="label">报名截止时间</view>
+    <view class="form_item"></view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="input_cell_row">
+    <view class="label">自定义主办方</view>
+    <view class="form_item"></view>
+  </view>
+  <view class="input_cell_row">
+    <view class="label">联系电话</view>
+    <view class="form_item"></view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="tip_text">开启后，详情页将不显示报名者列表</view>
+  <view class="input_cell_row">
+    <view class="label">隐藏报名名单</view>
+    <view class="form_item">
+      <switch id="hideJoinerList" color="#fda402" checked="{{hideJoinerList}}" bindchange="switchChange" />
+    </view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="tip_text">开启后，详情页将不显示活动地址</view>
+  <view class="input_cell_row">
+    <view class="label">隐藏活动地址</view>
+    <view class="form_item">
+      <switch id="hideActLocation" color="#fda402" checked="{{hideActLocation}}" bindchange="switchChange" />
+    </view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="tip_text">开启后，详情页将不显示照片墙</view>
+  <view class="input_cell_row">
+    <view class="label">隐藏照片墙</view>
+    <view class="form_item">
+      <switch id="hidePicWall" color="#fda402" checked="{{hidePicWall}}" bindchange="switchChange" />
+    </view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="tip_text">开启后，详情页将不支持打赏功能</view>
+  <view class="input_cell_row">
+    <view class="label">隐藏打赏功能</view>
+    <view class="form_item">
+      <switch id="hideRewardFn" color="#fda402" checked="{{hideRewardFn}}" bindchange="switchChange" />
+    </view>
+  </view>
+</view>
+
+<view class="input_cell">
+  <view class="tip_text">开启后，报名成功才能在详情页发表评论</view>
+  <view class="input_cell_row">
+    <view class="label">仅报名者可评论</view>
+    <view class="form_item">
+      <switch id="onlyJoinerCanComment" color="#fda402" checked="{{onlyJoinerCanComment}}" bindchange="switchChange" />
+    </view>
+  </view>
+</view>
