@@ -67,3 +67,11 @@ button::after{
   color: #999;
   font-size: 24rpx;
 }
+
+.i-grid-item {
+  padding: 0!important;
+}
+.modal_tab{
+  margin: 0 auto;
+  text-align: center;
+}

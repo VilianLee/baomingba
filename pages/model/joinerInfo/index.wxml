@@ -10,11 +10,6 @@
       <view class="select_tag_item " wx:for="{{joinerNeedInfo.singleText}}" wx:key="{{name}}">
         <view class="tag {{item.require ? 'require' : ''}}">{{item.name}} {{item.require ? "*" : ""}}</view>
       </view>
-      <view class="select_tag_item">
-        <view class="tag">
-          <i-icon type="add" color="#d5d5d5" size="20" />
-        </view>
-      </view>
     </view>
   </view>
 </view>
@@ -33,11 +28,44 @@
       <view class="text">
         {{item.name}}
       </view>
-      <text class="require">*</text>
+      <text class="require" wx:if="{{item.require}}">*</text>
     </view>
   </view>
 </view>
 
 <view class="addOption">
-  <button>+ 添加报名表项</button>
+  <button bindtap="willAddInfo" data-addtype="richText">+ 添加报名表项</button>
 </view>
+
+<i-modal title="添加报名表项" visible="{{ modal_visible }}" bind:ok="addInfo" bind:cancel="cancelAdd" style="height:300rpx;">
+  <view class="modal_tab">
+    <view class="modal_tab_btn {{item.value === add_type ? 'tab_focuse' : ''}}" wx:for="{{add_type_arr}}" wx:key="{{item.value}}" data-value="{{item.value}}" bindtap="selectTab">
+      {{item.name}}
+    </view>
+  </view>
+  <view class="modal_content">
+    <view class="modal_cell">
+      <view class="modal_cell_row">
+        设为必填项
+        <view class="modal_cell_item">
+          <switch color="#fda402" checked="{{add_required}}" bindchange="addRequireChange" />
+        </view>
+      </view>
+    </view>
+    <view class="modal_cell" wx:if="{{add_type === 'singleText'}}">
+      <input placeholder="输入单文本标题（限10字）" maxlength="10" value="{{singleText_des}}" />
+    </view>
+    <view class="modal_cell" wx:if="{{add_type === 'richText'}}">
+      <textarea placeholder="输入多文本标题（限250字）" maxlength="250" auto-height value="{{richText_des}}" />
+    </view>
+    <view class="modal_cell" wx:if="{{add_type === 'radio'}}">
+      <textarea placeholder="输入单选标题（限250字）" maxlength="250" auto-height value="{{radio_des}}" />
+    </view>
+    <view class="modal_cell" wx:if="{{add_type === 'checkbox'}}">
+      <textarea placeholder="输入多选标题（限250字）" maxlength="250" auto-height value="{{checkbox_des}}" />
+    </view>
+    <view class="modal_cell" wx:if="{{add_type === 'picture'}}">
+      <textarea placeholder="对需上传的图片的描述（限250字，报名者最多可提交9张）" maxlength="250" auto-height value="{{picture_des}}" />
+    </view>
+  </view>
+</i-modal>

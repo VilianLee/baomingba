@@ -9,13 +9,13 @@
   margin-bottom: 15rpx;
 }
 .input_cell_row .select_tag_item .tag {
-  height: 40rpx;
+  height: 44rpx;
   text-align: center;
-  border-radius: 20rpx;
+  border-radius: 22rpx;
   border: solid #d5d5d5 1rpx;
   color: #333;
   font-size: 24rpx;
-  line-height: 40rpx;
+  line-height: 44rpx;
   box-sizing: border-box;
 }
 
@@ -76,4 +76,68 @@
   text-align: center;
   background: #ffffff;
   background-image: linear-gradient(to bottom, #ffffff, #f5f5f5);
+}
+.modal_tab {
+  padding-bottom: 30rpx;
+  border-bottom: solid 1px #d5d5d5;
+}
+.modal_tab .modal_tab_btn {
+  height: 44rpx;
+  line-height: 44rpx;
+  display: inline-block;
+  border: solid 1rpx #fda402;
+  padding: 0 10rpx;
+  text-align: center;
+  min-width: 80rpx;
+  color: #fda402;
+  font-size: 24rpx;
+  border-right: none;
+  transition: 0.3s;
+}
+.modal_tab .modal_tab_btn:first-child {
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+}
+.modal_tab .modal_tab_btn:last-child {
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  border-right: solid 1px #fda402;
+}
+.modal_tab .tab_focuse{
+  background: #fda402;
+  color: #ffffff;
+}
+.modal_content {
+  width: 90%;
+  margin: auto;
+  border-top: solid 1px transparent;
+}
+.modal_content .modal_cell {
+  margin-top: 30rpx;
+  text-align: left;
+}
+.modal_cell input, .modal_cell textarea {
+  font-size: 24rpx;
+  line-height: 30rpx;
+}
+.modal_cell .modal_cell_row {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.modal_cell_item{
+  float: right
+}
+.modal_content .wx-switch-input {
+  width: 80rpx!important;
+  height: 40rpx!important;
+}
+.modal_content .wx-switch-input::before {
+  width: 79rpx!important;
+  height: 37rpx!important;
+}
+.modal_content .wx-switch-input::after {
+  width: 37rpx!important;
+  height: 37rpx!important;
 }
