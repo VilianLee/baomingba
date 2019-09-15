@@ -2,25 +2,42 @@
 <view class="input_cell">
   <view class="input_cell_row">
     <view class="label">
-      <i-icon type="barrage_fill" size="20" color="#d5d5d5" style="margin-right:12rpx"/>
-      单文本
+      <i-icon type="barrage_fill" size="20" color="#d5d5d5" style="margin-right:12rpx" /> 单文本
     </view>
   </view>
   <view class="input_cell_row">
     <view class="select_tag">
-      <view class="select_tag_item " wx:for="{{joinerNeedInfo.singleText}}" wx:key="name">
+      <view class="select_tag_item " wx:for="{{joinerNeedInfo.singleText}}" wx:key="{{name}}">
         <view class="tag {{item.require ? 'require' : ''}}">{{item.name}} {{item.require ? "*" : ""}}</view>
       </view>
       <view class="select_tag_item">
         <view class="tag">
-          <i-icon type="add" color="#d5d5d5" size="24"/>
+          <i-icon type="add" color="#d5d5d5" size="20" />
         </view>
       </view>
     </view>
   </view>
 </view>
 <view class="input_cell">
-  <view class="more_info" wx:for="{{joinerNeedInfo}}">
-    <view></view>
+  <view class="more_info" wx:for="{{joinerNeedInfo.moreInfo}}" wx:key="{{item.type + item.name}}">
+    <view class="more_info_row">
+      <view class="delete">
+        <i-icon type="delete_fill" color="#f44f50" size="22" />
+      </view>
+      <view class="icon">
+        <i-icon type="barrage_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'richText'}}" />
+        <i-icon type="flag_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'radio'}}" />
+        <i-icon type="task_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'checkbox'}}" />
+        <i-icon type="picture_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'picture'}}" />
+      </view>
+      <view class="text">
+        {{item.name}}
+      </view>
+      <text class="require">*</text>
+    </view>
   </view>
+</view>
+
+<view class="addOption">
+  <button>+ 添加报名表项</button>
 </view>

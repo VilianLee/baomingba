@@ -9,13 +9,13 @@
   margin-bottom: 15rpx;
 }
 .input_cell_row .select_tag_item .tag {
-  height: 60rpx;
+  height: 40rpx;
   text-align: center;
-  border-radius: 30rpx;
+  border-radius: 20rpx;
   border: solid #d5d5d5 1rpx;
   color: #333;
   font-size: 24rpx;
-  line-height: 60rpx;
+  line-height: 40rpx;
   box-sizing: border-box;
 }
 
@@ -30,4 +30,50 @@
   border: none;
   color: #fff;
   background: #fda402;
+}
+
+.more_info_row{
+  padding: 20rpx 0;
+  line-height: 60rpx;
+  height: 60rpx;
+}
+.more_info_row .delete {
+  float: left;
+  width: 44rpx;
+  height: 44rpx;
+  margin-top: 8rpx;
+  border-radius: 22rpx;
+  line-height: 44rpx;
+  color: #ffffff;
+  text-align: center;
+  margin-right: 10rpx;
+}
+.more_info_row .icon {
+  float: left;
+  margin-right: 10rpx;
+}
+.more_info_row .text {
+  float: left;
+  line-height: 60rpx;
+  color: #333;
+  font-size: 28rpx;
+  max-width: 65%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+.more_info_row .require {
+  color: #f44f50;
+  margin-left: 10rpx;
+}
+.addOption {
+  padding: 30rpx;
+}
+.addOption button {
+  border: solid 1px #e5e5e5;
+  color: #fda402;
+  font-size: 26rpx;
+  text-align: center;
+  background: #ffffff;
+  background-image: linear-gradient(to bottom, #ffffff, #f5f5f5);
 }

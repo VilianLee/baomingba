@@ -13,13 +13,13 @@ page {
 }
 
 .input_cell_row .select_tag_item .tag {
-  height: 60rpx;
+  height: 40rpx;
   text-align: center;
-  border-radius: 30rpx;
+  border-radius: 20rpx;
   border: solid #d5d5d5 1rpx;
   color: #333;
   font-size: 24rpx;
-  line-height: 60rpx;
+  line-height: 40rpx;
   box-sizing: border-box;
 }
 
