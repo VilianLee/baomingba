@@ -78,12 +78,21 @@ Page({
     richText_des: "",
     radio_des: "",
     checkbox_des: "",
-    picture_des: ""
+    picture_des: "",
+    new_checkbox: ["", ""],
+    new_radios: ["", ""],
+    joiner_may_add: false
   },
   addRequireChange() {
     const new_value = !this.data.add_required
     this.setData({
       add_required: new_value
+    })
+  },
+  joinerMayAddChange() {
+    const new_value = !this.data.joiner_may_add
+    this.setData({
+      joiner_may_add: new_value
     })
   },
   willAddInfo(e) {

@@ -113,18 +113,26 @@
   border-top: solid 1px transparent;
 }
 .modal_content .modal_cell {
-  margin-top: 30rpx;
   text-align: left;
+  padding: 10rpx;
+  border-bottom: solid 1rpx #d5d5d5;
 }
 .modal_cell input, .modal_cell textarea {
   font-size: 24rpx;
-  line-height: 30rpx;
+  line-height: 60rpx;
+  min-height: 60rpx;
 }
 .modal_cell .modal_cell_row {
-  height: 60rpx;
+  min-height: 60rpx;
   line-height: 60rpx;
   font-size: 28rpx;
   color: #333;
+}
+.text_area_row {
+  height: 120rpx;
+}
+.text_area_row textarea {
+  height: 120rpx;
 }
 .modal_cell_item{
   float: right
@@ -140,4 +148,13 @@
 .modal_content .wx-switch-input::after {
   width: 37rpx!important;
   height: 37rpx!important;
+}
+.modal_cell_row .delete_option, .modal_cell_row .add_option {
+  float: right;
+  width: 10%;
+  text-align: right;
+}
+.modal_cell_row .option_input {
+  float: left;
+  width: 90%;
 }
