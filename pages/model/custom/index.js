@@ -22,7 +22,6 @@ Page({
     financial: 0,
     joinerNum: 0,
     pravicy_arr: ["私密活动", "公开可见", "仅粉丝可见"],
-    pravicy: "1",
     real_name_arr: ["无需身份实名", "需要身份实名", "查看实名认证包"],
     real_name: "1",
     seniorSetting: {
@@ -60,6 +59,52 @@ Page({
       hidePicWall: false,
       hideRewardFn: false,
       onlyJoinerCanComment: false
+    },
+    activity: {
+      createSource: "4", //创建源,(安卓，ios还是h5)
+      title: null, //活动标题
+      beginTime: null, //活动开始时间
+      endTime: null, //活动结束时间
+      signUpStartTime: null, //报名开始时间
+      expireTime: null, //到期时间
+      telephone: "18958081773", //联系电话
+      signUpLimit: "0", //报名人数限制
+      charge: 1, //收费费用
+      status: "", //活动状态
+      payPath: 3, //支付方式
+      organizer: "东哥俱乐部", //主办方
+      address: {
+        province: "浙江省", //省
+        city: "杭州市", //市
+        district: "上城区", //区
+        shortAddress: "清泰街208号", //地址
+        longAddress: "浙江省杭州市上城区清泰街208号", //完整地址
+        longitude: "120.187916", //经度
+        latitude: "30.25352" //维度
+      },
+      hideAddr: false, //是否隐藏地址
+      publicType: 1, //公开类型(公开，私密)
+      anonSignUp: 0, //匿名报名
+      conditions: [{ //报名项
+        name: "username"
+      }, {
+        name: "telephone"
+      }],
+      photowallControl: false, //是否有照片墙
+      tipControl: false, //是否可以打赏
+      intro: "\n<img>哈哈", //活动介绍
+      introPhotos: [{ //活动介绍的图片
+        name: "web/977d691568601690343", //图片名称
+        id: "", //图片id
+        base64: ""
+      }],
+      introType: 1, //介绍类型
+      photos: [{ //活动封面
+        id: "", //图片id
+        name: "web/977d691568601689217", //图片名称
+        base64: ""
+      }],
+      isShare: 0 //是否可以分享
     }
   },
 
@@ -80,41 +125,58 @@ Page({
       endActTime: obj1.dateTime
     });
   },
-  changestartActTime(e) {
-    this.setData({
-      startActTime: e.detail.value
-    });
+  onTimeChange(e) { //修改时间
+    const key = e.target.dataset.name
+    switch (key) {
+      case "beginTime":
+        this.data.startActTime = e.detail.value
+        const startarr = this.data.startActTimeArr
+        const start = this.data.startActTime
+        this.data.activity.beginTime = startarr[0][start[0]] + '-' + startarr[1][start[1]] + '-' + startarr[2][start[2]] + ' ' + startarr[3][start[3]] + ':' + startarr[4][start[4]]
+        break
+      case "endTime":
+        this.setData({
+          endActTime: e.detail.value,
+          endTimeInput: true
+        });
+        const endarr = this.data.endActTimeArr
+        const end = this.data.endActTime
+        this.data.activity.endTime = endarr[0][end[0]] + '-' + endarr[1][end[1]] + '-' + endarr[2][end[2]] + ' ' + endarr[3][end[3]] + ':' + endarr[4][end[4]]
+        break
+      default:
+        break
+    }
+    console.log(e)
+    console.log(this.data.activity)
   },
   changeStartTimeColumn(e) {
-    var arr = this.data.startActTime,
-      dateArr = this.data.startActTimeArr;
-
-    arr[e.detail.column] = e.detail.value;
-    dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
-
-    this.setData({
-      startActTimeArr: dateArr,
-      startActTime: arr
-    });
-  },
-  changeEndActTime(e) {
-    console.log(e)
-    this.setData({
-      endActTime: e.detail.value
-    });
-    this.setData({
-      endTimeInput: true
-    });
-  },
-  changeEndTimeColumn(e) {
-    var arr = this.data.endActTime,
-      dateArr = this.data.endActTimeArr;
-    arr[e.detail.column] = e.detail.value;
-    dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
-    this.setData({
-      endActTimeArr: dateArr,
-      endActTime: arr
-    });
+    const key = e.target.dataset.name
+    const value = e.detail.value
+    const column = e.detail.column
+    switch (key) {
+      case 'beginTime':
+        let startarr = this.data.startActTime,
+          startdateArr = this.data.startActTimeArr
+        startarr[column] = value
+        startdateArr[2] = dateTimePicker.getMonthDay(startdateArr[0][startarr[0]], startdateArr[1][startarr[1]])
+        this.setData({
+          startActTimeArr: startdateArr,
+          startActTime: startarr
+        })
+        break
+      case "endTime":
+        var arr = this.data.endActTime,
+          dateArr = this.data.endActTimeArr;
+        arr[e.detail.column] = e.detail.value;
+        dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
+        this.setData({
+          endActTimeArr: dateArr,
+          endActTime: arr
+        });
+        break
+      default:
+        break
+    }
   },
   clearEndTime(e) {
     console.log(e)
@@ -124,11 +186,16 @@ Page({
       endActTime: this.data.startActTime
     });
   },
-  pravicyChange(e) {
+  onPickChange(e) {
     console.log(e)
+    const key = e.target.dataset.name
+    const value = e.detail.value
+    const activity = this.data.activity
+    activity[key] = value
     this.setData({
-      pravicy: e.detail.value
+      activity
     })
+    console.log(this.data.activity)
   },
   seniorSetting() {
     let str = JSON.stringify(this.data.seniorSetting);
@@ -136,6 +203,13 @@ Page({
     wx.navigateTo({
       url: '../seniorSetting/index?params=' + str
     })
+  },
+  mainInputOnChange(e) {
+    const key = e.target.dataset.name
+    const value = e.detail.value
+    let activity = this.data.activity
+    activity[key] = value
+    this.data.activity = activity
   },
   /**
    * 监听滚动
