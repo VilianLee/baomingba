@@ -13,42 +13,13 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
+    "navigationStyle": "custom",
     "navigationBarTextStyle": "black"
   },
-  "tabBar": {
-    "color": "#888888",
-    "selectedColor": "#fda402",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/home/home/index",
-        "iconPath": "images/icon_home.png",
-        "selectedIconPath": "images/icon_home_focuse.png",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/public/public/index",
-        "iconPath": "images/icon_edit.png",
-        "selectedIconPath": "images/icon_edit_focuse.png",
-        "text": "发布"
-      },
-      {
-        "pagePath": "pages/management/management/index",
-        "iconPath": "images/icon_management.png",
-        "selectedIconPath": "images/icon_management_focuse.png",
-        "text": "管理"
-      },
-      {
-        "pagePath": "pages/user/user/index",
-        "iconPath": "images/icon_user.png",
-        "selectedIconPath": "images/icon_user_focuse.png",
-        "text": "我"
-      }
-    ]
-  },
-  "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "mp-navigation-bar": "/weui/navigation-bar/navigation-bar",
+    "i-tabs": "dist/tabs/index",
+    "i-tab": "dist/tab/index",
     "i-row": "/dist/row/index",
     "i-col": "/dist/col/index",
     "i-icon": "/dist/icon/index",
@@ -63,5 +34,38 @@
     "i-checkbox-group": "/dist/checkbox-group/index",
     "i-checkbox": "/dist/checkbox/index",
     "i-modal": "/dist/modal/index"
-  }
+  },
+  "tabBar": {
+    "color": "#888888",
+    "selectedColor": "#fda402",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home/index",
+        "iconPath": "images/icon_home.png",
+        "selectedIconPath": "images/icon_home_focuse.png",
+        "text": "报名吧"
+      },
+      {
+        "pagePath": "pages/public/public/index",
+        "iconPath": "images/icon_edit.png",
+        "selectedIconPath": "images/icon_edit_focuse.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/management/management/index",
+        "iconPath": "images/icon_management.png",
+        "selectedIconPath": "images/icon_management_focuse.png",
+        "text": "热门"
+      },
+      {
+        "pagePath": "pages/user/user/index",
+        "iconPath": "images/icon_user.png",
+        "selectedIconPath": "images/icon_user_focuse.png",
+        "text": "我"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -1,2 +1,34 @@
 <!--pages/home/home/index.wxml-->
-<text>首页</text>
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="报名吧">
+</mp-navigation-bar>
+<i-tabs i-class="seckill_tab" color="#ffa404" current="{{ activeType }}" scroll bindchange="tabsChange">
+  <i-tab key="enrolment" i-class="tab_item" title="我报名的"></i-tab>
+  <i-tab key="publiced" i-class="tab_item" title="我发布的"></i-tab>
+  <i-tab key="collected" i-class="tab_item" title="我收藏的"></i-tab>
+</i-tabs>
+<scroll-view class="active_list" scroll-y="{{true}}" enable-back-to-top="{{true}}" style="height:{{scrollViewHeight}}px">
+  <view class="active_card" wx:for="{{ActiveList}}" wx:key="{{item.id}}">
+    <view class="active_logo">
+      <image src="{{item.cover}}"></image>
+    </view>
+    <view class="active_content">
+      <view class="active_name">
+        {{item.title}}
+      </view>
+      <view class="active_sponsor">{{item.articleAbstract}}</view>
+      <view class="active_info">
+        <view class="active_info_item">
+          <i-icon type="coordinates" color="#999999" size="12"/>
+          {{item.city}}
+        </view>
+        <view class="active_info_item">
+          <i-icon type="time" color="#999999" size="12"/>
+          {{item.updateTime}}
+        </view>
+        <view class="active_info_item" style="text-align:center">
+          <text>{{item.signUpTotal}}</text>报名
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

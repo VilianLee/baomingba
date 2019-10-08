@@ -1,6 +1,12 @@
 //app.js
+import { login } from 'API/servers.js'
 App({
   onLaunch: function () {
+
+    login({}, res => {
+      this.globalData.userId = res.userId
+    })
+
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -34,7 +40,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    userId: ''
   },
   config: {
     title_height: "64",

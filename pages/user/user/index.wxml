@@ -1,2 +1,3 @@
 <!--pages/user/user/index.wxml-->
-<text>我</text>
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="我">
+</mp-navigation-bar>
