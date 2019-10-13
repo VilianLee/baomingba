@@ -7,7 +7,8 @@
     "pages/model/custom/index",
     "components/title-bar/title-bar",
     "pages/model/seniorSetting/index",
-    "pages/model/joinerInfo/index"
+    "pages/model/joinerInfo/index",
+    "pages/activities/activity-details/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -48,7 +49,7 @@
         "text": "报名吧"
       },
       {
-        "pagePath": "pages/public/public/index",
+        "pagePath": "pages/model/custom/index",
         "iconPath": "images/icon_edit.png",
         "selectedIconPath": "images/icon_edit_focuse.png",
         "text": "发布"

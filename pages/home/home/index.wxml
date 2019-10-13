@@ -6,8 +6,8 @@
   <i-tab key="publiced" i-class="tab_item" title="我发布的"></i-tab>
   <i-tab key="collected" i-class="tab_item" title="我收藏的"></i-tab>
 </i-tabs>
-<scroll-view class="active_list" scroll-y="{{true}}" enable-back-to-top="{{true}}" style="height:{{scrollViewHeight}}px">
-  <view class="active_card" wx:for="{{ActiveList}}" wx:key="{{item.id}}">
+<view class="active_list">
+  <navigator url="../../activities/activity-details/index?id={{item.id}}" class="active_card" wx:for="{{ActiveList}}" wx:key="{{item.id}}">
     <view class="active_logo">
       <image src="{{item.cover}}"></image>
     </view>
@@ -30,5 +30,5 @@
         </view>
       </view>
     </view>
-  </view>
-</scroll-view>
+  </navigator>
+</view>

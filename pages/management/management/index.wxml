@@ -1,2 +1,4 @@
 <!--pages/management/management/index.wxml-->
-<text>管理</text>
+
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="报名吧">
+</mp-navigation-bar>

@@ -46,6 +46,16 @@ function getMyCollected(params, success) { //获取我收藏的列表
   })
 }
 
+function getActivityDetails(id, success) { //获取活动详情
+  const des = '获取活动详情'
+  networkget({
+    url: `/event/${id}`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 function getUserInfo(params, success) { //获取用户信息
   const des = '获取用户信息'
   networkget({
@@ -61,5 +71,6 @@ module.exports = {
   getMyEnjoined,
   getMyPubliced,
   getMyCollected,
+  getActivityDetails,
   getUserInfo
 }

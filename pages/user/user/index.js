@@ -14,11 +14,15 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    loading: false
+    loading: false,
+    htmlStr: ''
   },
   AjaxGetUser(){
+    const _this = this
     getUserInfo({}, res => {
-
+      _this.setData({
+        htmlStr: res
+      })
     })
   },
   /**
