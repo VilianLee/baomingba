@@ -1,3 +1,8 @@
+
+import store from '../store.js'
+
+
+const { $Toast } = require('../dist/base/index');
 const baseUrl = 'https://xcxtest.51bmb.com'
 
 let localHeader = {
@@ -12,6 +17,8 @@ function networkpost({
   app,
   des
 }) {
+  store.data.loading = true
+  store.update()
   console.log(localHeader)
   let promise = new Promise(function(resolve, reject) {
     wx.request({
@@ -24,6 +31,8 @@ function networkpost({
         console.log(des + '返回结果：')
         console.log(params)
         console.log(res.data)
+        store.data.loading = false
+        store.update()
         resolve(res);
       }
     })
@@ -38,6 +47,8 @@ function networkget({
   app,
   des
 }) {
+  store.data.loading = true
+  store.update()
   console.log(localHeader)
   let promise = new Promise(function(resolve, reject) {
     wx.request({
@@ -47,6 +58,8 @@ function networkget({
       method: 'GET',
       success: function(res) {
         //返回结果自行处理
+        store.data.loading = false
+        store.update()
         resolve(res);
         console.log(des + '返回结果：')
         console.log(res.data)

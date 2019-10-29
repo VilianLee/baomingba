@@ -1,10 +1,10 @@
-// pages/user/user/index.js
-import store from '../../../store'
-import create from '../../../utils/create'
-
+// pages/hot/hot.js
+import store from '../../store'
+import create from '../../utils/create'
+import { formatTime } from '../../utils/util'
 import {
-  getUserInfo
-} from '../../../API/servers'
+  checkHotActiveList
+} from '../../API/servers'
 
 
 const app = getApp()
@@ -15,15 +15,28 @@ create(store, {
    */
   data: {
     loading: false,
-    isLogin: true,
-    hasUserInfo: false,
-    userInfo:{}
+    location: 0,
+    locationArr: ["全国", "杭州", "北京", "上海", "广州", "深圳"],
+    hotList: []
   },
-  AjaxGetUser(){
+  bindPickerChange(e){
+    console.log(e)
+    const key = e.currentTarget.dataset.key
+    const value = e.detail.value
+    this.setData({
+      [key]: value
+    })
+  },
+  AjaxCheckHotActiveList(){
     const _this = this
-    getUserInfo({}, res => {
+    checkHotActiveList({}, res => {
+      let list = res.events
+      list.forEach(item => {
+        item.dayStr = formatTime(new Date(item.beginTime), "mm/dd")
+        item.addressShort = item.longAddress.substring(0,2)
+      })
       _this.setData({
-        htmlStr: res
+        hotList: list
       })
     })
   },
@@ -31,7 +44,7 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -45,7 +58,7 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(this.data.userInfo)
+    this.AjaxCheckHotActiveList()
   },
 
   /**
@@ -66,7 +79,10 @@ create(store, {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      hotList: []
+    })
+    this.AjaxCheckHotActiveList()
   },
 
   /**

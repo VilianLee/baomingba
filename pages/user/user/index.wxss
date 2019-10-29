@@ -1,1 +1,70 @@
 /* pages/user/user/index.wxss */
+
+.mine_page {
+  box-sizing: border-box;
+}
+
+.mine_page view, .mine_page navigator {
+  box-sizing: border-box;
+}
+
+.mine_block {
+  background: #fff;
+}
+
+.mine_margin_block {
+  background: #fff;
+  margin: 16rpx 0;
+}
+
+.personal_base_info {
+  height: 196rpx;
+  padding: 30rpx;
+  position: relative;
+}
+
+.personal_base_info::after {
+  content: " ";
+  display: inline-block;
+  width: 12rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 50%;
+  right: 32rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #999;
+  border-style: solid;
+  transform: translateY(-50%) matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+}
+
+.personal_header_pic {
+  float: left;
+  width: 136rpx;
+  height: 136rpx;
+}
+
+.personal_base_info_content {
+  float: left;
+  width: 554rpx;
+  height: 136rpx;
+  padding: 18rpx;
+}
+
+.personal_base_info_content .name {
+  line-height: 50rpx;
+  margin-bottom: 10rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.personal_base_info_content .phoneNum {
+  color: #999;
+  font-size: 24rpx;
+  line-height: 40rpx;
+}
+
+.login_fram {
+  padding: 100rpx 200rpx;
+  text-align: center;
+}

@@ -19,6 +19,7 @@ create(store, {
    */
   data: {
     loading: false,
+    topHeight: 0,
     activeType: 'enrolment',
     userInfo: store.data.userInfo,
     scrollViewHeight: 0,
@@ -82,7 +83,20 @@ create(store, {
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    const _this = this
+    wx.getSystemInfo({
+      success: function (res) {
+        let statusBarHeight = res.statusBarHeight
+        let clientWidth = res.windowWidth;
+        let clientHeight = res.windowHeight - 88 - statusBarHeight;
+        let ratio = 750 / clientWidth;
+        let height = clientHeight * ratio;
+        console.log(statusBarHeight)
+        _this.setData({
+          topHeight: 88 + statusBarHeight
+        })
+      }
+    });
   },
 
   /**

@@ -1,7 +1,7 @@
 <!--pages/home/home/index.wxml-->
 <mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="报名吧">
 </mp-navigation-bar>
-<i-tabs i-class="seckill_tab" color="#ffa404" current="{{ activeType }}" scroll bindchange="tabsChange">
+<i-tabs i-class="seckill_tab" color="#ffa404" current="{{ activeType }}" scroll bindchange="tabsChange" style="top:{{topHeight}}rpx;">
   <i-tab key="enrolment" i-class="tab_item" title="我报名的"></i-tab>
   <i-tab key="publiced" i-class="tab_item" title="我发布的"></i-tab>
   <i-tab key="collected" i-class="tab_item" title="我收藏的"></i-tab>

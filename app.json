@@ -8,7 +8,9 @@
     "components/title-bar/title-bar",
     "pages/model/seniorSetting/index",
     "pages/model/joinerInfo/index",
-    "pages/activities/activity-details/index"
+    "pages/activities/activity-details/index",
+    "pages/hot/hot",
+    "pages/user/personal-info/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -34,7 +36,9 @@
     "i-cell": "/dist/cell/index",
     "i-checkbox-group": "/dist/checkbox-group/index",
     "i-checkbox": "/dist/checkbox/index",
-    "i-modal": "/dist/modal/index"
+    "i-modal": "/dist/modal/index",
+    "i-spin": "dist/spin/index",
+    "i-toast": "dist/toast/index"
   },
   "tabBar": {
     "color": "#888888",
@@ -55,7 +59,7 @@
         "text": "发布"
       },
       {
-        "pagePath": "pages/management/management/index",
+        "pagePath": "pages/hot/hot",
         "iconPath": "images/icon_management.png",
         "selectedIconPath": "images/icon_management_focuse.png",
         "text": "热门"

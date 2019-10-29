@@ -1,4 +1,5 @@
 /**app.wxss**/
+
 .container {
   height: 100%;
   display: flex;
@@ -7,30 +8,35 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
-page{
+}
+
+page {
   background: #f2f2f2;
   box-sizing: border-box;
 }
-image{
+
+image {
   width: 100%;
   height: 100%;
 }
+
 page .i-icon {
-  display: block
+  display: block;
 }
+
 .input_cell {
   background: #fff;
   padding: 0 30rpx;
-  margin-top: 40rpx;
+  margin: 15rpx 0;
   position: relative;
 }
 
 .input_cell .input_cell_row {
   border-bottom: solid 1px #e5e5e5;
   padding: 20rpx 0;
-  min-height: 100rpx;
+  height: 80rpx;
   box-sizing: border-box;
+  position: relative;
 }
 
 .input_cell .input_cell_row:last-child {
@@ -38,11 +44,18 @@ page .i-icon {
 }
 
 .input_cell .input_cell_row .label {
-  font-size: 32rpx;
-  line-height: 60rpx;
-  height: 60rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  height: 40rpx;
   float: left;
   color: #333;
+}
+
+.input_cell_icon {
+  float: left;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 15rpx;
 }
 
 i-icon {
@@ -50,13 +63,26 @@ i-icon {
   top: -4rpx;
 }
 
-button::after{
-  border: none
+button::after {
+  border: none;
 }
-
 
 .input_cell_row .form_item {
   text-align: right;
+}
+
+.input_cell_row .is_link::after {
+  content: " ";
+  display: inline-block;
+  width: 12rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 50%;
+  right: 2rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #999;
+  border-style: solid;
+  transform: translateY(-50%) matrix(0.71, 0.71, -.71, 0.71, 0, 0);
 }
 
 .input_cell .tip_text {
@@ -73,9 +99,38 @@ button::after{
 }
 
 .i-grid-item {
-  padding: 0!important;
+  padding: 0 !important;
 }
-.modal_tab{
+
+.modal_tab {
   margin: 0 auto;
   text-align: center;
+}
+
+.block {
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.loading{
+    display: inline-block;
+    margin-right: 12px;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-radius: 50%;
+    border: 2px solid #2d8cf0;
+    border-color: #2d8cf0 #2d8cf0 #2d8cf0 transparent;
+    animation: loading-spin 0.6s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading-spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

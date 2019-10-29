@@ -1,4 +1,93 @@
 <!--pages/user/user/index.wxml-->
 <mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="我">
 </mp-navigation-bar>
-<rich-text nodes="{{htmlStr}}"></rich-text>
+<view class="mine_page">
+  <view class="mine_block">
+    <navigator url="../personal-info/index" class="personal_base_info" wx:if="{{isLogin && hasUserInfo}}">
+      <view class="personal_header_pic">
+        <image src="{{userInfo.avatarUrl}}"></image>
+      </view>
+      <view class="personal_base_info_content">
+        <view class="name">{{userInfo.nickName}}</view>
+        <view class="phoneNum">{{userInfo.phoneNo}}</view>
+      </view>
+    </navigator>
+    <view class="login_fram" wx:else>
+      <view class="btn-area">
+        <button type="primary" size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">使用微信登录</button>
+      </view>
+    </view>
+  </view>
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="../../../images/mine/icon_wallet.png"></image>
+        </view>
+        我的钱包
+      </view>
+    </view>
+  </view>
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="../../../images/mine/icon_share.png"></image>
+        </view>
+        推荐报名吧给好友
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAgVJREFUeNrsmM9OwkAQxgvxpgm8gT14BxOPJPQN4A3EqxfxCcQnEC5e5erJ8gTAG5QnEE96E54AvzEfCdlsG7q2KZWZZNL/u/vbndnOTGWz2Xhll6r3D0QhDkVO8my88+z5OPSg0eTWC/Pqp5KXYxMggtZ46wYg47KZk78DsL1Wn1AIhVAIhVAIhVCIo4liEdTVcWhSQwR0y4yDxj6DxmWatqspAb6hU+iTdIZ73YwG34RGbFfaf8d1kIc51Y1riVDf0NmYgK4Akm/MoA3jUTNzCC7vyPLoWgYhs5nWNKGSKL0YIbvIAv0Nc3FsNCw2e2951CBIf1/zoe13bN1AgzTjcsrsOAiZxfOYQfRoDtOd+4+YhAG+HeD8wfLdGtp3yf6c01P6wZDmZMoHdGwMdkSwtuX9hYADICokx6ZjDi12va+MaKbFFgpYFAgtO0ySrDn7f66CZFrtAIysyN0er86hXQCsMi/Z0M5D2u2EM7VKCRKwjTjz+nVwx7+5fLfiBERxW2xvx/Fk+0v9R0bjM5Zn5hZnv3QE8Pk3r3FHHCTFTuaf13dZXq5ewO1UVmbJ7dPVfPykceZaxnSZdc0nFEIhFEIhFEIhHEo229ChaPHTQJgvt2MysaLlIsmc/JJY0GkSRFgSiEViZgcfaOFwBf2iHoqc0Yw+ER2/5pae6hZ77BA/AgwA/+qd0HgA9uoAAAAASUVORK5CYII="></image>
+        </view>
+        下载报名吧APP
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBJREFUeNrsWTtvE0EQ3nPCWyEGGhCgXEFDk4QKiQJf/gCxKBFS7IIKIUxHA46gRpxFiRCxQHQgU1ESKkSFQ0NDkQgQNEDigBNeOWasiWWvbvf2bi93a3QjjVa213Pz7ezMfLtneZ7HBl1y7D+QDEQGIgPRL8Nh/7B86ZoDg8N/DdrM37k5r2jDhqEIOglqcz+jjQbYaqr6ZKmUWHhoHoYK6BXQvZKpLdD7oC44sehjB52eBZ1W8G0J54KdOW0Q8OASDLUA53lZBb0ODrg9dtD5aoTd8gKjBraWI4GAB+MqzGhs1zpF0NW0gxEuiLaYEEQMADZlBXQ0BjsIZMwvIjnJFpqJqXiMxmQHt3NDqcRSEteSLJHbxo+zHVOn2NCRQ0FTC7TAgSXWDZnEeo1qf57tuXCu+/nPu0XWfvCYbXwV5vEN0DlhJCgKZ5OMAjr74+4j9uvVa+atrbPhYzYbuXpRFpWjfDT47YQNaCTpjvv7zVvWfviEtaq32N+Pn5m1ayfbfV66lkUZCCdN+oCR+F671xmHDh9k20+eEE2dkoGw0+ZBCODn/MtuwosqFVEXXxAFEwgdbq+Ocwf2yabZRrPYjS/fupVrYKn4ZmXCJI8CYsWIQw5FwGuvSbmpCETTlJzA/rH+7LlwTi8ZzPkcSFIXrFCdnvHhk4yeC7dTY0BOpA0hCArRkuEAWlLuRFIxHMRt/kyR80kYDNVTQwEsgH+zqn0CWeKCgduoqNzsKFwl+qMpMu13gyLt2JTkBUOAlGV3WlLaYQiQctDdUyB3ShlIWeXyTIkApgRECUAoFktAxhKoWqthAISm4lS1nC3sIxjp02EAoFhR39nB8RCvdi7H2ciwrIe5Ddc+FMHDkJ6UY8oTZKVOFABakeiJyCQRsomIJurgfEnrEKW7hLR6mCf1iBWopOuDFed7bIhKkcAEXYO+Bz0Tdfts6UUBMeAJ/uTFCVa28bgAxB4JLipImatc/e97e2Q8iJ6kr9DNhCtioUaDSEqyl/EZiAxEv/wTYABFNhy0m4HWhQAAAABJRU5ErkJggg=="></image>
+        </view>
+        关注公众号
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAsxJREFUeNrkmj9r20AUwJ/TEAgEbAKBUCgOpLucOYU4WjrWJVuWeM9Qd+pYhXyAJN8g+QABdewinG+gmzoF5C1DKQ0ECoXg3OlOtAhLfvfuSZHbB8+ywSfd794f3XtSazqdwqLLMuvZhN+Rnz2pfanZ90ySv3QMXpRwXbblbAk98YHUkVTPYuREaij13BWIDqEnPzLadlzMK6kBFYYGIfxBuoIAXWb3PpEgQfUQwleT/1BhnIo0przoJz+Edp9Lqe9qSDiTNM68KMb8ecnixGFNAGDcdCwXrscHIXxlgb2a0387tbz2AEcI4Q/l59Ez3cc848IOMSH8LfkZM6RQV3kv4yOkWiJoAACYdE5wJ22FI2iGdI1bW1sigGZJQIEYNAyiW5Rylwpcqd+QWMjL0MYS/YaWDr1/AWLPBqIDTRWdNVEQHjRX0BALJfwQL9YANg4WGEIBbJ8BvDwGePUJP2brFGD1NTuEIAOsbuvf62/ng2Rj2rv6uLKJuVKChUicADIpA8mP+X0H8PiA2JxHaIiYDPDrFuDboT4Wgcwac/sRA3Fj404hGUBNRq2qOs4CoQNAWrJaFUXCT0pbMpjJ5P/z46sOYBqAkp1ZzYOy7FReFmJWU/3OW4QOIIq6H3SI79e4yeRBaACl1d28GlsVIp+L+xFvAB5i3GQy11JiD6Cs0KNCdEy65aktFEhmHTvZlxBj2h1btxL5Kjw1eXuAizIA3LZDn+DkuTbe8vojnr2T7lRf1Q6ALM7wG0AvGtYIYtUZp7T244qLpnsDgN76ULbiA3Oh6joaFgA0CL2LDCoCuCnrufIWRV6k7p6TCiBIi+NS2YXswTznflAFxJgZgnw+l4fxSVGRQpSYOrD1f78W8ecVCC5JqA/jXd/tCIGve75v3aBwDmy9JRgxAXyhZibX7KRALhmC+x4KnjvU5U5gJuAyidjmFYhZ8iTAAHmPFajRATqHAAAAAElFTkSuQmCC"></image>
+        </view>
+        关于报名吧
+      </view>
+    </view>
+  </view>
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAq9JREFUeNrsWr1OwzAQdqqOFCp2/kYkEB1ZEOUF+MnSCVFY2FDLC1D1AVARD8DPlqUUeACKeAAKQqy08AKR6MRAOeeMiFw7zZ9DU+WkixJbdvzlu/PdudV6vR6Ju6TICEgCIgGRgBhBEOlQZzP0WbjmmdL7HOgE670HNUGblhbqrbBeq4USJwydLroEuuFh1BNoDcCc/y8IQ8/C9dzj4kVgikGY8Q/C0HPMRMYHLNBk96sDZtz1y4o/EAjgAXSM6/kErVvsFOpNyThqeoegU4KZL2BcUT0IOYAT0AoswnQ5D/WhKmgmKCPeQKAPPHNfsQu6DS9u+NzNbkEXuJ41IZMhxYmKAMCKLwBUCvW2NZ6QF67nUg0T+NXeuNYt3wD6537mTMu1WaU8smCX61AA/DFywLVWVZiTzj2XQo32+NU7tpYpYGgzPBA4WYZjoa0gDeLZzgfPnQyd7tkUwDLX0yBqhM57ZnveZ1t6g8Ue071j48AbSUCiMqeICfruV7jOC3o+Lb8ROHtK8vUfHQAQZQBQviTtGYslQx8AAhk4HfLyYYdFeykTNUE6MYxSZdkDBwIDziqJh2TYhtPHRJ7ES4QgZmMGIjuypx2tmK29LQLRjBmIRj8IDOknMQHwYc+gU4IE7CUGINblwQ7ZWPlnIJMOfV1WLLWcc6c/IDLTOlIMoiNpp8dDi6IE0Lk8xdC+yWIIjeZ3MElV2fLxfe9c7VK2nNgh6dQi+7kLF0h9bo8tsmNVh/YSFzPUHa74GljdpSO0dbqFL9meZ0CvYOFlFqMqgtytFu5pRzAWilzF5kZcsRBl2uE1L8NDZpcSpTm5EVqCHgMDFb+5k2p/kMm3ZTp0/ydk2iuAqHcnfuf5lcCniFqk/yhAB/+1dZPgL0WBE08t+VtEAiIBkYAYSvkRYADyoOOb/qUqVQAAAABJRU5ErkJggg=="></image>
+        </view>
+        联系我们
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAWxJREFUeNpi/P//P8NQB0wMwwCMemLUE6OeGPXE4AQs2AQzjjwTAFINQJwMxDxEmHMFiGNn2EhdGEwxsQGI84n0AAjoAPFhoOcNBoUnoA6xJ8MsHmjsDYqYCKDAPP/RjD1aOlERAPPUARq7eQGwFFxAU0+QWSiQ7JHRPDHqiVFP0KB0kuVmZQhV4qeaQ1bf+8jw+Otv+npCX5iDQY2fjWqeAAVI3+U39E1O3//8o2qSoMQ8smNi77OvwOj/QzVPPCEzKVFc2d36+HO0dBrw0omLhYnBSYqbag7ZB0ye38jMF2R7AuQBHzleqnkCVGRPv/5uaCcnThYm+icnUPRTE1x8+4P+ngCl3y2PPo+WToOiZ6fGzz4o6hayPeEMLJ3IaQCCGnp7qZyfyE5O5JYmlJRCVI8JUGlCTnKipBSiuidAbX9ym86jpdOoJ0Y9QX9PgOYmvgxiNy9AF2AcXVEw6olRT4x6YtQTtAIAAQYAEVtfBsmwh9oAAAAASUVORK5CYII="></image>
+        </view>
+        意见反馈
+      </view>
+    </view>
+  </view>
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="../../../images/mine/icon_scan.png"></image>
+        </view>
+        扫一扫
+      </view>
+    </view>
+  </view>
+</view>

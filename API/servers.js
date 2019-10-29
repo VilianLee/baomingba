@@ -66,11 +66,22 @@ function getUserInfo(params, success) { //获取用户信息
   })
 }
 
+function checkHotActiveList(params, success) { //获取热门活动列表
+  const des = '获取热门活动列表'
+  networkget({
+    url: '/events/hot?l=20',
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 module.exports = {
   login,
   getMyEnjoined,
   getMyPubliced,
   getMyCollected,
   getActivityDetails,
-  getUserInfo
+  getUserInfo,
+  checkHotActiveList
 }

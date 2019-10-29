@@ -1,40 +1,18 @@
-// pages/activities/activity-details/index.js
-import store from '../../../store'
-import create from '../../../utils/create'
-
-import {
-  getActivityDetails
-} from '../../../API/servers'
-import {
-  formatTime
-} from '../../../utils/util.js'
-
-const app = getApp()
-
-create(store, {
+// pages/user/personal-info/index.js
+Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    id: '',
-    info: {}
+
   },
-  AjaxGetDetails(){
-    const _this = this
-    getActivityDetails(this.data.id, res => {
-      _this.setData({
-        info: res.event
-      })
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      id: options.id
-    })
+
   },
 
   /**
@@ -48,7 +26,7 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.AjaxGetDetails()
+
   },
 
   /**

@@ -1,3 +1,29 @@
 <!--pages/activities/activity-details/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="报名吧">
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="{{info.title}}">
 </mp-navigation-bar>
+<view class="detail_page">
+  <view class="banner">
+    <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
+      <swiper-item wx:for="{{info.introPhotos}}" wx:key="{{item.id}}">
+        <image mode="aspectFill" src="{{item.name}}"></image>
+      </swiper-item>
+    </swiper>
+    <view class="banner_control">
+      <view class="left_item">
+
+      </view>
+    </view>
+  </view>
+  <view class="block">
+    <view class="detail_base">
+      <view class="activity_tittle">{{info.title}}</view>
+      <view class="sign_des">
+        已报名 {{info.signUps.length}}
+        <text>免费活动</text>
+      </view>
+    </view>
+  </view>
+</view>
+<i-spin fix custom wx:if="{{loading}}">
+  <view class="loading"></view>
+</i-spin>

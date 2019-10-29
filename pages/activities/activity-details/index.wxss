@@ -1,1 +1,61 @@
 /* pages/activities/activity-details/index.wxss */
+
+page {
+  background: #f2f2f2;
+}
+
+.detail_page {
+  box-sizing: border-box;
+}
+
+.detail_page view {
+  box-sizing: border-box;
+}
+
+.banner {
+  height: 562rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.banner_swiper {
+  position: relative;
+  z-index: 1;
+}
+
+.banner_control {
+  box-sizing: border-box;
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  padding: 0 14px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+  pointer-events: none;
+}
+
+.detail_base {
+  padding: 20rpx 30rpx;
+}
+
+.activity_tittle{
+  font-size: 36rpx;
+  color: #333333;
+  line-height: 48rpx;
+  margin-bottom: 30rpx;
+}
+
+.detail_base .sign_des {
+  font-size: 26rpx;
+  color: #333333;
+  line-height: 30rpx;
+}
+
+.detail_base .sign_des text {
+  float: right;
+  color: #666666;
+}

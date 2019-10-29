@@ -1,22 +1,20 @@
 //app.js
 import { login } from 'API/servers.js'
+import store from './store'
 App({
   onLaunch: function () {
-
+    wx.getUserInfo({
+      success: function (res) {
+        console.log(res)
+        store.data.userInfo = res.userInfo
+        store.data.hasUserInfo = true
+        store.update()
+      },
+      fail: function (err) {
+      }
+    })
     login({}, res => {
       this.globalData.userId = res.userId
-    })
-
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
     })
     // 获取用户信息
     wx.getSetting({
