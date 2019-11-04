@@ -5,7 +5,7 @@
   <view class="banner">
     <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
       <swiper-item wx:for="{{info.introPhotos}}" wx:key="{{item.id}}">
-        <image mode="aspectFill" src="{{item.name}}"></image>
+        <image mode="aspectFill" src="{{item.data}}"></image>
       </swiper-item>
     </swiper>
     <view class="banner_control">
@@ -18,10 +18,119 @@
     <view class="detail_base">
       <view class="activity_tittle">{{info.title}}</view>
       <view class="sign_des">
-        已报名 {{info.signUps.length}}
+        已报名 {{info.signUps.length}}/{{info.signUpLimit}}
         <text>免费活动</text>
       </view>
     </view>
+  </view>
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label">
+        <view class="input_cell_icon">
+          <image src="../../../images/activities/icon_clock.png"></image>
+        </view>
+        {{info.beginTimeStr}} - {{info.endTimeStr}}
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="../../../images/activities/icon_location.png"></image>
+        </view>
+        {{info.address.longAddress}}
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label is_link">
+        <view class="input_cell_icon">
+          <image src="../../../images/activities/icon_tel.png"></image>
+        </view>
+        {{info.telephone}}
+      </view>
+    </view>
+  </view>
+
+  <view class="block">
+    <view class="organizer">
+      <view class="block_title">主办方</view>
+      <block wx:for="{{info.authActivityOrganizers}}" wx:key="{{item.id}}">
+        <view class="organizer_content clearfix">
+          <view class="organizer_pic">
+            <image mode="aspectFill" src="{{item.coverURL}}"></image>
+          </view>
+          <view class="organizer_info">
+            <view class="organizer_name">{{item.name}}</view>
+            <view class="auth_type clearfix">
+              <view class="auty_type_tag tag_unauth">
+                <view class="type_icon_err">!</view>未认证
+              </view>
+              <view class="auty_type_tag tag_authed">
+                <view class="type_icon_authed">
+                  <image src="../../../images/activities/icon_authed.png"></image>
+                </view>个人认证
+              </view>
+              <view class="auty_type_tag tag_authed">
+                <view class="type_icon_authed">
+                  <image src="../../../images/activities/icon_authed.png"></image>
+                </view>企业认证
+              </view>
+            </view>
+            <view class="auty_type_options clearfix">
+              <view class="option_item">
+                活动 {{item.eventCount}}
+              </view>
+              <view class="option_item">
+                粉丝 {{item.fansCount}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="block">
+    <view class="organizer">
+      <view class="block_title">活动介绍</view>
+    </view>
+    <view class="product_detail_pic">
+      <rich-text nodes="{{info.intro}}"></rich-text>
+    </view>
+  </view>
+  <view class="block">
+    <view class="organizer">
+      <view class="block_title">
+      评论 {{info.commentCount}}
+        <text>去APP回复</text>
+      </view>
+    </view>
+    <view class="evaluate clearfix">
+      <view class="my_pic">
+        <image src="{{userInfo.avatarUrl}}" ></image>
+      </view>
+      <view class="evaluate_content">我来说点什么...</view>
+    </view>
+    <view style="height: 90rpx;"></view>
+  </view>
+
+  <view class="detail_control">
+    <navigator url="../../home/home/index" class="base_btn">
+      <view class="icon">
+        <image src="../../../images/activities/icon_home.png"></image>
+      </view>
+      <view class="name">
+        我的活动
+      </view>
+    </navigator>
+    <navigator url="../../model/custom/index" class="base_btn">
+      <view class="icon">
+        <image src="../../../images/activities/icon_public.png"></image>
+      </view>
+      <view class="name">
+        发布活动
+      </view>
+    </navigator>
+    <view class="join_btn">{{info.signUpTitle}}</view>
   </view>
 </view>
 <i-spin fix custom wx:if="{{loading}}">

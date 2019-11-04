@@ -24,9 +24,16 @@ page .i-icon {
   display: block;
 }
 
+.clearfix::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
 .input_cell {
   background: #fff;
-  padding: 0 30rpx;
+  padding-left: 30rpx;
   margin: 15rpx 0;
   position: relative;
 }
@@ -78,7 +85,7 @@ button::after {
   height: 12rpx;
   position: absolute;
   top: 50%;
-  right: 2rpx;
+  right: 30rpx;
   border-width: 2rpx 2rpx 0 0;
   border-color: #999;
   border-style: solid;

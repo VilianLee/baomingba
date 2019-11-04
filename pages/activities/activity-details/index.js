@@ -18,13 +18,18 @@ create(store, {
    */
   data: {
     id: '',
+    loading:false,
+    userInfo: {},
     info: {}
   },
   AjaxGetDetails(){
     const _this = this
     getActivityDetails(this.data.id, res => {
+      let info = res.event
+      info.beginTimeStr = formatTime(new Date(info.beginTime), 'detail')
+      info.endTimeStr = formatTime(new Date(info.endTime), 'detail')
       _this.setData({
-        info: res.event
+        info
       })
     })
   },
@@ -49,6 +54,7 @@ create(store, {
    */
   onShow: function () {
     this.AjaxGetDetails()
+    console.log(this.data)
   },
 
   /**
@@ -69,7 +75,7 @@ create(store, {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.AjaxGetDetails()
   },
 
   /**
