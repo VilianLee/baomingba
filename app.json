@@ -10,7 +10,10 @@
     "pages/model/joinerInfo/index",
     "pages/activities/activity-details/index",
     "pages/hot/hot",
-    "pages/user/personal-info/index"
+    "pages/user/personal-info/index",
+    "pages/about/about-us/index",
+    "pages/about/contact/index",
+    "pages/about/feedback/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

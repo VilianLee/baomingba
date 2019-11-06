@@ -1,7 +1,7 @@
 <!--components/title-bar/title-bar.wxml-->
   <view class="title" style="height:{{title_height}}px;padding-top:{{statusbarHeight}}px};background: rgba(255, 255, 255, {{bg_opacity}});">
     <view 
-    wx:if="{{isShow}}" 
+    wx:if="{{isShow === 'true'}}" 
     class="title_icon" 
     bindtap="_goBack"
     style="height:{{titleIcon_height}}px;line-height:{{titleIcon_height}}px;color:{{color}}">

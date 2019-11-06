@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-.mine_page view, .mine_page navigator {
+.mine_page view, .mine_page navigator, .mine_page button {
   box-sizing: border-box;
 }
 

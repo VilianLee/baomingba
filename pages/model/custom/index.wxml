@@ -1,6 +1,6 @@
 <!--pages/model/custom/index.wxml-->
-<title-bar color="{{title_color}}" icon_type="{{icon_type}}" bg_opacity="{{bg_opacity}}">
-  <view class="line-height:32px;">发布活动</view>
+<title-bar color="{{title_color}}" isShow="{{false}}" icon_type="{{icon_type}}" bg_opacity="{{bg_opacity}}">
+  <view style="text-align: center;">发布活动</view>
 </title-bar>
 
 <view class="theme_pic">

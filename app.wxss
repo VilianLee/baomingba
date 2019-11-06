@@ -44,6 +44,7 @@ page .i-icon {
   height: 80rpx;
   box-sizing: border-box;
   position: relative;
+  background: #ffffff;
 }
 
 .input_cell .input_cell_row:last-child {
@@ -56,6 +57,7 @@ page .i-icon {
   height: 40rpx;
   float: left;
   color: #333;
+  width: 180rpx;
 }
 
 .input_cell_icon {
@@ -76,8 +78,21 @@ button::after {
 
 .input_cell_row .form_item {
   text-align: right;
+  float: right;
+  width: 540rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #333333;
+  padding-right: 30rpx;
+  box-sizing: border-box;
 }
-
+.input_cell_row .form_item text {
+  color: #999999;
+}
+.input_cell .input_cell_row .is_link{
+  width: auto;
+}
 .input_cell_row .is_link::after {
   content: " ";
   display: inline-block;

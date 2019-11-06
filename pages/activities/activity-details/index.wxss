@@ -19,6 +19,7 @@ page {
 }
 
 .banner_swiper {
+  height: 562rpx;
   position: relative;
   z-index: 1;
 }
@@ -73,7 +74,6 @@ page {
 }
 
 .organizer_content {
-  margin-bottom: 30rpx;
   padding: 30rpx 0;
 }
 
@@ -110,7 +110,7 @@ page {
   height: 40rpx;
   text-align: center;
   line-height: 40rpx;
-  padding: 0 20rpx
+  padding: 0 20rpx;
 }
 
 .tag_unauth {
@@ -119,7 +119,7 @@ page {
   color: #f84810;
 }
 
-.type_icon_err{
+.type_icon_err {
   display: inline-block;
   width: 30rpx;
   height: 30rpx;
@@ -127,7 +127,7 @@ page {
   background: #f84810;
   text-align: center;
   line-height: 30rpx;
-  color: #ffffff;
+  color: #fff;
   margin-right: 5rpx;
 }
 
@@ -135,13 +135,13 @@ page {
   float: left;
   margin-right: 40rpx;
   font-size: 26rpx;
-  color: #333333;
+  color: #333;
   line-height: 40rpx;
 }
 
 .tag_authed {
   background: #ffa404;
-  color: #ffffff;
+  color: #fff;
   font-size: 24rpx;
   line-height: 40rpx;
 }
@@ -153,11 +153,46 @@ page {
   margin-right: 5rpx;
   margin-top: 2rpx;
 }
+
+.organizer_des {
+  font-size: 24rpx;
+  line-height: 32rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #999;
+  margin: 0 auto 30rpx;
+}
+
+.organizer_control {
+  padding-bottom: 30rpx;
+}
+
+.organizer_control_item {
+  float: left;
+  width: 50%;
+}
+
+.organizer_btn {
+  width: 280rpx;
+  margin: auto;
+  height: 60rpx;
+  background: #ffa404;
+  line-height: 60rpx;
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+  border-radius: 4rpx;
+}
+
 .product_detail_pic {
   padding: 30rpx;
 }
 
-.product_detail_pic img{
+.product_detail_pic img {
   width: 100%;
 }
 
@@ -184,15 +219,15 @@ page {
   width: 570rpx;
   margin-left: 30rpx;
   height: 60rpx;
-  border: solid 1rpx #eeeeee;
+  border: solid 1rpx #eee;
   border-radius: 4rpx;
   padding: 9rpx 30rpx;
   line-height: 40rpx;
-  color: #999999;
+  color: #999;
   font-size: 26rpx;
 }
 
-.detail_control{
+.detail_control {
   position: fixed;
   bottom: 0;
   z-index: 10;
@@ -200,7 +235,7 @@ page {
   right: 0;
   background: #fafafa;
   height: 90rpx;
-  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.1)
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.1);
 }
 
 .base_btn {
@@ -219,7 +254,7 @@ page {
 .base_btn .name {
   line-height: 34rpx;
   font-size: 20rpx;
-  color: #777777;
+  color: #777;
   text-align: center;
 }
 
@@ -228,7 +263,7 @@ page {
   line-height: 90rpx;
   float: right;
   background: #ffa404;
-  color: #ffffff;
+  color: #fff;
   font-size: 40rpx;
   text-align: center;
   padding: 0 80rpx;
@@ -236,4 +271,26 @@ page {
   overflow: hidden;
   white-space: nowrap;
   width: 510rpx;
+}
+
+.cancel_btn {
+  height: 90rpx;
+  line-height: 90rpx;
+  float: right;
+  background: #8ea5e9;
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+  width: 255rpx;
+}
+
+.pay_btn {
+  height: 90rpx;
+  line-height: 90rpx;
+  float: right;
+  background: #ffa404;
+  color: #fff;
+  font-size: 32rpx;
+  text-align: center;
+  width: 255rpx;
 }

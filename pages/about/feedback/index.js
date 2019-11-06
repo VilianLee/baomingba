@@ -1,4 +1,4 @@
-// pages/user/user/index.js
+// pages/about/feedback/index.js
 import store from '../../../store'
 import create from '../../../utils/create'
 
@@ -9,32 +9,22 @@ import {
 
 const app = getApp()
 create(store, {
-
   /**
    * 页面的初始数据
    */
   data: {
-    loading: false,
-    isLogin: true,
-    hasUserInfo: false,
-    userInfo:{}
+    feedback: ""
   },
-  onShareClick(){
-    
-  },
-  AjaxGetUser(){
-    const _this = this
-    getUserInfo({}, res => {
-      _this.setData({
-        htmlStr: res
-      })
+  textOnChange(e) {
+    this.setData({
+      feedback: e.detail.value
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -48,7 +38,7 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(this.data.userInfo)
+
   },
 
   /**

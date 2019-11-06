@@ -1,5 +1,5 @@
 <!--pages/hot/hot.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="我">
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" back="{{false}}" animated="{{true}}" background="#ffffff" title="我">
 </mp-navigation-bar>
 <view class="hot_page">
   <view class="location_row">
@@ -10,7 +10,7 @@
     </picker>
   </view>
   <view class="active_list">
-    <navigator url="../activities/activity-details/index?id={{item.id}}" class="active_card" wx:for="{{hotList}}" wx:key="{{item.id}}">
+    <navigator url="../activities/activity-details/index?id={{item.id}}" class="active_card" wx:for="{{hotList}}" wx:key="id">
     <view class="active_logo">
       <image src="{{item.covers[0]}}"></image>
     </view>

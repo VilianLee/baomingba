@@ -1,0 +1,26 @@
+/* pages/about/feedback/index.wxss */
+.feedback_block {
+  background: #ffffff;
+  margin: 30rpx auto 60rpx;
+  padding: 30rpx;
+}
+
+.feedback_block textarea {
+  height: 300rpx;
+  line-height: 44rpx;
+  font-size: 28rpx;
+  color: #333333;
+  width: 100%;
+}
+
+.submit_btn {
+  height: 90rpx;
+  width: 690rpx;
+  line-height: 90rpx;
+  background: #ffa404;
+  color: #ffffff;
+  text-align: center;
+  font-size: 32rpx;
+  border-radius: 8rpx;
+  margin: auto;
+}

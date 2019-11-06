@@ -16,9 +16,9 @@ Component({
       type: String,
       value: "#back"
     },
-    isShow: { // 是否显示后退按钮            
+    back: { // 是否显示后退按钮            
       type: String,
-      value: "1"
+      value: "true"
     },
     title_height: { //             
       type: String,

@@ -1,10 +1,10 @@
 <!--pages/activities/activity-details/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="{{info.title}}">
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="活动详情">
 </mp-navigation-bar>
 <view class="detail_page">
   <view class="banner">
     <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
-      <swiper-item wx:for="{{info.introPhotos}}" wx:key="{{item.id}}">
+      <swiper-item wx:for="{{info.introPhotos}}" wx:key="id">
         <image mode="aspectFill" src="{{item.data}}"></image>
       </swiper-item>
     </swiper>
@@ -19,7 +19,12 @@
       <view class="activity_tittle">{{info.title}}</view>
       <view class="sign_des">
         已报名 {{info.signUps.length}}/{{info.signUpLimit}}
-        <text>免费活动</text>
+        <block wx:if="{{info.eventStatus.needPay}}">
+          <text>￥{{info.charge}}</text>
+        </block>
+        <block wx:else>
+          <text>免费活动</text>
+        </block>
       </view>
     </view>
   </view>
@@ -50,10 +55,10 @@
     </view>
   </view>
 
-  <view class="block">
+  <view class="block" wx:if="{{!info.userStatus.owned}}">
     <view class="organizer">
       <view class="block_title">主办方</view>
-      <block wx:for="{{info.authActivityOrganizers}}" wx:key="{{item.id}}">
+      <block wx:for="{{info.authActivityOrganizers}}" wx:key="id">
         <view class="organizer_content clearfix">
           <view class="organizer_pic">
             <image mode="aspectFill" src="{{item.coverURL}}"></image>
@@ -61,19 +66,29 @@
           <view class="organizer_info">
             <view class="organizer_name">{{item.name}}</view>
             <view class="auth_type clearfix">
-              <view class="auty_type_tag tag_unauth">
-                <view class="type_icon_err">!</view>未认证
-              </view>
-              <view class="auty_type_tag tag_authed">
-                <view class="type_icon_authed">
-                  <image src="../../../images/activities/icon_authed.png"></image>
-                </view>个人认证
-              </view>
-              <view class="auty_type_tag tag_authed">
-                <view class="type_icon_authed">
-                  <image src="../../../images/activities/icon_authed.png"></image>
-                </view>企业认证
-              </view>
+              <block wx:if="{{item.authStatus === 3}}">
+                <view class="auty_type_tag tag_unauth">
+                  <view class="type_icon_err">!</view>未认证
+                </view>
+              </block>
+              <block wx:else>
+                <view class="auty_type_tag tag_authed" wx:if="{{item.authType === 1}}">
+                  <view class="type_icon_authed">
+                    <image src="../../../images/activities/icon_authed.png"></image>
+                  </view>个人认证
+                </view>
+                <view class="auty_type_tag tag_authed" wx:elif="{{item.authType === 2}}">
+                  <view class="type_icon_authed">
+                    <image src="../../../images/activities/icon_authed.png"></image>
+                  </view>企业认证
+                </view>
+                <view class="auty_type_tag tag_authed" wx:elif="{{item.authType === 3}}">
+                  <view class="type_icon_authed">
+                    <image src="../../../images/activities/icon_authed.png"></image>
+                  </view>组织认证
+                </view>
+              </block>
+
             </view>
             <view class="auty_type_options clearfix">
               <view class="option_item">
@@ -82,6 +97,24 @@
               <view class="option_item">
                 粉丝 {{item.fansCount}}
               </view>
+            </view>
+          </view>
+        </view>
+        <view class="organizer_des">
+          {{item.intro}}
+        </view>
+        <view class="organizer_control clearfix">
+          <view class="organizer_control_item">
+            <view class="organizer_btn" wx:if="{{item.isFollow}}">
+              已关注
+            </view>
+            <view class="organizer_btn" wx:else>
+              关注
+            </view>
+          </view>
+          <view class="organizer_control_item">
+            <view class="organizer_btn">
+              联系Ta
             </view>
           </view>
         </view>
@@ -100,13 +133,13 @@
   <view class="block">
     <view class="organizer">
       <view class="block_title">
-      评论 {{info.commentCount}}
+        评论 {{info.commentCount}}
         <text>去APP回复</text>
       </view>
     </view>
     <view class="evaluate clearfix">
       <view class="my_pic">
-        <image src="{{userInfo.avatarUrl}}" ></image>
+        <image src="{{userInfo.avatarUrl}}"></image>
       </view>
       <view class="evaluate_content">我来说点什么...</view>
     </view>
@@ -114,7 +147,7 @@
   </view>
 
   <view class="detail_control">
-    <navigator url="../../home/home/index" class="base_btn">
+    <navigator open-type="switchTab" url="../../home/home/index" class="base_btn">
       <view class="icon">
         <image src="../../../images/activities/icon_home.png"></image>
       </view>
@@ -122,7 +155,7 @@
         我的活动
       </view>
     </navigator>
-    <navigator url="../../model/custom/index" class="base_btn">
+    <navigator open-type="switchTab" url="../../model/custom/index" class="base_btn">
       <view class="icon">
         <image src="../../../images/activities/icon_public.png"></image>
       </view>
@@ -130,7 +163,28 @@
         发布活动
       </view>
     </navigator>
-    <view class="join_btn">{{info.signUpTitle}}</view>
+    <block wx:if="{{info.userStatus.signedUp}}">
+      <!-- 已报名 -->
+      <block wx:if="{{info.status === '已开始'}}">
+        <!-- 活动已开始 -->
+        <block wx:if="{{info.userStatus.signedIn}}">
+          <!-- 已签到 -->
+          <view class="join_btn">已签到</view>
+        </block>
+        <block wx:if="{{info.userStatus.signedIn}}">
+          <!-- 未签到 -->
+          <view class="join_btn">已报名</view>
+        </block>
+      </block>
+      <block wx:else>
+        <!-- 活动未开始 -->
+        <view class="pay_btn">立即支付</view>
+        <view class="cancel_btn">取消报名</view>
+      </block>
+    </block>
+    <block wx:else>
+      <view class="join_btn">{{info.signUpTitle}}</view>
+    </block>
   </view>
 </view>
 <i-spin fix custom wx:if="{{loading}}">

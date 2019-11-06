@@ -1,5 +1,5 @@
-<!--pages/home/home/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="报名吧">
+<!--pages/home/home/index.wxml--> 
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" back="{{false}}" animated="{{true}}" background="#ffffff" title="报名吧">
 </mp-navigation-bar>
 <i-tabs i-class="seckill_tab" color="#ffa404" current="{{ activeType }}" scroll bindchange="tabsChange" style="top:{{topHeight}}rpx;">
   <i-tab key="enrolment" i-class="tab_item" title="我报名的"></i-tab>
@@ -7,7 +7,7 @@
   <i-tab key="collected" i-class="tab_item" title="我收藏的"></i-tab>
 </i-tabs>
 <view class="active_list">
-  <navigator url="../../activities/activity-details/index?id={{item.id}}" class="active_card" wx:for="{{ActiveList}}" wx:key="{{item.id}}">
+  <navigator url="../../activities/activity-details/index?id={{item.id}}" class="active_card" wx:for="{{ActiveList}}" wx:key="id">
     <view class="active_logo">
       <image src="{{item.cover}}"></image>
     </view>
@@ -15,7 +15,7 @@
       <view class="active_name">
         {{item.title}}
       </view>
-      <view class="active_sponsor">{{item.articleAbstract}}</view>
+      <view class="active_sponsor">{{item.organizer}}</view>
       <view class="active_info">
         <view class="active_info_item">
           <i-icon type="coordinates" color="#999999" size="12"/>

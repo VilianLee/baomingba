@@ -1,0 +1,37 @@
+<!--pages/about/about-us/index.wxml-->
+<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="关于报名吧">
+</mp-navigation-bar>
+<view class="about_page">
+  <view class="logo_large">
+    <image src="../../../images/mine/logo.png"></image>
+  </view>
+  <view class="logo_name">
+    报名吧2.0
+  </view>
+  <view class="about_p">
+    报名吧是移动端最好用的活动发布、报名和管理工具。
+  </view>
+  <view class="about_p">
+    报名吧帮助你快速发布活动，并随时随地分享到微博、微信、朋友圈、QQ等社交平台。
+  </view>
+  <view class="about_p">
+    <view class="about_p_text">
+      【软件特点】
+    </view>
+    <view class="about_p_text">
+      1）快速发起活动，发布并分享，是呼朋唤友之神器；
+    </view>
+    <view class="about_p_text">
+      2）地图导航、活动签到、会员管理帮助您轻松自如地驾驭各类活动；
+    </view>
+    <view class="about_p_text">
+      3）活动信息云端记录，让你记录每一次欢聚的时光；
+    </view>
+    <view class="about_p_text">
+      4）活动数据分析处理助手，帮助您掌握活动效果、优化社群管理。
+    </view>
+  </view>
+  <view class="about_p">
+    我们现处于高速发展期，非常渴望各位有识之士加入我们。如您对我们报名吧项目感兴趣，请发简历至hr@51bmb.com。
+  </view>
+</view>
