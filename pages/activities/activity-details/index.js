@@ -3,7 +3,8 @@ import store from '../../../store'
 import create from '../../../utils/create'
 
 import {
-  getActivityDetails
+  getActivityDetails,
+  signUpActivity
 } from '../../../API/servers'
 import {
   formatTime
@@ -20,18 +21,56 @@ create(store, {
     id: '',
     loading:false,
     userInfo: {},
-    info: {}
+    info: {},
+    pageLogic: {},
+    btnDisable: false,
   },
-  AjaxGetDetails(){
+  AjaxGetDetails(){ //获取活动详情
     const _this = this
     getActivityDetails(this.data.id, res => {
-      let info = res.event
-      info.beginTimeStr = formatTime(new Date(info.beginTime), 'detail')
-      info.endTimeStr = formatTime(new Date(info.endTime), 'detail')
+      let event = res.event
+      event.beginTimeStr = formatTime(new Date(event.beginTime), 'detail')
+      event.endTimeStr = formatTime(new Date(event.endTime), 'detail')
+      let pageLogic = {
+        isPayPending: event.userStatus.signupStatus === 6,
+        isNormalEvent: event.actCat === 0,
+        isStatisticsEvent: event.actCat === 2,
+        isVoteEvent: event.actCat === 3,
+        isPPTEvent: event.actCat === 4,
+        isArticle: event.actCat === 5,
+        isRecFlagNormalEvent: event.recFlag === -1,
+        showVoucher: false
+      }
+      let btnDisable = false
+      if (event.eventStatus.signUpVisible || (!event.eventStatus.signUpCancellable && !event.eventStatus.signUpRefundApplied)) {
+        btnDisable = true
+      } else if (event.eventStatus.signUpVisible) {
+        if (pageLogic.isVoteEvent) {
+          pageLogic.actionName = 'vote'
+        } else {
+          pageLogic.actionName = 'signup'
+        }
+      } else if (pageLogic.isArticle) {
+        if (pageLogic.isFollowed) {
+          btnDisable = true
+          pageLogic.actionName = 'unfollow-org'
+        } else {
+          pageLogic.actionName = 'follow-org'
+        }
+      } else if (event.eventStatus.signUpCancellable && !event.eventStatus.signUpRefundApplied) {
+        pageLogic.actionName = 'cancel-signup'
+      }
+      if (event.actCat == 0 && pageLogic.isRecFlagNormalEvent) {
+        pageLogic.showVoucher = event.isCheck ? event.userStatus.signupStatus == 2 : event.userStatus.signupStatus == 1
+      }
       _this.setData({
-        info
+        info: event,
+        pageLogic
       })
     })
+  },
+  followOrganizer(){
+
   },
   /**
    * 生命周期函数--监听页面加载

@@ -58,6 +58,7 @@ page .i-icon {
   float: left;
   color: #333;
   width: 180rpx;
+  white-space: nowrap
 }
 
 .input_cell_icon {

@@ -76,6 +76,16 @@ function checkHotActiveList(params, success) { //获取热门活动列表
   })
 }
 
+function signUpActivity(params, success) { //活动报名
+  const des = '活动报名'
+  networkget({
+    url: `/event/${params.eventId}/signup?shareType=0`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 module.exports = {
   login,
   getMyEnjoined,
@@ -83,5 +93,6 @@ module.exports = {
   getMyCollected,
   getActivityDetails,
   getUserInfo,
-  checkHotActiveList
+  checkHotActiveList,
+  signUpActivity
 }

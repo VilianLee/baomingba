@@ -13,7 +13,8 @@
     "pages/user/personal-info/index",
     "pages/about/about-us/index",
     "pages/about/contact/index",
-    "pages/about/feedback/index"
+    "pages/about/feedback/index",
+    "pages/activities/sign-up/sign-up"
   ],
   "window": {
     "backgroundTextStyle": "light",
