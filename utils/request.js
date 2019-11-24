@@ -1,9 +1,8 @@
 
 import store from '../store.js'
-
+import {baseUrl} from '../config'
 
 const { $Toast } = require('../dist/base/index');
-const baseUrl = 'https://xcxtest.51bmb.com'
 
 let localHeader = {
   'content-type': 'application/json',
@@ -19,10 +18,11 @@ function networkpost({
 }) {
   store.data.loading = true
   store.update()
+  console.log(baseUrl)
   console.log(localHeader)
   let promise = new Promise(function(resolve, reject) {
     wx.request({
-      url: baseUrl + url,
+      url: baseUrl.baseUrl + url,
       header: headers ? headers : localHeader,
       data: params,
       method: 'POST',
@@ -49,10 +49,11 @@ function networkget({
 }) {
   store.data.loading = true
   store.update()
+  console.log(baseUrl)
   console.log(localHeader)
   let promise = new Promise(function(resolve, reject) {
     wx.request({
-      url: baseUrl + url,
+      url: baseUrl.baseUrl + url,
       header: headers ? headers : localHeader,
       data: params,
       method: 'GET',

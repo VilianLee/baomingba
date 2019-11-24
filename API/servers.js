@@ -86,6 +86,17 @@ function signUpActivity(params, success) { //活动报名
   })
 }
 
+function publicActivity(params, success) { //发布活动
+  const des = '发布活动'
+  networkpost({
+    url: `/event/create`,
+    params,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 module.exports = {
   login,
   getMyEnjoined,
@@ -94,5 +105,6 @@ module.exports = {
   getActivityDetails,
   getUserInfo,
   checkHotActiveList,
-  signUpActivity
+  signUpActivity,
+  publicActivity
 }

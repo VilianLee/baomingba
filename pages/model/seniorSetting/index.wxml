@@ -1,84 +1,80 @@
 <!--pages/model/seniorSetting/index.wxml-->
-<view class="input_cell">
-  <view class="input_cell_row">
-    <view class="label">报名者需填写</view>
-  </view>
-  <view class="input_cell_row">
-    <view class="select_tag">
-      <view class="select_tag_item " wx:for="{{joinerNeedInfoSingle}}" wx:key="name">
-        <view class="tag {{item.require ? 'require' : ''}}">{{item.name}} {{item.require ? "*" : ""}}</view>
-      </view>
-      <view class="select_tag_item">
-        <view class="tag" bindtap="editMoreInfo">
-          <i-icon type="add" color="#d5d5d5" size="24" />
+<view class="senior_setting">
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label">报名者需填写</view>
+    </view>
+    <view class="input_cell_row">
+      <view class="select_tag">
+        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tagOnChange">
+          <view class="tag {{item.require ? 'require' : ''}}">{{item.text}} {{item.require ? "*" : ""}}</view>
+        </view>
+        <view class="select_tag_item">
+          <view class="tag" bindtap="editMoreInfo">
+            <i-icon type="add" color="#d5d5d5" size="24" />
+          </view>
         </view>
       </view>
     </view>
   </view>
-</view>
 
-<view class="input_cell">
-  <view class="input_cell_row">
-    <view class="label">报名开始时间</view>
-    <view class="form_item">
-      <picker mode="multiSelector" value="{{startSignTime}}" bindchange="changeStartSignTime" bindcolumnchange="changeStartTimeColumn" range="{{startSignTimeArr}}">
-        <view class="time_picker_content">
-          {{startSignTimeArr[0][startSignTime[0]]}}年{{startSignTimeArr[1][startSignTime[1]]}}月{{startSignTimeArr[2][startSignTime[2]]}}日 {{startSignTimeArr[3][startSignTime[3]]}}:{{startSignTimeArr[4][startSignTime[4]]}}
-        </view>
-      </picker>
-    </view>
+  <view class="input_cell">
+    <navigator url="../change-time/index?key=signUpStartTime" class="input_cell_row">
+      <view class="label">报名开始时间</view>
+      <view class="form_item">
+        {{signUpStartTimeStr}}
+      </view>
+    </navigator>
+    <navigator url="../change-time/index?key=expireTime" class="input_cell_row">
+      <view class="label">报名截止时间</view>
+      <view class="form_item">
+        {{expireTimeStr}}
+      </view>
+    </navigator>
   </view>
-  <view class="input_cell_row">
-    <view class="label">报名截止时间</view>
-    <view class="form_item">
-      <picker mode="multiSelector" value="{{endSignTime}}" bindchange="changeEndSignTime" bindcolumnchange="changeEndTimeColumn" range="{{endSignTimeArr}}">
-        <view class="time_picker_content">
-          {{endSignTimeArr[0][endSignTime[0]]}}年{{endSignTimeArr[1][endSignTime[1]]}}月{{endSignTimeArr[2][endSignTime[2]]}}日 {{endSignTimeArr[3][endSignTime[3]]}}:{{endSignTimeArr[4][endSignTime[4]]}}
-        </view>
-      </picker>
-    </view>
-  </view>
-</view>
 
-<view class="input_cell">
-  <view class="input_cell_row">
-    <view class="label">自定义主办方</view>
-    <view class="form_item"></view>
-  </view>
-  <view class="input_cell_row">
-    <view class="label">联系电话</view>
-    <view class="form_item">
-      <input placeholder="请输入联系电话" />
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label">自定义主办方</view>
+      <view class="form_item">
+        <input placeholder="主办方名称" value="{{organizer}}" data-key="organizer" bindinput="inputOnChange"/>
+      </view>
+    </view>
+    <view class="input_cell_row">
+      <view class="label">联系电话</view>
+      <view class="form_item">
+        <input placeholder="请输入联系电话" value="{{telephone}}" data-key="telephone" bindinput="inputOnChange"/>
+      </view>
     </view>
   </view>
-</view>
 
-<view class="input_cell">
-  <view class="tip_text">开启后，详情页将不显示报名者列表</view>
-  <view class="input_cell_row">
-    <view class="label">隐藏报名名单</view>
-    <view class="form_item">
-      <switch id="hideJoinerList" color="#fda402" checked="{{hideJoinerList}}" bindchange="switchChange" />
+  <!-- <view class="input_cell" style="margin-bottom: 40rpx;">
+    <view class="tip_text">开启后，详情页将不显示报名者列表</view>
+    <view class="input_cell_row">
+      <view class="label">隐藏报名名单</view>
+      <view class="form_item">
+        <switch color="#fda402" checked="{{hideJoinerList}}" data-key="" bindchange="switchChange" />
+      </view>
     </view>
-  </view>
-</view>
+  </view> -->
 
-<view class="input_cell">
-  <view class="tip_text">开启后，详情页将不显示活动地址</view>
-  <view class="input_cell_row">
-    <view class="label">隐藏活动地址</view>
-    <view class="form_item">
-      <switch id="hideActLocation" color="#fda402" checked="{{hideActLocation}}" bindchange="switchChange" />
+  <view class="input_cell" style="margin-bottom: 40rpx;">
+    <view class="tip_text">开启后，详情页将不显示活动地址</view>
+    <view class="input_cell_row">
+      <view class="label">隐藏活动地址</view>
+      <view class="form_item">
+        <switch color="#fda402" checked="{{hideAddr}}" data-key="hideAddr" bindchange="inputOnChange" />
+      </view>
     </view>
   </view>
-</view>
 
-<view class="input_cell">
-  <view class="tip_text">开启后，报名成功才能在详情页发表评论</view>
-  <view class="input_cell_row">
-    <view class="label">仅报名者可评论</view>
-    <view class="form_item">
-      <switch id="onlyJoinerCanComment" color="#fda402" checked="{{onlyJoinerCanComment}}" bindchange="switchChange" />
+  <!-- <view class="input_cell" style="margin-bottom: 40rpx;">
+    <view class="tip_text">开启后，报名成功才能在详情页发表评论</view>
+    <view class="input_cell_row">
+      <view class="label">仅报名者可评论</view>
+      <view class="form_item">
+        <switch id="onlyJoinerCanComment" color="#fda402" checked="{{onlyJoinerCanComment}}" bindchange="switchChange" />
+      </view>
     </view>
-  </view>
+  </view> -->
 </view>

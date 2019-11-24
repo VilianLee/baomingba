@@ -1,4 +1,5 @@
 {
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarTitleText": "热门"
 }

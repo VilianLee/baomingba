@@ -42,6 +42,8 @@ page .i-icon {
   border-bottom: solid 1px #e5e5e5;
   padding: 20rpx 0;
   height: 80rpx;
+  display: flex;
+  align-content: space-between;
   box-sizing: border-box;
   position: relative;
   background: #ffffff;
@@ -55,9 +57,8 @@ page .i-icon {
   font-size: 28rpx;
   line-height: 40rpx;
   height: 40rpx;
-  float: left;
   color: #333;
-  width: 180rpx;
+  min-width: 180rpx;
   white-space: nowrap
 }
 
@@ -79,8 +80,7 @@ button::after {
 
 .input_cell_row .form_item {
   text-align: right;
-  float: right;
-  width: 540rpx;
+  flex-grow: 1;
   height: 40rpx;
   line-height: 40rpx;
   font-size: 28rpx;

@@ -37,6 +37,7 @@ function getMonthDay(year, month) {
   }
   return array;
 }
+
 function getNewDateArry() {
   // 当前时间的处理
   var newDate = new Date();
@@ -76,5 +77,5 @@ function dateTimePicker(startYear, endYear, date) {
 }
 module.exports = {
   dateTimePicker: dateTimePicker,
-  getMonthDay: getMonthDay
+  getMonthDay: getMonthDay,
 }

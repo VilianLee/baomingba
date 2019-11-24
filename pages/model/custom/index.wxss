@@ -2,22 +2,20 @@
 page{
   padding-bottom: 180rpx;
 }
+page view, page label {
+  box-sizing: border-box;
+}
 .theme_pic{
-  padding-top: 80%;
   position: relative;
   z-index: 1;
   background:#999999;
 }
 .theme_pic_frame {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 2;
 }
 .theme_pic_frame swiper {
-  height: 100%;
+  height: 480rpx;
 }
 .swiper-item{
   height: 100%;
@@ -116,6 +114,9 @@ page{
   color: #999999;
   margin-left: -40rpx
 }
+.theme_rich_text textarea {
+  width: 100%;
+}
 .agreement_text{
   padding: 0 40rpx;
   font-size: 26rpx;
@@ -125,7 +126,9 @@ page{
 .agreement_text icon{
   margin-right: 14rpx;
 }
-
+.financial_group{
+  padding-left: 50rpx;
+}
 .add_pic{
   position: absolute;
   right: 44rpx;
@@ -144,3 +147,5 @@ page{
   width: 60rpx;
   height: 60rpx;
 }
+
+

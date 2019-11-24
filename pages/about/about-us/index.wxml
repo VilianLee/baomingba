@@ -1,6 +1,4 @@
 <!--pages/about/about-us/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="关于报名吧">
-</mp-navigation-bar>
 <view class="about_page">
   <view class="logo_large">
     <image src="../../../images/mine/logo.png"></image>

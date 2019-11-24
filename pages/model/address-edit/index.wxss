@@ -1,0 +1,16 @@
+/* pages/personal/address-edit/index.wxss */
+
+.edit_page {
+  height: 100%;
+}
+
+.edit_btn {
+  width: 690rpx;
+  background: #fda402;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  color: #fff;
+  margin: 60rpx auto;
+}

@@ -1,6 +1,13 @@
 /* pages/model/joinerInfo/index.wxss */
 
 
+.senior_setting .input_cell_row {
+  height: auto;
+}
+.input_cell_row .select_tag {
+  width: 100%;
+  height: auto;
+}
 .input_cell_row .select_tag_item {
   float: left;
   width: 25%;
@@ -112,6 +119,7 @@
   margin: auto;
   border-top: solid 1px transparent;
 }
+
 .modal_content .modal_cell {
   text-align: left;
   padding: 10rpx;
@@ -119,8 +127,6 @@
 }
 .modal_cell input, .modal_cell textarea {
   font-size: 24rpx;
-  line-height: 60rpx;
-  min-height: 60rpx;
 }
 .modal_cell .modal_cell_row {
   min-height: 60rpx;
@@ -154,7 +160,17 @@
   width: 10%;
   text-align: right;
 }
-.modal_cell_row .option_input {
+.modal_cell_row .options_item {
+  float: left;
+  width: 42%;
+  border-radius: 4rpx;
+  margin-right: 4rpx;
+  border: solid 1rpx #e5e5e5;
+  margin-bottom: 4rpx;
+  padding: 0 6rpx;
+  box-sizing: border-box;
+}
+.modal_cell_row .add_option_lable {
   float: left;
   width: 90%;
 }

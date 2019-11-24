@@ -1,0 +1,34 @@
+<!--pages/model/change-time/index.wxml-->
+<view class="picker">
+  <view class="block">
+    <view class="input_cell">
+      <view class="input_cell_row">
+        <view class="label">
+          <view class="input_cell_icon">
+            <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '0'}}" />
+          </view>
+          选择日期
+        </view>
+        <view class="form_item">
+          <picker mode="date" value="{{dateStr}}" start="{{nowDate}}" data-key="dateStr" bindchange="pickerOnChange">
+            {{dateStr}}
+          </picker>
+        </view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">
+          <view class="input_cell_icon">
+            <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '0'}}" />
+          </view>
+          选择时间
+        </view>
+        <view class="form_item">
+          <picker mode="time" value="{{timeStr}}" star="{{nowTime}}" data-key="timeStr" bindchange="pickerOnChange">
+            {{timeStr}}
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="picker_btn" bindtap="okOnClick">确定</view>
+</view>

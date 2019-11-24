@@ -3,7 +3,13 @@
 page {
   padding-bottom: 100rpx;
 }
-
+.senior_setting .input_cell_row {
+  height: auto;
+}
+.input_cell_row .select_tag {
+  width: 100%;
+  height: auto;
+}
 .input_cell_row .select_tag_item {
   float: left;
   width: 25%;
@@ -35,7 +41,17 @@ page {
   color: #fff;
   background: #fda402;
 }
-.input_cell_row .form_item input {
-  height: 60rpx;
-  line-height: 60rpx;
+
+
+.input_cell_row .wx-switch-input {
+  width: 80rpx!important;
+  height: 40rpx!important;
+}
+.input_cell_row .wx-switch-input::before {
+  width: 79rpx!important;
+  height: 37rpx!important;
+}
+.input_cell_row .wx-switch-input::after {
+  width: 37rpx!important;
+  height: 37rpx!important;
 }

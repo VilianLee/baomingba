@@ -14,13 +14,14 @@
     "pages/about/about-us/index",
     "pages/about/contact/index",
     "pages/about/feedback/index",
-    "pages/activities/sign-up/sign-up"
+    "pages/activities/sign-up/sign-up",
+    "pages/model/change-time/index",
+    "pages/model/address-edit/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationStyle": "custom",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {

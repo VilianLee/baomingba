@@ -1,125 +1,188 @@
 // pages/model/seniorSetting/index.js
 var dateTimePicker = require('../../../utils/dateTimePicker.js');
-Page({
+import store from '../../../store'
+import create from '../../../utils/create'
+import { getDate } from '../../../utils/util'
+
+
+const app = getApp()
+
+create(store, {
 
   /**
    * 页面的初始数据
    */
   data: {
-    joinerNeedInfo: [{
-      name: "姓名",
-      require: true
+    conditions: [{
+      text: "姓名",
+      enableOther: 0,
+      name: 'username',
+      type: 'text',
+      require: 1
     }, {
-      name: "手机",
-      require: true
+      text: "手机",
+      enableOther: 0,
+      name: 'mobile',
+      type: 'text',
+      require: 1
+    }, {
+      text: "公司",
+      enableOther: 0,
+      name: 'company',
+      type: 'text',
+      require: 0
+    }, {
+      text: "邮箱",
+      enableOther: 0,
+      name: 'email',
+      type: 'text',
+      require: 0
+    }, {
+      text: "职位",
+      enableOther: 0,
+      name: 'position',
+      type: 'text',
+      require: 0
+    }, {
+      text: "性别",
+      enableOther: 0,
+      name: 'sex',
+      type: 'text',
+      require: 0
+    }, {
+      text: "年龄",
+      enableOther: 0,
+      name: 'age',
+      type: 'text',
+      require: 0
     }],
-    enrollStartTime: "",
-    enrollEndTime: "",
-    date: '2018-10-01',
-    time: '12:00',
-    startSignTimeArr: null,
-    startSignTime: null,
-    endSignTimeArr: null,
-    endSignTime: null,
-    endTimeInput: false,
-    startYear: 2000,
-    endYear: 2050,
+    signUpStartTime: 0,
+    signUpStartTimeStr: '',
+    expireTime: 0,
+    expireTimeStr: '',
     customSponsor: [],
-    sponsorMobile: "",
+    telephone: "",
+    organizer: "",
     hideJoinerList: false,
     hideActLocation: false,
     hidePicWall: false,
     hideRewardFn: false,
-    onlyJoinerCanComment: false,
-    joinerNeedInfoSingle: []
+    onlyJoinerCanComment: false
   },
-  switchChange(e) {
+  inputOnChange(e) {
     console.log(e)
-    const key = e.target.id
+    const key = e.target.dataset.key
     const obj = new Object
     obj[key] = e.detail.value
     this.setData(obj)
+    this.prePageDataChange(key, e.detail.value)
   },
   editMoreInfo() {
+    const conditions = encodeURIComponent(JSON.stringify(this.data.conditions))
     wx.navigateTo({
-      url: '../joinerInfo/index',
+      url: '../joinerInfo/index?conditions=' + conditions,
     })
+  },
+  tagOnChange(e){
+    const index = e.currentTarget.dataset.index
+    let conditions = this.data.conditions
+    conditions[index].require = conditions[index].require === 0 ? 1 : 0
+    this.setData({
+      conditions
+    })
+  },
+  dataOnChange(key, value, page) {
+    console.log(key)
+    this.setData({
+      [key]: value
+    })
+    this.prePageDataChange(key, value, page)
+  },
+  prePageDataChange(key, value, page){
+    const pages = page ? page : getCurrentPages()
+    const prevPage = page ? pages[pages.length - 3] : pages[pages.length - 2]; //上一页
+    console.log(prevPage)
+    prevPage.dataOnChange(key, value)
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    console.log(options.params)
-    const params = JSON.parse(options.params);
-    console.log(params)
-    this.setData(params)
-    this.setData({
-      joinerNeedInfoSingle: [params.joinerNeedInfo[0], params.joinerNeedInfo[1], params.joinerNeedInfo[2]]
-    })
-    // 获取完整的年月日 时分秒，以及默认显示的数组
-    var obj1 = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
-    // 精确到分的处理，将数组的秒去掉
-    var lastArray = obj1.dateTimeArray.pop();
-    var lastTime = obj1.dateTime.pop();
-
-    this.setData({
-      startSignTimeArr: obj1.dateTimeArray,
-      startSignTime: obj1.dateTime,
-      endSignTimeArr: obj1.dateTimeArray,
-      endSignTime: obj1.dateTime
-    });
+  onShow: function(options) {
+    // // 获取完整的年月日 时分秒，以及默认显示的数组
+    // var obj1 = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
+    // // 精确到分的处理，将数组的秒去掉
+    // var lastArray = obj1.dateTimeArray.pop();
+    // var lastTime = obj1.dateTime.pop();
+    // const nowTime = new Date()
+    // this.setData({
+    //   signUpStartTimeArr: obj1.dateTimeArray,
+    //   signUpStartTimeValue: obj1.dateTime,
+    //   signUpStartTime: nowTime.getTime(),
+    //   expireTime: nowTime.getTime(),
+    //   expireTimeArr: obj1.dateTimeArray,
+    //   expireTimeValue: obj1.dateTime
+    // });
   },
 
-  changeStartSignTime(e) {
-    this.setData({
-      startSignTime: e.detail.value
-    });
-  },
-  changeStartTimeColumn(e) {
-    var arr = this.data.startSignTime,
-      dateArr = this.data.startSignTimeArr;
+  // changeTime(e) {//报名时间变化
+  //   const key = e.target.dataset.name
+  //   const value = e.detail.value
+  //   console.log(e)
+  //   switch (key) {
+  //     case "signUpStartTime":
+  //       let startarr = this.data.signUpStartTimeArr
+  //       const signUpStartTimeStr = startarr[0][value[0]] + '-' + startarr[1][value[1]] + '-' + startarr[2][value[2]] + ' ' + startarr[3][value[3]] + ':' + startarr[4][value[4]] + ":00"
+  //       const signUpStartTime = getDate(signUpStartTimeStr).getTime()
+  //       this.setData({
+  //         signUpStartTime,
+  //         signUpStartTimeValue: value
+  //       })
+  //       console.log(signUpStartTime)
+  //       break
+  //     case "expireTime":
+  //       let expireTimeArr = this.data.expireTimeArr
+  //       const expireTimeStr = expireTimeArr[0][value[0]] + '-' + expireTimeArr[1][value[1]] + '-' + expireTimeArr[2][value[2]] + ' ' + expireTimeArr[3][value[3]] + ':' + expireTimeArr[4][value[4]] + ":00"
+  //       console.log(expireTimeStr)
+  //       const expireTime = getDate(expireTimeStr).getTime()
+  //       this.setData({
+  //         expireTime,
+  //         expireTimeValue: value
+  //       })
+  //       console.log(expireTime)
+  //       break
+  //     default:
+  //       break
+  //   }
+  // },
+  // changeStartTimeColumn(e) {
+  //   console.log(e)
+  //   var arr = this.data.signUpStartTimeValue,
+  //     dateArr = this.data.signUpStartTimeArr;
 
-    arr[e.detail.column] = e.detail.value;
-    dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
+  //   arr[e.detail.column] = e.detail.value;
+  //   dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
 
-    this.setData({
-      startSignTimeArr: dateArr,
-      startSignTime: arr
-    });
-  },
-  changeEndSignTime(e) {
-    console.log(e)
-    this.setData({
-      endSignTime: e.detail.value
-    });
-    this.setData({
-      endTimeInput: true
-    });
-  },
-  changeEndTimeColumn(e) {
-    var arr = this.data.endSignTime,
-      dateArr = this.data.endSignTimeArr;
-    arr[e.detail.column] = e.detail.value;
-    dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
-    this.setData({
-      endSignTimeArr: dateArr,
-      endSignTime: arr
-    });
-  },
+  //   this.setData({
+  //     signUpStartTimeArr: dateArr,
+  //     signUpStartTimeValue: arr
+  //   });
+  // },
+  // changeEndTimeColumn(e) {
+  //   var arr = this.data.expireTimeValue,
+  //     dateArr = this.data.expireTimeArr;
+  //   arr[e.detail.column] = e.detail.value;
+  //   dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
+  //   this.setData({
+  //     expireTimeArr: dateArr,
+  //     expireTimeValue: arr
+  //   });
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
   /**
    * 生命周期函数--监听页面隐藏
    */

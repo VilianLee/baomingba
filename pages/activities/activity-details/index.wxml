@@ -1,6 +1,4 @@
 <!--pages/activities/activity-details/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="活动详情">
-</mp-navigation-bar>
 <view class="detail_page">
   <view class="banner">
     <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
@@ -105,7 +103,7 @@
         </view>
         <view class="organizer_control clearfix">
           <view class="organizer_control_item">
-            <view class="organizer_btn" wx:if="{{item.isFollow}}">
+            <view class="organizer_btn disable_btn" wx:if="{{item.isFollow}}">
               已关注
             </view>
             <view class="organizer_btn" bindtap="followOrganizer" wx:else>
@@ -165,7 +163,9 @@
     </navigator>
     <block wx:if="{{pageLogic.isPayPending || pageLogic.showVoucher}}">
       <!-- 显示两个按钮 -->
-      <view class="pay_btn">立即支付</view>
+      <!-- 第二个按钮 -->
+      <view class="join_btn" wx:if="{{pageLogic.showVoucher}}">报名凭证</view>
+      <view class="join_btn" wx:elif="{{pageLogic.isPayPending}}">立即支付</view>
       <!-- 第一个按钮 -->
       <block wx:if="{{pageLogic.isArticle}}">
         <view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
@@ -221,8 +221,57 @@
     </block>
     <block wx:else>
       <!-- 显示一个按钮 -->
-      <view class="join_btn" wx:if="{{pageLogic.showVoucher}}">报名凭证</view>
-      <view class="join_btn" wx:elif="{{pageLogic.isPayPending}}">立即支付</view>
+      <block wx:if="{{pageLogic.isArticle}}">
+        <view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
+          已关注组织号
+        </view>
+        <view class="cancel_btn" wx:else>
+          关注组织号
+        </view>
+      </block>
+      <block wx:else>
+        <block wx:if="{{info.countDown}}">
+          <view class="cancel_btn">
+            离报名开始还有{{info.countDown}}
+          </view>
+        </block>
+        <block wx:else>
+          <block wx:if="{{info.eventStatus.signUpVisible}}">
+            <block wx:if="{{info.userStatus.signupStatus != 7 && info.signUpRemark}}">
+              <view class="cancel_btn">
+                {{info.signUpRemark}}
+              </view>
+            </block>
+            <block wx:elif="{{info.userStatus.signupStatus != 7}}">
+              <view class="cancel_btn">
+                {{info.signUpTitle}}
+              </view>
+            </block>
+            <block wx:elif="{{info.userStatus.signupStatus != 7}}">
+              <view class="cancel_btn">
+                {{info.signUpTitle}}
+              </view>
+            </block>
+          </block>
+          <block wx:elif="{{info.eventStatus.signUpCancellable}}">
+            <block wx:if="{{info.eventStatus.signUpRefundApplied}}">
+              <view class="cancel_btn">
+                取消报名(已申请）
+              </view>
+            </block>
+            <block wx:else>
+              <view class="cancel_btn">
+                取消报名
+              </view>
+            </block>
+          </block>
+          <block wx:elif="{{!info.eventStatus.signUpVisible && !info.eventStatus.signUpCancellable}}">
+            <view class="cancel_btn">
+              {{info.signUpRemark}}
+            </view>
+          </block>
+        </block>
+      </block>
     </block>
 
   </view>

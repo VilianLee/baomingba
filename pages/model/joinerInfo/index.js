@@ -1,65 +1,22 @@
 // pages/model/joinerInfo/index.js
-Page({
+import store from '../../../store'
+import create from '../../../utils/create'
+
+
+const app = getApp()
+
+create(store, {
 
   /**
    * 页面的初始数据
    */
   data: {
-    joinerNeedInfo: {
-      singleText: [{
-        name: "姓名",
-        require: true
-      }, {
-        name: "手机",
-        require: true
-      }, {
-        name: "公司",
-        require: false
-      }, {
-        name: "邮箱",
-        require: false
-      }, {
-        name: "职位",
-        require: false
-      }, {
-        name: "性别",
-        require: false
-      }, {
-        name: "年龄",
-        require: false
-      }, {
-        name: "备注",
-        require: false
-      }],
-      moreInfo: [{
-          name: "测试多文本，测试多文本",
-          type: "richText",
-          required: true
-        },
-        {
-          name: "测试单选",
-          type: "radio",
-          options: ['1', '2'],
-          required: false
-        },
-        {
-          name: "测试多选",
-          type: "checkbox",
-          options: ['1', '2'],
-          required: true
-        },
-        {
-          name: "测试图片测试图片测试图片测试图片测试图片测试图片测试图片测试图片测试图片测试图片",
-          type: "picture",
-          required: true
-        }
-      ],
-    },
+    conditions: [],
     add_type_arr: [{
-      value: 'singleText',
+      value: 'text',
       name: '单文本'
     }, {
-      value: 'richText',
+      value: 'textarea',
       name: '多文本'
     }, {
       value: 'radio',
@@ -68,10 +25,21 @@ Page({
       value: 'checkbox',
       name: '多选项'
     }, {
-      value: 'picture',
+      value: 'image',
       name: '图片'
     }],
     modal_visible: false,
+    add_option: {
+      text: "",
+      enableOther: 0,
+      name: '',
+      type: 'value',
+      require: 1,
+      options: [{
+        name: "",
+        value: ""
+      }]
+    },
     add_required: true,
     add_type: "singleText",
     singleText_des: "",
@@ -83,52 +51,130 @@ Page({
     new_radios: ["", ""],
     joiner_may_add: false
   },
-  addRequireChange() {
-    const new_value = !this.data.add_required
-    this.setData({
-      add_required: new_value
-    })
-  },
-  joinerMayAddChange() {
-    const new_value = !this.data.joiner_may_add
-    this.setData({
-      joiner_may_add: new_value
-    })
-  },
-  willAddInfo(e) {
-    console.log(e.target.dataset)
-    this.setData({
-      modal_visible: true,
-      add_type: e.target.dataset.addtype
-    })
-  },
-  addInfo(e) {
-    let obj = {
-      type: this.add_type
-    }
-    this.setData({
-      modal_visible: false
-    })
-  },
-  cancelAdd() {
-    this.setData({
-      modal_visible: false
-    })
-  },
-  selectTab(e) {
-    console.log(e)
-    const value = e.target.dataset.value
-    this.setData({
-      add_type: value
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let conditions = decodeURIComponent(options.conditions)
+    conditions = JSON.parse(conditions)
+    console.log(conditions)
+    this.setData({
+      conditions
+    })
   },
-
+  addOption() {
+    let add_option = this.data.add_option
+    add_option.options.push({
+      key: "",
+      value: ""
+    })
+    this.setData({
+      add_option
+    })
+  },
+  deleteOption(e) {
+    let add_option = this.data.add_option
+    const optionIndex = e.target.dataset.index
+    add_option.options = add_option.options.filter((item, index) => index !== optionIndex)
+    this.setData({
+      add_option
+    })
+  },
+  inputOnChange(e) {
+    const value = e.detail.value
+    const key = e.target.dataset.key
+    const option = e.target.dataset.option
+    const index = e.target.dataset.index
+    let add_option = this.data.add_option
+    if (option) {
+      add_option.options[index][option] = value
+    } else {
+      add_option[key] = value
+    }
+    this.setData({
+      add_option
+    })
+    console.log(this.data.add_option[key])
+  },
+  willAddInfo(e) { //添加选项弹窗
+    this.setData({
+      modal_visible: true,
+      add_option: {
+        text: "",
+        enableOther: 0,
+        name: '',
+        type: 'text',
+        require: 1,
+        options: [{
+          name: "",
+          value: ""
+        }]
+      }
+    })
+  },
+  addInfo(e) { //确定添加选项
+    let conditions = this.data.conditions
+    const add_option = this.data.add_option
+    let vertify = true
+    let err_tip = ""
+    if (add_option.text === '') {
+      err_tip = '报名项标题不能为空'
+      vertify = false
+    } else if (add_option.name === '') {
+      err_tip = '报名项key值不能为空'
+      vertify = false
+    } else if (add_option.type === 'radio' || add_option.type === 'checkbox') {
+      add_option.options.forEach(item => {
+        if(item.name === '' || item.value === '') {
+          err_tip = '请完善选项内容'
+          vertify = false
+        }
+      })
+    }
+    if (vertify) {
+      conditions.push(add_option)
+      console.log(conditions)
+      this.setData({
+        modal_visible: false,
+        conditions
+      })
+      const pages = getCurrentPages();
+      const prevPage = pages[pages.length - 2]; //上一页
+      console.log(prevPage)
+      prevPage.dataOnChange("conditions", conditions)
+    } else {
+      wx.showToast({
+        title: err_tip,
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+    }
+  },
+  cancelAdd() { //取消添加选项
+    this.setData({
+      modal_visible: false
+    })
+  },
+  selectTab(e) { //选择选项属性
+    console.log(e)
+    const value = e.target.dataset.value
+    this.setData({
+      add_option: {
+        text: "",
+        enableOther: 0,
+        name: '',
+        type: value,
+        require: 1,
+        options: [{
+          name: "",
+          value: ""
+        }]
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

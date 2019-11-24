@@ -5,13 +5,24 @@
 
 <view class="theme_pic">
   <view class="theme_pic_frame">
-    <view class="add_pic">
+    <view class="add_pic" bindtap="addPic" wx:if="{{activity.photos.length < 9}}">
       <image src="../images/icon_camera.png" mode="aspectFit" />
     </view>
     <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.3)" indicator-active-color="#ffffff">
-      <block wx:for="{{pic_list}}" wx:key="*this">
+      <block wx:if="{{activity.photos.length > 0}}">
+        <block wx:for="{{activity.photos}}" wx:key="{{item.id}}">
+          <swiper-item>
+            <view class="swiper-item">
+              <image src="{{item.path}}" mode="aspectFill"></image>
+            </view>
+          </swiper-item>
+        </block>
+      </block>
+      <block wx:else>
         <swiper-item>
-          <view class="swiper-item" style="background:url('../../../images/{{item}}');height:100%;"></view>
+          <view class="swiper-item">
+            <image src="../../../images/pic_01.jpg" mode="aspectFill"></image>
+          </view>
         </swiper-item>
       </block>
     </swiper>
@@ -23,38 +34,92 @@
     <i-icon type="label_fill" size="24" class="input_icon" />
     <input placeholder="活动主题（不超过35个字符）" value="{{title}}" data-name="title" maxlength="35" bindinput="inputOnChange" />
   </view>
-  <view class="content_input">
-    <i-icon type="time_fill" size="24" class="input_icon" />
-    <picker mode="multiSelector" data-name="beginTime" value="{{startActTime}}" bindchange="onTimeChange" bindcolumnchange="changeStartTimeColumn" range="{{startActTimeArr}}">
-      <view class="time_picker_content">
-        {{startActTimeArr[0][startActTime[0]]}}年{{startActTimeArr[1][startActTime[1]]}}月{{startActTimeArr[2][startActTime[2]]}}日 {{startActTimeArr[3][startActTime[3]]}}:{{startActTimeArr[4][startActTime[4]]}} 开始
+  <navigator url="../change-time/index?key=beginTime" class="content_input">
+    <i-icon type="time_fill" size="24" class="input_icon" /> {{activity.beginTimeStr}} 开始
+  </navigator>
+  <navigator url="../change-time/index?key=endTime" class="content_input">
+    <view class="time_picker_content" wx:if="{{activity.endTimeStr !== ''}}">
+      {{activity.endTimeStr}} 结束
+      <view class="clear_selct" catchtap="clearEndTime">
+        <icon type="clear" size="24" color="#d5d5d5" />
       </view>
-    </picker>
-  </view>
-  <view class="content_input">
-    <picker mode="multiSelector" data-name="endTime" value="{{endActTime}}" bindchange="onTimeChange" bindcolumnchange="changeEndTimeColumn" range="{{endActTimeArr}}">
-      <view class="time_picker_content" wx:if="{{endTimeInput}}">
-        {{endActTimeArr[0][endActTime[0]]}}年{{endActTimeArr[1][endActTime[1]]}}月{{endActTimeArr[2][endActTime[2]]}}日 {{endActTimeArr[3][endActTime[3]]}}:{{endActTimeArr[4][endActTime[4]]}} 结束
-        <view class="clear_selct" catchtap="clearEndTime">
-          <icon type="clear" size="24" color="#d5d5d5" />
-        </view>
-      </view>
-      <view class="time_picker_placeholder" wx:else>活动结束时间（选填）</view>
-    </picker>
-  </view>
-  <view class="content_input">
+    </view>
+    <view class="time_picker_placeholder" wx:else>活动结束时间（选填）</view>
+  </navigator>
+  <navigator url="../address-edit/index" class="content_input">
     <i-icon type="coordinates_fill" size="24" class="input_icon" />
-    <input placeholder="活动详细地址（选填）" />
+    <block wx:if="{{activity.address.longAddress}}">
+      {{activity.address.longAddress}}
+    </block>
+    <block wx:else>
+      <input placeholder="活动详细地址（选填）"  />
+    </block>
+  </navigator>
+</view>
+
+<view class="theme_content">
+  <view class="theme_rich_text">
+    <textarea value="{{activity.intro}}" placeholder="输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦" bindinput="inputOnChange" data-name="intro"></textarea>
   </view>
-  <view class="content_input">
+  <view class="content_input" bindtap="financialSettingVisibleChange">
     <i-icon type="financial_fill" size="24" class="input_icon" />
     <view class="content_cell">
       <view class="content_cell_title">费用设置</view>
-      {{financial === 0 ? "免费" : financial}}、{{joinerNum === 0 ? "人数不限" : joinerNum}}
+      <block wx:if="{{activity.payPath == '0'}}">免费</block>
+      <block wx:elif="{{activity.payPath == '1'}}"></block>
+      <block wx:else>{{activity.charge ? activity.charge : 0}}元</block>
+      <!-- {{joinerNum === 0 ? "人数不限" : joinerNum}} -->
     </view>
   </view>
+  <radio-group wx:if="{{financialSetting}}" class="input_cell" data-name="payPath" bindchange="inputOnChange">
+    <label class="input_cell_row">
+      <view class="label">
+        <view class="input_cell_icon">
+          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '0'}}" />
+        </view>
+        活动免费
+      </view>
+      <view class="form_item">
+      </view>
+      <radio value="0" hidden="{{true}}"></radio>
+    </label>
+    <label class="input_cell_row">
+      <view class="label">
+        <view class="input_cell_icon">
+          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '1'}}" />
+        </view>
+        活动后再AA
+      </view>
+      <view class="form_item">
+      </view>
+      <radio value="1" hidden="{{true}}"></radio>
+    </label>
+    <label class="input_cell_row">
+      <view class="label">
+        <view class="input_cell_icon">
+          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '2'}}" />
+        </view>
+        活动现场付款
+      </view>
+      <view class="form_item">
+        <input value="{{activity.charge}}" placeholder="请输入金额" data-name="charge" bindinput="inputOnChange" wx:if="{{activity.payPath == '2'}}" />
+      </view>
+      <radio value="2" hidden="{{true}}"></radio>
+    </label>
+    <label class="input_cell_row">
+      <view class="label">
+        <view class="input_cell_icon">
+          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '3'}}" />
+        </view>
+        线上支付
+      </view>
+      <view class="form_item">
+        <input value="{{activity.charge}}" placeholder="限1元" data-name="charge" bindinput="inputOnChange" wx:if="{{activity.payPath == '3'}}" />
+      </view>
+      <radio value="3" hidden="{{true}}"></radio>
+    </label>
+  </radio-group>
 </view>
-
 <view class="theme_content">
   <view class="content_input">
     <i-icon type="success_fill" size="24" class="input_icon" />
@@ -76,26 +141,18 @@
     </picker>
   </view>
 </view>
-<view class="theme_content" style="height: 160rpx;">
-  <view class="theme_rich_text">
-    输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦
-  </view>
-</view>
 <view class="agreement_text">
-  <icon type="success" size="12" color="#fda402" /> 同意
+  <icon type="success" size="12" color="{{agree ? '#fda402' : '#d5d5d5'}}" bindtap="agreeOnChange" /> 同意
   <text style="color:#fda402">《报名吧服务协议》</text>
 </view>
 
 <view class="theme_control">
   <i-row>
-    <i-col span="7">
+    <i-col span="10">
       <button type="primary" size="mini" class="defult_btn" bindtap="seniorSetting"> 高级设置 </button>
     </i-col>
-    <i-col span="7">
-      <button type="primary" size="mini" class="defult_btn"> 预览 </button>
-    </i-col>
-    <i-col span="10">
-      <button type="primary" size="mini" class="defult_btn public_btn"> 立即发布 </button>
+    <i-col span="14">
+      <button type="primary" size="mini" class="defult_btn public_btn" bindtap="ajaxPublicActivity"> 立即发布 </button>
     </i-col>
   </i-row>
 </view>

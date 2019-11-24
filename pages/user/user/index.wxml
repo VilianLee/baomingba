@@ -1,6 +1,4 @@
 <!--pages/user/user/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" back="{{false}}" animated="{{true}}" background="#ffffff" title="我">
-</mp-navigation-bar>
 <view class="mine_page">
   <view class="mine_block">
     <navigator url="../personal-info/index" class="personal_base_info" wx:if="{{isLogin && hasUserInfo}}">

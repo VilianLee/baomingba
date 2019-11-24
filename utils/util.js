@@ -5,37 +5,12 @@ const formatTime = (date, type) => {
   const hour = date.getHours()
   const minute = date.getMinutes()
   const second = date.getSeconds()
-  const week = date.getDay()
-  let weekStr = ""
-  switch (week) {
-    case 0:
-      weekStr = '一'
-      break
-    case 1:
-      weekStr += "一"
-      break
-    case 2:
-      weekStr += "二"
-      break
-    case 3:
-      weekStr += "三"
-      break
-    case 4:
-      weekStr += "四"
-      break
-    case 5:
-      weekStr += "五"
-      break
-    case 6:
-      weekStr += "六"
-      break
-  }
-  if (type === 'mm/dd') {
-    return [month, day].map(formatNumber).join('/')
-  } else if (type === 'detail') {
-    return `${month}月${day}日（${weekStr}）`
+  if (type === 'date') {
+    return [year, month, day].map(formatNumber).join('-')
+  } else if (type === 'time') {
+    return [hour, minute, second].map(formatNumber).join(':')
   } else {
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
   }
 }
 
@@ -44,7 +19,20 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+//字符串转日期格式，strDate要转为日期格式的字符串
+const getDate = (strDate) => {
+  console.log(strDate)
+  var st = strDate;
+  var a = st.split(" ");
+  var b = a[0].split("-");
+  var c = a[1].split(":");
+  b[1] = (parseInt(b[1]) - 1).toString()
+  var date = new Date(b[0], b[1], b[2], c[0], c[1], c[2]);
+  return date;
+}
+
 module.exports = {
   formatTime,
-  formatNumber
+  formatNumber,
+  getDate
 }

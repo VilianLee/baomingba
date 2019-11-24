@@ -1,45 +1,47 @@
 <!--pages/model/joinerInfo/index.wxml-->
-<view class="input_cell">
-  <view class="input_cell_row">
-    <view class="label">
-      <i-icon type="barrage_fill" size="20" color="#d5d5d5" style="margin-right:12rpx" /> 单文本
-    </view>
-  </view>
-  <view class="input_cell_row">
-    <view class="select_tag">
-      <view class="select_tag_item " wx:for="{{joinerNeedInfo.singleText}}" wx:key="{{name}}">
-        <view class="tag {{item.require ? 'require' : ''}}">{{item.name}} {{item.require ? "*" : ""}}</view>
+<view class="senior_setting">
+  <view class="input_cell">
+    <view class="input_cell_row">
+      <view class="label">
+        <i-icon type="barrage_fill" size="20" color="#d5d5d5" style="margin-right:12rpx" /> 单文本
       </view>
     </view>
-  </view>
-</view>
-<view class="input_cell">
-  <view class="more_info" wx:for="{{joinerNeedInfo.moreInfo}}" wx:key="{{item.type + item.name}}">
-    <view class="more_info_row">
-      <view class="delete">
-        <i-icon type="offline_fill" color="#f44f50" size="22" />
+    <view class="input_cell_row">
+      <view class="select_tag">
+        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="{{item.name}}" wx:if="{{item.type === 'text'}}">
+          <view class="tag {{item.require ? 'require' : ''}}">{{item.text}} {{item.require ? "*" : ""}}</view>
+        </view>
       </view>
-      <view class="icon">
-        <i-icon type="barrage_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'richText'}}" />
-        <i-icon type="flag_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'radio'}}" />
-        <i-icon type="task_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'checkbox'}}" />
-        <i-icon type="picture_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'picture'}}" />
-      </view>
-      <view class="text">
-        {{item.name}}
-      </view>
-      <text class="require" wx:if="{{item.require}}">*</text>
     </view>
   </view>
-</view>
+  <view class="input_cell">
+    <view class="more_info" wx:for="{{conditions}}" wx:key="{{item.name}}">
+      <view class="more_info_row" wx:if="{{item.type !== 'text'}}">
+        <view class="delete">
+          <i-icon type="offline_fill" color="#f44f50" size="22" />
+        </view>
+        <view class="icon">
+          <i-icon type="barrage_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'textarea'}}" />
+          <i-icon type="flag_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'radio'}}" />
+          <i-icon type="task_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'checkbox'}}" />
+          <i-icon type="picture_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'image'}}" />
+        </view>
+        <view class="text">
+          {{item.text}}
+        </view>
+        <text class="require" wx:if="{{item.require}}">*</text>
+      </view>
+    </view>
+  </view>
 
-<view class="addOption">
-  <button bindtap="willAddInfo" data-addtype="richText">+ 添加报名表项</button>
-</view>
+  <view class="addOption">
+    <button bindtap="willAddInfo">+ 添加报名表项</button>
+  </view>
 
+</view>
 <i-modal title="添加报名表项" visible="{{ modal_visible }}" bind:ok="addInfo" bind:cancel="cancelAdd" style="height:300rpx;">
   <view class="modal_tab">
-    <view class="modal_tab_btn {{item.value === add_type ? 'tab_focuse' : ''}}" wx:for="{{add_type_arr}}" wx:key="{{item.value}}" data-value="{{item.value}}" bindtap="selectTab">
+    <view class="modal_tab_btn {{item.value === add_option.type ? 'tab_focuse' : ''}}" wx:for="{{add_type_arr}}" wx:key="{{item.value}}" data-value="{{item.value}}" bindtap="selectTab">
       {{item.name}}
     </view>
   </view>
@@ -48,88 +50,103 @@
       <view class="modal_cell_row">
         设为必填项
         <view class="modal_cell_item">
-          <switch color="#fda402" checked="{{add_required}}" bindchange="addRequireChange" />
+          <switch color="#fda402" checked="{{add_option.require}}" bindchange="addRequireChange" />
         </view>
       </view>
     </view>
-    <view wx:if="{{add_type === 'singleText'}}">
+    <view class="modal_cell">
+      <view class="modal_cell_row">
+        <input placeholder="输入报名项key值（英文字母）" maxlength="10" value="{{add_option.name}}" data-key="name" bindinput="inputOnChange" />
+      </view>
+    </view>
+    <block wx:if="{{add_option.type === 'text'}}">
       <view class="modal_cell">
         <view class="modal_cell_row">
-          <input placeholder="输入单文本标题（限10字）" maxlength="10" value="{{singleText_des}}" />
+          <input placeholder="输入单文本标题（限10字）" maxlength="10" value="{{add_option.text}}" data-key="text" bindinput="inputOnChange" />
         </view>
       </view>
-    </view>
-    <view wx:if="{{add_type === 'richText'}}">
+    </block>
+    <block wx:elif="{{add_option.type === 'textarea'}}">
       <view class="modal_cell">
         <view class="modal_cell_row text_area_row">
-          <textarea placeholder="输入多文本标题（限250字）" maxlength="250" value="{{richText_des}}" />
+          <textarea placeholder="输入多文本标题（限250字）" maxlength="250" value="{{add_option.text}}" data-key="text" bindinput="inputOnChange" />
         </view>
       </view>
-    </view>
-    <view wx:if="{{add_type === 'radio'}}">
+    </block>
+    <block wx:elif="{{add_option.type === 'radio'}}">
       <view class="modal_cell">
         <view class="modal_cell_row">
           报名者可填写其他
           <view class="modal_cell_item">
-            <switch color="#fda402" checked="{{joiner_may_add}}" bindchange="joinerMayAddChange" />
+            <switch color="#fda402" checked="{{add_option.enableOther}}" data-key="enableOther" bindchange="inputOnChange"/>
           </view>
         </view>
       </view>
       <view class="modal_cell">
         <view class="modal_cell_row text_area_row">
-          <textarea placeholder="输入单选标题（限250字）" maxlength="250" value="{{radio_des}}" />
+          <textarea placeholder="输入单选标题（限250字）" maxlength="250" value="{{add_option.text}}" data-key="text" bindinput="inputOnChange"/>
         </view>
       </view>
       <view class="modal_cell">
-        <view class="modal_cell_row" wx:for="{{new_radios}}" wx:key="{{item + index}}">
-          <input class="option_input" placeholder="{{'选项'+ (index+1)}}" value="{{item}}" />
-          <view class="delete_option">
-            <i-icon type="offline_fill" color="{{new_radios > 2 ? '#f44f50' : '#999999'}}" size="22" />
+        <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="{{index}}">
+          <view class="options_item">
+            <input class="option_input" placeholder="选项key值" value="{{item.name}}" data-index="{{index}}" data-key="name" bindinput="inputOnChange" data-option="name" />
           </view>
-        </view>
-        <view class="modal_cell_row">
-          添加选项
-          <view class="add_option">
-            <i-icon type="add" color="#fda402" size="22" />
+          <view class="options_item">
+            <input class="option_input" placeholder="选项名称" value="{{item.value}}" data-index="{{index}}" data-key="value" bindinput="inputOnChange" data-option="value"/>
           </view>
-        </view>
-      </view>
-    </view>
-    <view wx:if="{{add_type === 'checkbox'}}">
-      <view class="modal_cell">
-        <view class="modal_cell_row">
-          报名者可填写其他
-          <view class="modal_cell_item">
-            <switch color="#fda402" checked="{{joiner_may_add}}" bindchange="joinerMayAddChange" />
-          </view>
-        </view>
-      </view>
-      <view class="modal_cell">
-        <view class="modal_cell_row text_area_row">
-          <textarea placeholder="输入多选标题（限250字）" maxlength="250" value="{{checkbox_des}}" />
-        </view>
-      </view>
-      <view class="modal_cell">
-        <view class="modal_cell_row" wx:for="{{new_checkbox}}" wx:key="{{item + index}}">
-          <input class="option_input" placeholder="{{'选项'+ (index+1)}}" value="{{item}}" />
-          <view class="delete_option">
+          <view class="delete_option" bindtap="deleteOption" data-key="{{index}}" wx:if="{{add_option.options.length > 1}}">
             <i-icon type="offline_fill" color="{{new_checkbox > 2 ? '#f44f50' : '#999999'}}" size="22" />
           </view>
         </view>
         <view class="modal_cell_row">
-          添加选项
-          <view class="add_option">
+          <view class="add_option_lable">添加选项</view>
+          <view class="add_option" bindtap="addOption">
             <i-icon type="add" color="#fda402" size="22" />
           </view>
         </view>
       </view>
-    </view>
-    <view wx:if="{{add_type === 'picture'}}">
+    </block>
+    <block wx:elif="{{add_option.type === 'checkbox'}}">
       <view class="modal_cell">
-        <view class="modal_cell_row text_area_row">
-          <textarea placeholder="对需上传的图片的描述（限250字，报名者最多可提交9张）" maxlength="250" value="{{picture_des}}" />
+        <view class="modal_cell_row">
+          报名者可填写其他
+          <view class="modal_cell_item">
+            <switch color="#fda402" checked="{{add_option.enableOther}}" data-key="enableOther" bindchange="inputOnChange"/>
+          </view>
         </view>
       </view>
-    </view>
+      <view class="modal_cell">
+        <view class="modal_cell_row text_area_row">
+          <textarea placeholder="输入多选标题（限250字）" maxlength="250" value="{{add_option.text}}" data-key="text" bindinput="inputOnChange"/>
+        </view>
+      </view>
+      <view class="modal_cell">
+        <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="{{index}}">
+          <view class="options_item">
+            <input class="option_input" placeholder="选项key值" value="{{item.name}}" data-index="{{index}}" data-key="text" bindinput="inputOnChange" data-option="name" />
+          </view>
+          <view class="options_item">
+            <input class="option_input" placeholder="选项名称" value="{{item.value}}" data-index="{{index}}" data-key="value" bindinput="inputOnChange" data-option="value"/>
+          </view>
+          <view class="delete_option" bindtap="deleteOption" data-key="{{index}}" wx:if="{{add_option.options.length > 1}}">
+            <i-icon type="offline_fill" color="{{new_checkbox > 2 ? '#f44f50' : '#999999'}}" size="22" />
+          </view>
+        </view>
+        <view class="modal_cell_row">
+          <view class="add_option_lable">添加选项</view>
+          <view class="add_option" bindtap="addOption">
+            <i-icon type="add" color="#fda402" size="22" />
+          </view>
+        </view>
+      </view>
+    </block>
+    <block wx:elif="{{add_option.type === 'picture'}}">
+      <view class="modal_cell">
+        <view class="modal_cell_row text_area_row">
+          <textarea placeholder="对需上传的图片的描述（限250字，报名者最多可提交9张）" maxlength="250" value="{{add_option.text}}" data-key="text" bindinput="inputOnChange"/>
+        </view>
+      </view>
+    </block>
   </view>
 </i-modal>

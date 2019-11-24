@@ -1,6 +1,4 @@
 <!--pages/about/feedback/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="意见反馈">
-</mp-navigation-bar>
 
 <view class="feedback_block">
   <textarea value="{{feedback}}" placeholder="您的意见与反馈我们会及时为您解答。建议您附上联系方式，方便我们适时回访。" bindinput="textOnChange"></textarea>

@@ -296,3 +296,8 @@ page {
   text-align: center;
   width: 255rpx;
 }
+
+.disable_btn {
+  background: #f0f0f2;
+  color: #888;
+}

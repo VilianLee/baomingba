@@ -1,6 +1,4 @@
 <!--pages/hot/hot.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" back="{{false}}" animated="{{true}}" background="#ffffff" title="我">
-</mp-navigation-bar>
 <view class="hot_page">
   <view class="location_row">
     <picker bindchange="bindPickerChange" data-key="location" value="{{location}}" range="{{locationArr}}">

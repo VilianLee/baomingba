@@ -10,7 +10,7 @@ page{
   z-index: 10;
 }
 .active_list {
-  margin-top: 84rpx;
+  padding-top: 84rpx;
   background: #fff;
   padding-left: 30rpx;
   box-sizing: border-box;

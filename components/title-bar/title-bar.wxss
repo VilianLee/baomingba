@@ -15,8 +15,7 @@
   font-size: 37rpx;
   color: #fff;
   line-height: 32px;
-  height: 32px;
-  float: left
+  height: 32px
 }
 
 .title_icon {
