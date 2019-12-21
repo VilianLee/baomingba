@@ -1,1 +1,90 @@
 /* pages/activities/sign-up/sign-up.wxss */
+
+.sign_up {
+  box-sizing: border-box;
+}
+
+.sign_up view, .sign_up navigator {
+  box-sizing: border-box;
+}
+
+.event_info {
+  padding: 20rpx 30rpx;
+  height: 180rpx;
+  margin-bottom: 0;
+}
+
+.event_pic {
+  float: left;
+  width: 120rpx;
+  border-radius: 8rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+  overflow: hidden;
+}
+
+.event_info_content {
+  float: left;
+  width: 540rpx;
+  height: 120rpx;
+}
+
+.event_info_content .event_title {
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+}
+
+.event_info_content .event_des {
+  font-size: 28rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #999;
+}
+
+.event_info_content .event_des .text {
+  float: right;
+  font-size: 28rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #999;
+}
+
+.danger_block {
+  font-size: 24rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+  color: #ff1b44;
+  padding: 0 30rpx;
+}
+
+.field_list {
+  padding: 0 30rpx;
+}
+
+.page_tips {
+  height: 30rpx;
+  font-size: 24rpx;
+  color: #888888;
+  line-height: 30rpx;
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.page_tips text {
+  color: #ff1b44;
+}
+
+.sign_up_btn {
+  width: 690rpx;
+  margin: auto;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 4rpx;
+  background: #ffa404;
+  color: #ffffff;
+  text-align: center;
+  font-size: 30rpx;
+}

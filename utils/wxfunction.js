@@ -6,10 +6,12 @@ let localHeader = {
 }
 
 const upLoadImg = (path, suc) => {
+  console.log('upLoadImg')
+  console.log(path)
   wx.uploadFile({
     url: baseUrl.imageUrl + '/xcx/uploadfile',
     filePath: path,
-    name: 'pic',
+    name: 'file',
     header: localHeader,
     success: (res) => {
       suc(res)

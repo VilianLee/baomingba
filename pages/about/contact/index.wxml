@@ -1,6 +1,4 @@
 <!--pages/about/contact/index.wxml-->
-<mp-navigation-bar loading="{{loading}}" show="{{true}}" animated="{{true}}" background="#ffffff" title="联系我们">
-</mp-navigation-bar>
 <view class="about_page">
   <view class="input_cell">
     <view class="input_cell_row">

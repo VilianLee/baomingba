@@ -1,1 +1,36 @@
 /* pages/user/personal-info/index.wxss */
+.edit_info {
+  box-sizing: border-box;
+}
+
+.edit_info view {
+  box-sizing: border-box;
+}
+
+.headphoto {
+  height: 160rpx;
+  padding: 30rpx;
+  line-height: 100rpx;
+  font-size: 26rpx;
+  color: #333333;
+}
+
+.headphoto .headphoto_pic {
+  height: 100rpx;
+  width: 100rpx;
+  float: right;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.submit_btn {
+  height: 90rpx;
+  width: 690rpx;
+  margin: 60rpx auto;
+  background: #ffa405;
+  text-align: center;
+  line-height: 90rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+  border-radius: 4rpx;
+}

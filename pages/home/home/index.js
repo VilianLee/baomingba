@@ -23,45 +23,78 @@ create(store, {
     activeType: 'enrolment',
     userInfo: store.data.userInfo,
     scrollViewHeight: 0,
+    pageSize: 10,
+    totalRows: 0,
     ActiveList: [],
+  },
+  seeDetail(e){
+    const id = e.currentTarget.dataset.id
+    if (this.data.activeType === 'publiced') {
+      wx.navigateTo({
+        url: '../../management/management/index?eventId=' + id,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../../activities/activity-details/index?id=' + id,
+      })
+    }
   },
   tabsChange(e) {
     const key = e.detail.key
     this.setData({
-      activeType: key
+      activeType: key,
+      ActiveList: [],
+      totalRows: 0
     })
     this.AjaxGetActiveList(key)
   },
   AjaxGetActiveList(key) {
     const _this = this
+    const list = this.data.ActiveList
+    const startNum = list.length > 0 ? list[list.length - 1].anchor : ''
     if (key === 'enrolment') {
-      getMyEnjoined({}, res => {
+      getMyEnjoined({
+        pageSize: this.data.pageSize,
+        startNum
+      }, res => {
         let list = res.events
         list.forEach(item => {
           item.updateTime = formatTime(new Date(item.updateTime))
         })
+        let newList = this.data.ActiveList.concat(list)
         _this.setData({
-          ActiveList: list
+          ActiveList: newList,
+          totalRows: res.eventCount ? res.eventCount : this.data.totalRows
         })
       })
     } else if (key === 'publiced') {
-      getMyPubliced({}, res => {
+      getMyPubliced({
+        pageSize: this.data.pageSize,
+        startNum
+      }, res => {
         let list = res.events
         list.forEach(item => {
           item.updateTime = formatTime(new Date(item.updateTime))
         })
+        let newList = this.data.ActiveList.concat(list)
         _this.setData({
-          ActiveList: list
+          ActiveList: newList,
+          totalRows: res.eventCount ? res.eventCount : this.data.totalRows
         })
       })
     } else if (key === 'collected') {
-      getMyCollected({}, res => {
+      getMyCollected({
+        pageSize: this.data.pageSize,
+        startNum
+      }, res => {
         let list = res.events
         list.forEach(item => {
           item.updateTime = formatTime(new Date(item.updateTime))
         })
+        let newList = this.data.ActiveList.concat(list)
         _this.setData({
-          ActiveList: list
+          ActiveList: newList,
+          totalRows: res.eventCount ? res.eventCount : this.data.totalRows
         })
       })
     }
@@ -124,14 +157,30 @@ create(store, {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.setData({
+      ActiveList: [],
+      totalRows: 0
+    })
+    this.AjaxGetActiveList(this.data.activeType)
+    wx.stopPullDownRefresh()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-
+  onReachBottom: function () {
+    if (this.data.ActiveList.length < this.data.totalRows) {
+      this.AjaxGetActiveList(this.data.activeType)
+    } else {
+      wx.showToast({
+        title: '已经没有更多了',
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+    }
   },
 
   /**

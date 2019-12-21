@@ -1,0 +1,81 @@
+/* pages/user/wallet/index.wxss */
+.wallet {
+  box-sizing: border-box;
+}
+.wallet view , .wallet navigator {
+  box-sizing: border-box;
+}
+.wallet_info_frame {
+  padding: 0 30rpx;
+}
+.wallet_info {
+  padding: 60rpx 0;
+  text-align: center;
+  border-bottom: solid 1rpx #e5e5e5;
+}
+.wallet_info .wallet_balance {
+  line-height: 60rpx;
+  font-size: 48rpx;
+  color: #fda402;
+}
+.wallet_info .icon {
+  position: relative;
+  display: inline-block;
+  height: 60rpx;
+  width: 60rpx;
+  top: 10rpx
+}
+
+.page_tips {
+  font-size: 26rpx;
+  color: #999999;
+  text-align: center;
+  margin: 30rpx auto 0;
+}
+
+.app_tips {
+  line-height: 80rpx;
+  height: 80rpx;
+  font-size: 24rpx;
+  color: #999999;
+  text-align: center;
+}
+
+.trader_details {
+  padding: 0 30rpx;
+}
+
+.block_title {
+  height: 90rpx;
+  line-height: 50rpx;
+  padding: 20rpx;
+  border-bottom: solid 1rpx #e5e5e5;
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.detail_item {
+  padding: 20rpx 0;
+  border-bottom: solid 1rpx #e5e5e5;
+}
+
+.detail_item_des{
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 40rpx;
+}
+
+.detail_item_des .detail_amount{
+  float: right;
+}
+
+.detail_item_des .income {
+  color: #fda402;
+}
+
+.serial_num, .detail_item_date{
+  height: 40rpx;
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 40rpx;
+}

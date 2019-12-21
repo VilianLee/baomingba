@@ -1,6 +1,5 @@
 {
-  "usingComponents": {
-
-  },
-  "navigationBarTitleText": "发布"
+  "navigationBarTitleText": "编辑活动",
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white"
 }

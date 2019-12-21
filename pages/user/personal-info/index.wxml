@@ -1,2 +1,64 @@
 <!--pages/user/personal-info/index.wxml-->
-<text>pages/user/personal-info/index.wxml</text>
+<view class="edit_info">
+  <view class="block">
+    <view class="headphoto">
+      头像
+      <view class="headphoto_pic" bindtap="exchangePhoto">
+        <image src="{{userInfo.headPhoto}}"></image>
+      </view>
+    </view>
+  </view>
+  <view class="block">
+    <view class="input_cell">
+      <view class="input_cell_row">
+        <view class="label">
+          姓名
+        </view>
+        <view class="form_item">
+          <input type="text" value="{{userInfo.name}}" data-key="name" bindinput="inputOnChange"></input>
+        </view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">
+          手机
+        </view>
+        <view class="form_item">
+          {{userInfo.telephone}}
+        </view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">
+          昵称
+        </view>
+        <view class="form_item">
+          <input type="text" value="{{userInfo.username}}" data-key="username" bindinput="inputOnChange"></input>
+        </view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">
+          邮箱
+        </view>
+        <view class="form_item">
+          <input type="text" value="{{userInfo.email}}" data-key="email" bindinput="inputOnChange"></input>
+        </view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">
+          公司
+        </view>
+        <view class="form_item">
+          <input type="text" value="{{userInfo.company}}" data-key="company" bindinput="inputOnChange"></input>
+        </view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">
+          职位
+        </view>
+        <view class="form_item">
+          <input type="text" value="{{userInfo.job}}" data-key="job" bindinput="inputOnChange"></input>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="submit_btn" bindtap="submit">保存</view>
+</view>

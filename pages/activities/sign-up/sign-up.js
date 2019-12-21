@@ -2,7 +2,8 @@ import store from '../../../store'
 import create from '../../../utils/create'
 
 import {
-  signUpActivity
+  getActivityDetails,
+  joinActivity
 } from '../../../API/servers'
 import {
   formatTime
@@ -16,44 +17,84 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-
+    eventId: '',
+    event: {}
   },
-
-  AjaxSignUpActivity() {
+  inputOnChange(e) {
+    const index = e.target.dataset.index
+    const value = e.detail.value
+    let event = this.data.event
+    event.conditions[index].value = value
+    this.setData({event})
+  },
+  AjaxSignUpActivity() { // 
     const _this = this
-    const params = {
-      eventId: this.id
+    for (let i in this.data.event.conditions) {
+      const item = this.data.event.conditions[i]
+      if (item.required === 1 && !item.value) {
+        wx.showToast({
+          title: `请填写${item.text}`,
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+        return false
+      }
     }
-    signUpActivity(params, res => {
-
+    const params = {
+      eventId: this.data.eventId,
+      conditions: this.data.event.conditions.map(item => {
+        return {
+          name: item.name,
+          value: item.value
+        }
+      })
+    }
+    joinActivity(params, res => {
+      if(res.e === 0) {
+        wx.showToast({
+          title: '报名成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.navigateBack()
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+  AjaxGetDetails() { //获取活动详情
+    const _this = this
+    getActivityDetails(this.data.eventId, res => {
+      let event = res.event
+      _this.setData({event})
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      eventId: options.eventId
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+    this.AjaxGetDetails()
   },
 
   /**

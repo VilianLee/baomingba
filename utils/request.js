@@ -2,8 +2,6 @@
 import store from '../store.js'
 import {baseUrl} from '../config'
 
-const { $Toast } = require('../dist/base/index');
-
 let localHeader = {
   'content-type': 'application/json',
   'cookie': wx.getStorageSync("_baomingbaCookie")
@@ -16,10 +14,11 @@ function networkpost({
   app,
   des
 }) {
-  store.data.loading = true
-  store.update()
-  console.log(baseUrl)
-  console.log(localHeader)
+  // console.log(baseUrl)
+  // console.log(localHeader)
+  wx.showLoading({
+    title: '加载中',
+  })
   let promise = new Promise(function(resolve, reject) {
     wx.request({
       url: baseUrl.baseUrl + url,
@@ -27,12 +26,12 @@ function networkpost({
       data: params,
       method: 'POST',
       success: function(res) {
+        wx.hideLoading()
         //自行处理返回结果
         console.log(des + '返回结果：')
+        console.log(baseUrl.baseUrl + url)
         console.log(params)
         console.log(res.data)
-        store.data.loading = false
-        store.update()
         resolve(res);
       }
     })
@@ -47,23 +46,57 @@ function networkget({
   app,
   des
 }) {
-  store.data.loading = true
-  store.update()
-  console.log(baseUrl)
   console.log(localHeader)
+  wx.showLoading({
+    title: '加载中',
+  })
   let promise = new Promise(function(resolve, reject) {
     wx.request({
       url: baseUrl.baseUrl + url,
       header: headers ? headers : localHeader,
       data: params,
       method: 'GET',
-      success: function(res) {
+      success: function (res) {
+        wx.hideLoading()
         //返回结果自行处理
-        store.data.loading = false
-        store.update()
+        wx.hideLoading()
         resolve(res);
+        console.log(baseUrl.baseUrl + url)
         console.log(des + '返回结果：')
         console.log(res.data)
+      }
+    })
+  });
+  return promise;
+}
+
+function networkUpload({
+  url,
+  headers,
+  params,
+  app,
+  des
+}) {
+  wx.showLoading({
+    title: '上传中',
+  })
+  let promise = new Promise(function (resolve, reject) {
+    wx.request({
+      url: baseUrl.uploadUrl + url,
+      header: {
+        'content-type': 'multipart/form-data; boundary=<frontier>',
+        'content-length': '<multipartContentLength>'
+      },
+      data: params,
+      method: 'POST',
+      success: function (res) {
+        wx.hideLoading()
+        //自行处理返回结果
+        console.log(des + '返回结果：')
+        console.log(baseUrl.baseUrl + url)
+        console.log(params)
+        console.log(res.data)
+        resolve(res);
       }
     })
   });

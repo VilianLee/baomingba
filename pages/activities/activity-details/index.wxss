@@ -230,7 +230,7 @@ page {
 .detail_control {
   position: fixed;
   bottom: 0;
-  z-index: 10;
+  z-index: 9;
   left: 0;
   right: 0;
   background: #fafafa;
@@ -300,4 +300,103 @@ page {
 .disable_btn {
   background: #f0f0f2;
   color: #888;
+}
+
+.cover_bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.cover_block {
+  width: 560rpx;
+  background: #ffc349;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -280rpx;
+  transform: translateY(-50%);
+  border-radius: 20rpx;
+  overflow: hidden;
+  padding-bottom: 30rpx;
+}
+
+.cover_block_title {
+  height: 100rpx;
+  padding: 20rpx 30rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  color: #333;
+  text-align: center;
+}
+
+.cover_close {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  padding: 10rpx;
+}
+
+.cover_block_content::before {
+  content: "";
+  height: 1rpx;
+  background: #f29837;
+  box-shadow: 0 2rpx 4rpx #ffad3b;
+  border-radius: 2rpx;
+  display: block;
+  position: absolute;
+  top: -1rpx;
+  right: -10rpx;
+  left: -10rpx;
+}
+
+.cover_block_content {
+  margin: 0 30rpx;
+  position: relative;
+  padding: 30rpx;
+  background: #ffdfa4;
+  margin-bottom: 30rpx;
+}
+
+.cover_block_text {
+  font-size: 24rpx;
+  color: #461b00;
+  line-height: 32rpx;
+  margin-bottom: 10rpx;
+  text-align: center
+}
+
+.cover_block_content .cover_block_text text {
+  font-weight: bold;
+}
+
+.cover_block_content .join_code_img {
+  width: 320rpx;
+  margin: auto;
+  border: solid 1rpx #461b00;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.cover_block_content .join_code_img image {
+  display: block;
+}
+
+.cover_btn {
+  margin: 20rpx 30rpx 0;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 30rpx;
+  color: #333333;
+  text-align: center;
+  border-radius: 4rpx;
+  background: #ffffff;
 }

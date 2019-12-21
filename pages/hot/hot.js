@@ -1,7 +1,9 @@
 // pages/hot/hot.js
 import store from '../../store'
 import create from '../../utils/create'
-import { formatTime } from '../../utils/util'
+import {
+  formatTime
+} from '../../utils/util'
 import {
   checkHotActiveList
 } from '../../API/servers'
@@ -17,85 +19,108 @@ create(store, {
     loading: false,
     location: 0,
     locationArr: ["全国", "杭州", "北京", "上海", "广州", "深圳"],
+    postCodeArr: ["", "33010000", "11000000", "31000000", "44010000", "44030000"],
+    totalRows: 0,
+    pageSize: 10,
     hotList: []
   },
-  bindPickerChange(e){
-    console.log(e)
-    const key = e.currentTarget.dataset.key
+  bindPickerChange(e) {
     const value = e.detail.value
     this.setData({
-      [key]: value
+      location: value,
+      hotList: [],
+      totalRows: 0
     })
+    this.AjaxCheckHotActiveList()
   },
-  AjaxCheckHotActiveList(){
+  AjaxCheckHotActiveList() {
     const _this = this
-    checkHotActiveList({}, res => {
+    const hotList = this.data.hotList
+    checkHotActiveList({
+      pageSize: this.data.pageSize,
+      startNum: this.data.hotList.length,
+      postCode: this.data.postCodeArr[this.data.location]
+    }, res => {
       let list = res.events
       list.forEach(item => {
         item.dayStr = formatTime(new Date(item.beginTime), "mm/dd")
-        item.addressShort = item.longAddress.substring(0,2)
+        item.addressShort = item.longAddress.substring(0, 2)
       })
       _this.setData({
-        hotList: list
+        hotList: hotList.concat(list),
+        totalRows: res.eventCount ? res.eventCount : this.data.totalRows
       })
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.AjaxCheckHotActiveList()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     this.setData({
-      hotList: []
+      hotList: [],
+      totalRows: 0
     })
     this.AjaxCheckHotActiveList()
+    wx.stopPullDownRefresh()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
+  onReachBottom: function() {
+    if (this.data.totalRows > this.data.hotList.length) {
+      this.AjaxCheckHotActiveList()
+    } else {
+      wx.showToast({
+        title: '已经没有更多了',
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+    }
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

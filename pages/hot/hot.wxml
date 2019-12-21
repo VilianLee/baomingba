@@ -1,7 +1,7 @@
 <!--pages/hot/hot.wxml-->
 <view class="hot_page">
   <view class="location_row">
-    <picker bindchange="bindPickerChange" data-key="location" value="{{location}}" range="{{locationArr}}">
+    <picker bindchange="bindPickerChange" value="{{location}}" range="{{locationArr}}">
       <view class="location_picker">
         {{locationArr[location]}}
       </view>

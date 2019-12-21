@@ -1,50 +1,151 @@
-/* pages/public/public/index.wxss */
-.public_function {
+/* pages/model/custom/index.wxss */
+page{
+  padding-bottom: 180rpx;
+}
+page view, page label {
+  box-sizing: border-box;
+}
+.theme_pic{
+  position: relative;
+  z-index: 1;
+  background:#999999;
+}
+.theme_pic_frame {
+  position: relative;
+  z-index: 2;
+}
+.theme_pic_frame swiper {
+  height: 480rpx;
+}
+.swiper-item{
+  height: 100%;
+  background-size: cover;
+}
+.theme_control{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fbfbfb;
+  padding: 10rpx 8rpx;
+  box-shadow: 0 0 20rpx 0 rgba(0,0,0,.15)
+}
+.theme_control .defult_btn {
+  margin: 10rpx 8rpx;
+  border-radius: 8rpx;
+  padding: 0;
+  height: 60rpx;
+  line-height: 58rpx;
+  font-size: 28rpx;
+  color: #333333;
+  display: block;
+  background: #fff;
+  border: solid 1rpx #e5e5e5
+}
+.theme_control .public_btn {
+  background: #fda402;
+  color: #ffffff;
+  border: none;
+}
+.theme_content{
   background: #ffffff;
+  padding-left: 40rpx;
   margin-bottom: 40rpx;
 }
-.public_function .funciont_item {
-  text-align:  center;
-  padding: 20rpx 0 40rpx
+.content_input{
+  border-bottom: solid 1rpx #e5e5e5;
+  position: relative;
+  padding: 20rpx 70rpx;
+  padding-right: 0;
 }
-.funciont_item_img {
-  padding: 0 40rpx;
-}
-.funciont_item_img image{
-  width: 100rpx;
-  height: 100rpx;
-}
-.funciont_item text {
-  font-size: 28rpx;
-  color: #333;
-}
- .public_model{
-   background: #ffffff;
-   margin-bottom: 20rpx
- }
-.model_item {
-  padding: 40rpx 0;
-  text-align: center;
-  border-right: solid 1px #f2f2f2;
-  border-bottom: solid 1px #f2f2f2;
-}
-.model_item_img{
-   text-align: center;
-}
-.model_item_img image{
-  width: 80rpx;
-  height: 80rpx;
-}
-.model_item text {
-  font-size: 24rpx;
-  color: #333;
-}
-.public_model_row .public_model_col:nth-child(-n+8):nth-child(n+5) .model_item {
+.theme_content .content_input:last-child {
   border-bottom: none;
 }
-.my_model_title{
-  font-size: 20rpx;
-  color: #999999;
-  margin-bottom: 20rpx;
-  padding-left: 40rpx;
+.content_input .input_icon {
+  position: absolute;
+  left: 0;
+  color: #d5d5d5;
+  top: 12rpx;
+  font-size: 40rpx;
 }
+.content_input input{
+  font-size: 32rpx;
+  height: 24px;
+  line-height: 24px;
+  color: #333333;
+}
+.time_picker_content{
+  font-size: 32rpx;
+  height: 24px;
+  line-height: 24px;
+  color: #333333;
+}
+.time_picker_placeholder{
+  color: #999999;
+  font-size: 32rpx;
+  height: 24px;
+  line-height: 24px;
+}
+.time_picker_content .clear_selct {
+  float: right;
+  border-radius: 9px;
+  height: 18px;
+  width: 18px;
+  color: #d5d5d5;
+  text-align: center;
+  margin: 3px 40rpx;
+}
+.content_input .content_cell{
+  height: 24px;
+  line-height: 24px;
+  text-align: right;
+  padding-right: 40rpx;
+  color: #999999;
+  font-size: 32rpx;
+}
+.content_input .content_cell .content_cell_title{
+  color: #333333;
+  float: left;
+  height: 24px;
+}
+.theme_rich_text{
+  padding: 20rpx 40rpx;
+  font-size: 30rpx;
+  color: #999999;
+  margin-left: -40rpx
+}
+.theme_rich_text textarea {
+  width: 100%;
+}
+.agreement_text{
+  padding: 0 40rpx;
+  font-size: 26rpx;
+  color: #333333;
+  line-height: 30rpx;
+}
+.agreement_text icon{
+  margin-right: 14rpx;
+}
+.financial_group{
+  padding-left: 50rpx;
+}
+.add_pic{
+  position: absolute;
+  right: 44rpx;
+  bottom: 44rpx;
+  width: 100rpx;
+  height: 100rpx;
+  padding: 20rpx 0;
+  border-radius: 12rpx;
+  background: #2c2008;
+  text-align: center;
+  line-height: 100rpx;
+  z-index: 5;
+  box-sizing: border-box;
+}
+.add_pic image{
+  width: 60rpx;
+  height: 60rpx;
+}
+
+

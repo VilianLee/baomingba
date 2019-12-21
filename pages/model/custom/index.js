@@ -3,7 +3,8 @@ var dateTimePicker = require('../../../utils/dateTimePicker.js');
 import store from '../../../store'
 import create from '../../../utils/create'
 import {
-  publicActivity
+  publicActivity,
+  getEventInfo
 } from '../../../API/servers'
 import {
   upLoadImg
@@ -82,20 +83,47 @@ create(store, {
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    const nowDate = new Date()
-    let activity = this.data.activity
-    activity.beginTime = nowDate.getTime()
-    activity.beginTimeStr = formatTime(nowDate)
-    this.setData({
-      activity
-    })
+  onLoad: function(options) {
+    if (options.type === 'edit') {
+      this.setData({
+        pageType: options.type,
+        eventId: options.eventId
+      })
+    } else {
+      const nowDate = new Date()
+      let activity = this.data.activity
+      activity.beginTime = nowDate.getTime()
+      activity.beginTimeStr = formatTime(nowDate)
+      this.setData({
+        activity
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function() {},
+  AjaxGetEventInfo(){
+    const _this = this
+    getEventInfo({
+      eventId: this.data.eventId
+    }, res => {
+      if(res.e === 0) {
+        _this.setData({
+          activity: res.event
+        })
+      } else {
+        wx.showToast({
+          title: '获取活动信息失败',
+          icon: 'none'
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.navigateBack()
+        }, 2000)
+      }
+    })
   },
   dataOnChange(key, value) { //其他页面引用导致的活动数据变化
     let activity = this.data.activity
@@ -163,6 +191,17 @@ create(store, {
     const params = this.data.activity
     publicActivity(params, res => {
       console.log(res)
+      wx.showToast({
+        title: '发布成功！',
+        icon: 'success',
+        mask: true
+      })
+      setTimeout(() => {
+        wx.hideToast()
+        wx.redirectTo({
+          url: '../../activities/activity-details/index?id=' + res.eventId,
+        })
+      }, 2000)
     })
   },
   addPic() {
@@ -176,12 +215,13 @@ create(store, {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         let tempFiles = res.tempFiles;
         tempFiles.map(item => { //格式化接口返回的文件对象
-          item.name = item.path
-          item.id = item.path
+          item.name = 'web/' + (new Date()).getTime()
+          item.id = ""
           item.base64 = wx.getFileSystemManager().readFileSync(item.path, "base64")
           upLoadImg(item.path, res => {
             //item.base64
-            console.log(res)
+            console.log(JSON.parse(res.data).base64String)
+            item.base64 = JSON.parse(res.data).base64String
           })
         })
         let activity = _this.data.activity

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/hot/hot",
     "pages/home/home/index",
     "pages/management/management/index",
     "pages/public/public/index",
@@ -9,14 +10,16 @@
     "pages/model/seniorSetting/index",
     "pages/model/joinerInfo/index",
     "pages/activities/activity-details/index",
-    "pages/hot/hot",
     "pages/user/personal-info/index",
     "pages/about/about-us/index",
     "pages/about/contact/index",
     "pages/about/feedback/index",
     "pages/activities/sign-up/sign-up",
     "pages/model/change-time/index",
-    "pages/model/address-edit/index"
+    "pages/model/address-edit/index",
+    "pages/user/wallet/index",
+    "pages/web-view/index",
+    "pages/management/signup-list/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

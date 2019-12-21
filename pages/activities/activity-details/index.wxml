@@ -2,7 +2,7 @@
 <view class="detail_page">
   <view class="banner">
     <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
-      <swiper-item wx:for="{{info.introPhotos}}" wx:key="id">
+      <swiper-item wx:for="{{info.photos}}" wx:key="id">
         <image mode="aspectFill" src="{{item.data}}"></image>
       </swiper-item>
     </swiper>
@@ -35,16 +35,16 @@
         {{info.beginTimeStr}} - {{info.endTimeStr}}
       </view>
     </view>
-    <view class="input_cell_row">
-      <view class="label is_link">
+    <view class="input_cell_row is_link">
+      <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/activities/icon_location.png"></image>
         </view>
         {{info.address.longAddress}}
       </view>
     </view>
-    <view class="input_cell_row">
-      <view class="label is_link">
+    <view class="input_cell_row is_link">
+      <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/activities/icon_tel.png"></image>
         </view>
@@ -144,6 +144,24 @@
     <view style="height: 90rpx;"></view>
   </view>
 
+  <view class="cover_bg" wx:if="{{showJoinCode}}">
+    <view class="cover_block">
+      <view class="cover_close" bindtap="showJoinCodeOnHide">
+        <image src="../../../images/activities/icon_close.png"></image>
+      </view>
+      <view class="cover_block_title">报名凭证</view>
+      <view class="cover_block_content">
+        <view class="cover_block_text">{{joinCode.activityTitle}}</view>
+        <view class="cover_block_text">凭证号：<text>{{joinCode.voucherSerial}}</text></view>
+        <view class="join_code_img">
+          <image src="{{joinCode.qrcodeURL}}" mode="widthFix"></image>
+        </view>
+      </view>
+      <view class="cover_block_text">长按保存二维码</view>
+      <view class="cover_btn">下载APP查看凭证</view>
+    </view>
+  </view>
+
   <view class="detail_control">
     <navigator open-type="switchTab" url="../../home/home/index" class="base_btn">
       <view class="icon">
@@ -164,8 +182,8 @@
     <block wx:if="{{pageLogic.isPayPending || pageLogic.showVoucher}}">
       <!-- 显示两个按钮 -->
       <!-- 第二个按钮 -->
-      <view class="join_btn" wx:if="{{pageLogic.showVoucher}}">报名凭证</view>
-      <view class="join_btn" wx:elif="{{pageLogic.isPayPending}}">立即支付</view>
+      <view class="join_btn" wx:if="{{pageLogic.showVoucher}}" bindtap="AjaxGetJoinCode">报名凭证</view>
+      <view class="join_btn" wx:elif="{{pageLogic.isPayPending}}" bindtap="AjaxGetPreOrder">立即支付</view>
       <!-- 第一个按钮 -->
       <block wx:if="{{pageLogic.isArticle}}">
         <view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
@@ -189,14 +207,9 @@
               </view>
             </block>
             <block wx:elif="{{info.userStatus.signupStatus != 7}}">
-              <view class="cancel_btn">
+              <navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
                 {{info.signUpTitle}}
-              </view>
-            </block>
-            <block wx:elif="{{info.userStatus.signupStatus != 7}}">
-              <view class="cancel_btn">
-                {{info.signUpTitle}}
-              </view>
+              </navigator>
             </block>
           </block>
           <block wx:elif="{{info.eventStatus.signUpCancellable}}">
@@ -243,14 +256,9 @@
               </view>
             </block>
             <block wx:elif="{{info.userStatus.signupStatus != 7}}">
-              <view class="cancel_btn">
+              <navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
                 {{info.signUpTitle}}
-              </view>
-            </block>
-            <block wx:elif="{{info.userStatus.signupStatus != 7}}">
-              <view class="cancel_btn">
-                {{info.signUpTitle}}
-              </view>
+              </navigator>
             </block>
           </block>
           <block wx:elif="{{info.eventStatus.signUpCancellable}}">

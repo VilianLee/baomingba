@@ -5,7 +5,7 @@
   <i-tab key="collected" i-class="tab_item" title="我收藏的"></i-tab>
 </i-tabs>
 <view class="active_list">
-  <navigator url="../../activities/activity-details/index?id={{item.id}}" class="active_card" wx:for="{{ActiveList}}" wx:key="id">
+  <view data-id="{{item.id}}" bindtap="seeDetail" class="active_card" wx:for="{{ActiveList}}" wx:key="id">
     <view class="active_logo">
       <image src="{{item.cover}}"></image>
     </view>
@@ -28,5 +28,5 @@
         </view>
       </view>
     </view>
-  </navigator>
+  </view>
 </view>

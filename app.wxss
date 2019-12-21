@@ -18,6 +18,7 @@ page {
 image {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 page .i-icon {
@@ -59,7 +60,14 @@ page .i-icon {
   height: 40rpx;
   color: #333;
   min-width: 180rpx;
-  white-space: nowrap
+  white-space: nowrap;
+  position: relative;
+}
+
+.input_cell .input_cell_row .label .require {
+  color: #ff6633;
+  position: absolute;
+  left: -15rpx;
 }
 
 .input_cell_icon {
@@ -84,17 +92,20 @@ button::after {
   height: 40rpx;
   line-height: 40rpx;
   font-size: 28rpx;
-  color: #333333;
+  color: #666666;
   padding-right: 30rpx;
   box-sizing: border-box;
 }
 .input_cell_row .form_item text {
   color: #999999;
 }
-.input_cell .input_cell_row .is_link{
+.input_cell .is_link{
   width: auto;
 }
-.input_cell_row .is_link::after {
+.input_cell .is_link .form_item {
+  padding-right: 60rpx;
+}
+.input_cell .is_link::after {
   content: " ";
   display: inline-block;
   width: 12rpx;
@@ -133,6 +144,14 @@ button::after {
 .block {
   background: #fff;
   margin-bottom: 20rpx;
+}
+
+.list_null {
+  padding: 60rpx 0;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #999999;
 }
 
 .loading{

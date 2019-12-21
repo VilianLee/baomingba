@@ -4,7 +4,9 @@ import create from '../../../utils/create'
 
 import {
   getActivityDetails,
-  signUpActivity
+  signUpActivity,
+  getJoinCode,
+  getPreOrderInfo
 } from '../../../API/servers'
 import {
   formatTime
@@ -24,6 +26,32 @@ create(store, {
     info: {},
     pageLogic: {},
     btnDisable: false,
+    showJoinCode: false,
+    joinCode: {}
+  },
+  showJoinCodeOnHide(){
+    this.setData({
+      showJoinCode: false
+    })
+  },
+  AjaxGetPreOrder(){
+    const params = {
+      eventId: this.data.id
+    }
+    getPreOrderInfo(params, res => {
+      
+    })
+  },
+  AjaxGetJoinCode(){  // 获取报名凭证
+    const _this = this
+    getJoinCode({
+      eventId: this.data.id
+    }, res => {
+      _this.setData({
+        joinCode: res.evouchers[0],
+        showJoinCode: true
+      })
+    })
   },
   AjaxGetDetails(){ //获取活动详情
     const _this = this

@@ -41,6 +41,8 @@
   float: left;
   width: 136rpx;
   height: 136rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
 }
 
 .personal_base_info_content {
@@ -56,6 +58,54 @@
   font-size: 40rpx;
   font-weight: bold;
   color: #333;
+}
+
+.personal_base_info_content .authentication {
+  display: inline-block;
+  height: 40rpx;
+  padding: 0 15rpx;
+  line-height: 40rpx;
+  color: #ffffff;
+  font-size: 20rpx;
+  background: #ffa409;
+  border-radius: 20rpx;
+  position: relative;
+  bottom: 8rpx;
+}
+
+.personal_base_info_content .authentication .icon {
+  height: 38rpx;
+  width: 38rpx;
+  margin-right: 5rpx;
+  float: left
+}
+
+.personal_base_info_content .authentication_disable {
+  display: inline-block;
+  height: 40rpx;
+  padding: 0 15rpx;
+  line-height: 40rpx;
+  color: #f84810;
+  border: solid 1rpx #f84810;
+  border-radius: 20rpx;
+  font-size: 20rpx;
+  position: relative;
+  bottom: 8rpx;
+}
+
+.personal_base_info_content .authentication_disable .icon {
+  height: 34rpx;
+  width: 34rpx;
+  float: left;
+  border-radius: 17rpx;
+  line-height: 34rpx;
+  background: #f84810;
+  text-align: center;
+  font-size: 20rpx;
+  color: #ffffff;
+  margin-right: 5rpx;
+  position: relative;
+  top: 4rpx;
 }
 
 .personal_base_info_content .phoneNum {

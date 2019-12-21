@@ -1,2 +1,60 @@
 <!--pages/activities/sign-up/sign-up.wxml-->
-<text>pages/activities/sign-up/sign-up.wxml</text>
+<view class="sign_up">
+  <view class="block event_info">
+    <view class="event_pic">
+      <image src="{{event.cover}}"></image>
+    </view>
+    <view class="event_info_content">
+      <view class="event_title">{{event.title}}</view>
+      <view class="event_des">
+        <block wx:if="{{event.signUpLimit}}">
+          {{event.signUps.length}}/{{event.signUpLimit}}
+        </block>
+        <block wx:else>
+          人数不限
+        </block>
+        <view class="text">
+          <block wx:if="{{info.eventStatus.needPay}}">
+            <text>￥{{info.charge}}</text>
+          </block>
+          <block wx:else>
+            <text>免费活动</text>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="danger_block">
+    <block wx:if="{{event.authActivityOrganizers[0].authStatus !== 2}}">
+      温馨提示:该主办方未认证，请注意风险防范哦!
+    </block>
+  </view>
+  <view class="block field_list">
+    <view class="input_cell" style="margin-top: 0;">
+      <block wx:for="{{event.conditions}}" wx:key="{{item.name}}">
+        <view class="input_cell_row" wx:if="{{item.type === 'text'}}">
+          <view class="label">
+            <view class="require" wx:if="{{item.required === 1}}">*</view>
+            {{item.text}}
+          </view>
+          <view class="form_item">
+            <input value="{{item.value}}" type="text" data-index="{{index}}" placeholder="请输入" bindinput="inputOnChange"></input>
+          </view>
+        </view>
+        <view class="input_cell_row" wx:if="{{item.type === 'tel'}}">
+          <view class="label">
+            <view class="require" wx:if="{{item.required === 1}}">*</view>
+            {{item.text}}
+          </view>
+          <view class="form_item">
+            <input value="{{item.value}}" type="number" data-index="{{index}}" placeholder="请输入" bindinput="inputOnChange"></input>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="page_tips">带"<text>*</text>"为必填项目</view>
+
+  <view class="sign_up_btn" bindtap="AjaxSignUpActivity">提交</view>
+</view>
