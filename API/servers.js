@@ -290,18 +290,7 @@ function getPreOrderInfo(params, success) { //支付生成预订单接口
 const getQiniuCloudToken = (params, success) => { // 获取七牛云token
   const des = '获取七牛云token'
   networkget({
-    url: `/qiniu/photo_token `,
-    des
-  }).then(function (res) {
-    return success(res.data)
-  })
-}
-
-function uploadPic(params, success) { //图片上传到七牛云
-  const des = '图片上传到七牛云'
-  networkUpload({
-    url: ``,
-    params,
+    url: `/qiniu/photo_token`,
     des
   }).then(function (res) {
     return success(res.data)

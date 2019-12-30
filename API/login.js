@@ -10,6 +10,7 @@ module.exports.Login = ({url,headers,des}) => {
         console.log(des + '返回结果：')
         console.log(baseUrl + url)
         console.log(res.header["Set-Cookie"])
+        wx.setStorageSync("_baomingbaCookie", res.header["Set-Cookie"])
         console.log(res.data)
         if (res.statusCode == 200) {
           resolve(res);

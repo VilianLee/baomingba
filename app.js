@@ -1,12 +1,7 @@
 //app.js
-import { getQiniuCloudToken } from 'API/servers.js'
 import store from './store'
 App({
   onLaunch: function () {
-    getQiniuCloudToken({}, res => {
-      store.data.uptoken = res.uptoken
-      store.update()
-    })
   },
   globalData: {
     userInfo: null,

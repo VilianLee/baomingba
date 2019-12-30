@@ -38,15 +38,22 @@ create(store, {
       }
       console.log(params)
       bindPhoneNo(params, res => {
-        this.setData({
-          isLogin: true,
-          getPhoneNumVisible: false
-        })
-        this.AjaxGetUser()
+        if(res.e === 0) {
+          this.setData({
+            isLogin: true,
+            getPhoneNumVisible: false
+          })
+          this.AjaxGetUser()
+        }
       })
     } else {
       this.alertHidden()
     }
+  },
+  alertHidden(){
+    this.setData({
+      getPhoneNumVisible: false
+    })
   },
   getUserInfo(info) { //获取用户信息
     if (info.detail.userInfo) {
@@ -72,31 +79,36 @@ create(store, {
       })
     }
   },
-  AjaxSilentLogin(code){
+  AjaxSilentLogin(code) {
     login({
       code: code
     }, res => {
       console.log(res)
-
-      this.AjaxAuthorUser()
-      // if (res.e === 0) {
-      //   wx.setStorageSync("_baomingbaCookie", res.header["Set-Cookie"])
-      //   store.data.isLogin = true
-      //   store.update()
-      //   this.AjaxGetUser()
-      // } else {
-      //   this.AjaxAuthorUser()
-      // }
+      if (res.e === 0) {
+        store.data.isLogin = true
+        store.update()
+        this.AjaxGetUser()
+      } else {
+        this.AjaxAuthorUser()
+      }
     })
   },
   AjaxGetUser() {
     const _this = this
-    store.data.hasUserInfo = true
-    store.update()
     getUserInfo({}, res => {
-      _this.setData({
-        htmlStr: res
-      })
+      if (res.e === 0) {
+        console.log(res)
+        store.data.hasUserInfo = true
+        store.update()
+        _this.setData({
+          userInfo: res.user
+        })
+        if (!res.user.telephone) {
+          this.setData({
+            getPhoneNumVisible: true
+          })
+        }
+      }
     })
   },
   AjaxAuthorUser() {
@@ -150,11 +162,7 @@ create(store, {
    */
   onShow: function() {
     const _this = this
-    getUserInfo({}, res => {
-      _this.setData({
-        userInfo: res.user
-      })
-    })
+    this.AjaxGetUser()
   },
 
   /**

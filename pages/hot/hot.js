@@ -5,7 +5,7 @@ import {
   formatTime
 } from '../../utils/util'
 import {
-  checkHotActiveList
+  checkHotActiveList, login
 } from '../../API/servers'
 
 
@@ -52,11 +52,27 @@ create(store, {
       })
     })
   },
+  AjaxSilentLogin() {
+    wx.login({
+      success: resp => {
+        store.data.wxCode = resp.code
+        store.update()
+        login({
+          code: resp.code
+        }, res => {
+          if (res.e === 0) {
+            store.data.isLogin = true
+            store.update()
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-
+  onLoad: function (options) {
+    this.AjaxSilentLogin()
   },
 
   /**
