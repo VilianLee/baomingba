@@ -55,3 +55,15 @@ page {
   width: 37rpx!important;
   height: 37rpx!important;
 }
+
+.submit_btn {
+  width: 690rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  background: #fda402;
+  text-align: center;
+  line-height: 80rpx;
+  color: #ffffff;
+  font-size: 28rpx;
+  margin: 80rpx auto;
+}

@@ -18,6 +18,7 @@ function networkpost({
   // console.log(localHeader)
   wx.showLoading({
     title: '加载中',
+    mask: true
   })
   let promise = new Promise(function(resolve, reject) {
     wx.request({

@@ -6,7 +6,7 @@
     </view>
     <view class="input_cell_row">
       <view class="select_tag">
-        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="{{index}}" data-index="{{index}}" bindtap="tagOnChange">
+        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="index" data-index="{{index}}" bindtap="tagOnChange">
           <view class="tag {{item.require ? 'require' : ''}}">{{item.text}} {{item.require ? "*" : ""}}</view>
         </view>
         <view class="select_tag_item">
@@ -77,4 +77,5 @@
       </view>
     </view>
   </view> -->
+  <!-- <view class="submit_btn" bindtap="submitSeniorSetting">确定</view> -->
 </view>
