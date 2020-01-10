@@ -88,7 +88,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (options.type === 'edit') {
       this.setData({
         pageType: options.type,
@@ -108,7 +108,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function () { },
   AjaxGetEventInfo() {
     const _this = this
     getEventInfo({
@@ -196,17 +196,25 @@ create(store, {
     const params = this.data.activity
     publicActivity(params, res => {
       console.log(res)
-      wx.showToast({
-        title: '发布成功！',
-        icon: 'success',
-        mask: true
-      })
-      setTimeout(() => {
-        wx.hideToast()
-        wx.redirectTo({
-          url: '../../activities/activity-details/index?id=' + res.eventId,
+      if (res.e === 0) {
+        wx.showToast({
+          title: '发布成功！',
+          icon: 'success',
+          mask: true
         })
-      }, 2000)
+        setTimeout(() => {
+          wx.hideToast()
+          wx.redirectTo({
+            url: '../../activities/activity-details/index?id=' + res.eventId,
+          })
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'error',
+          mask: true
+        })
+      }
     })
   },
   addPic() {
@@ -215,7 +223,7 @@ create(store, {
       count: 9 - _this.data.activity.photos.length, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: function (res) {
         console.log(res)
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         let tempFiles = res.tempFiles;
@@ -243,13 +251,15 @@ create(store, {
     tempFiles.forEach(item => { //格式化接口返回的文件对象
       console.log(item.path)
       qiniuUploader.upload(item.path, (img) => {
+        console.log(img)
         item.name = 'web/' + (new Date()).getTime()
-        item.id = 'web/' + (new Date()).getTime()
-        item.base64 = wx.getFileSystemManager().readFileSync(item.path, "base64")
+        item.id = ""
+        item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
         item.path = baseUrl.imageUrl + img.imageURL
         this.setData({
           activity
         })
+        console.log(activity.photos)
       }, (error) => {
         console.log('error: ' + error);
       }, {
@@ -258,24 +268,24 @@ create(store, {
         //domain: 'http://upload.bmbee.cn/', // // bucket 域名，下载资源时用到。如果设置，会在 success callback 的 res 参数加上可以直接使用的 ImageURL 字段。否则需要自己拼接
         // 以下方法三选一即可，优先级为：uptoken > uptokenURL > uptokenFunc
         uptoken: store.data.uptoken
-        }, (res) => {
-          console.log('上传进度', res.progress)
-            console.log('已经上传的数据长度', res.totalBytesSent)
-            console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-        }, () => {
-          // 取消上传
-        }, () => {
-          // `before` 上传前执行的操作
-        }, (err) => {
-          // `complete` 上传接受后执行的操作(无论成功还是失败都执行)
-        })
+      }, (res) => {
+        console.log('上传进度', res.progress)
+        console.log('已经上传的数据长度', res.totalBytesSent)
+        console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+      }, () => {
+        // 取消上传
+      }, () => {
+        // `before` 上传前执行的操作
+      }, (err) => {
+        // `complete` 上传接受后执行的操作(无论成功还是失败都执行)
+      })
     })
     console.log(this.data.activity)
   },
   /**
    * 监听滚动
    */
-  onPageScroll: function(ev) {
+  onPageScroll: function (ev) {
     const _this = this
     const base_height = wx.getSystemInfoSync().windowWidth * 0.5
     this.setData({
@@ -296,7 +306,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
@@ -304,35 +314,35 @@ create(store, {
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

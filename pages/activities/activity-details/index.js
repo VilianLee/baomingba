@@ -11,6 +11,9 @@ import {
 import {
   formatTime
 } from '../../../utils/util.js'
+import {
+  baseUrl
+} from '../../../config'
 
 const app = getApp()
 
@@ -27,7 +30,8 @@ create(store, {
     pageLogic: {},
     btnDisable: false,
     showJoinCode: false,
-    joinCode: {}
+    joinCode: {},
+    baseUrl: baseUrl
   },
   showJoinCodeOnHide(){
     this.setData({

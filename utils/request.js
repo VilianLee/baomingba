@@ -18,6 +18,7 @@ function networkpost({
   // console.log(localHeader)
   wx.showLoading({
     title: '加载中',
+    mask: true
   })
   let promise = new Promise(function(resolve, reject) {
     wx.request({
@@ -26,7 +27,9 @@ function networkpost({
       data: params,
       method: 'POST',
       success: function(res) {
-        wx.hideLoading()
+        setTimeout(() => {
+          wx.hideLoading()
+        }, 500)
         //自行处理返回结果
         console.log(des + '返回结果：')
         console.log(baseUrl.baseUrl + url)
