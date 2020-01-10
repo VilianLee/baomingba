@@ -108,7 +108,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () { },
   AjaxGetEventInfo() {
     const _this = this
     getEventInfo({
@@ -198,7 +198,7 @@ create(store, {
     const params = this.data.activity
     publicActivity(params, res => {
       console.log(res)
-      if(res.e === 0) {
+      if (res.e === 0) {
         wx.showToast({
           title: '发布成功！',
           icon: 'success',
@@ -210,6 +210,12 @@ create(store, {
             url: '../../activities/activity-details/index?id=' + res.eventId,
           })
         }, 2000)
+      } else {
+        wx.showToast({
+          title: res.msg,
+          icon: 'error',
+          mask: true
+        })
       }
     })
   },
@@ -247,14 +253,15 @@ create(store, {
     tempFiles.forEach(item => { //格式化接口返回的文件对象
       console.log(item.path)
       qiniuUploader.upload(item.path, (img) => {
+        console.log(img)
         item.name = 'web/' + (new Date()).getTime()
-        item.id = 'web/' + (new Date()).getTime()
-        item.base64 = ""
+        item.id = ""
+        item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
         item.path = baseUrl.imageUrl + img.imageURL
         this.setData({
           activity
         })
-        console.log(item)
+        console.log(activity.photos)
       }, (error) => {
         console.log('error: ' + error);
       }, {

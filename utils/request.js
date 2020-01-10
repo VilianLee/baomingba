@@ -27,7 +27,9 @@ function networkpost({
       data: params,
       method: 'POST',
       success: function(res) {
-        wx.hideLoading()
+        setTimeout(() => {
+          wx.hideLoading()
+        }, 500)
         //自行处理返回结果
         console.log(des + '返回结果：')
         console.log(baseUrl.baseUrl + url)

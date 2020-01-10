@@ -3,7 +3,7 @@
   <view class="banner">
     <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
       <swiper-item wx:for="{{info.photos}}" wx:key="id">
-        <image mode="aspectFill" src="{{item.data}}"></image>
+        <image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name + '.jpg'}}"></image>
       </swiper-item>
     </swiper>
     <view class="banner_control">
