@@ -79,7 +79,6 @@ page .i-icon {
 
 i-icon {
   position: relative;
-  top: -4rpx;
 }
 
 button::after {

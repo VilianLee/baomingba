@@ -30,14 +30,20 @@ page {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 50px;
+  height: 80rpx;
   width: 100%;
-  padding: 0 14px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0 28rpx;
   background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   pointer-events: none;
 }
+
+.banner_control .left_item {
+  height: 80rpx;
+  padding: 20rpx 0;
+  line-height: 40rpx;
+}
+
 
 .detail_base {
   padding: 20rpx 30rpx;

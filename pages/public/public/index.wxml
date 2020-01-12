@@ -13,7 +13,7 @@
         <block wx:for="{{activity.photos}}" wx:key="{{item.id}}">
           <swiper-item>
             <view class="swiper-item">
-              <image src="{{item.path}}" mode="aspectFit"></image>
+              <image src="{{baseUrl.imageUrl + '/' + item.name}}" mode="aspectFill"></image>
             </view>
           </swiper-item>
         </block>
