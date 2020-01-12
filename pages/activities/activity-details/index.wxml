@@ -8,7 +8,16 @@
 		</swiper>
 		<view class="banner_control">
 			<view class="left_item">
-				<i-icon type="like" color="#ffa404" size="40"/>
+				<view class="control_icon">
+					<image src="../../../images/activities/icon_read.png"></image>
+				</view>
+				阅读 4
+			</view>
+			<view class="right_item">
+				<view class="control_icon">
+					<i-icon type="like" color="#ffa404" size="40" />
+				</view>
+				收藏 0
 			</view>
 		</view>
 	</view>

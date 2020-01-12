@@ -36,14 +36,32 @@ page {
   background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   pointer-events: none;
+  display: flex;
+  justify-content: space-between;
 }
 
 .banner_control .left_item {
   height: 80rpx;
   padding: 20rpx 0;
   line-height: 40rpx;
+  font-size: 28rpx;
+  color: #ffffff;
 }
 
+.control_icon {
+  float: left;
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 15rpx;
+}
+
+.banner_control .right_item{
+  height: 80rpx;
+  padding: 20rpx 0;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #ffffff;
+}
 
 .detail_base {
   padding: 20rpx 30rpx;
