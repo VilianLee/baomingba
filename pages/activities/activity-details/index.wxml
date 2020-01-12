@@ -3,7 +3,7 @@
   <view class="banner">
     <swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
       <swiper-item wx:for="{{info.photos}}" wx:key="id">
-        <image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name + '.jpg'}}"></image>
+        <image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name}}"></image>
       </swiper-item>
     </swiper>
     <view class="banner_control">
@@ -56,7 +56,7 @@
   <view class="block" wx:if="{{!info.userStatus.owned}}">
     <view class="organizer">
       <view class="block_title">主办方</view>
-      <block wx:for="{{info.authActivityOrganizers}}" wx:key="{{item.id}}">
+      <block wx:for="{{info.authActivityOrganizers}}" wx:key="id">
         <view class="organizer_content clearfix">
           <view class="organizer_pic">
             <image mode="aspectFill" src="{{item.coverURL}}"></image>

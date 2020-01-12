@@ -146,6 +146,7 @@ page view, page label {
 .add_pic image{
   width: 60rpx;
   height: 60rpx;
+  margin: auto;
 }
 
 

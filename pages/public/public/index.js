@@ -4,15 +4,20 @@ import store from '../../../store'
 import create from '../../../utils/create'
 import {
   publicActivity,
-  getEventInfo
+  getEventInfo,
+  getQiniuCloudToken
 } from '../../../API/servers'
 import {
   upLoadImg
 } from '../../../utils/wxfunction'
+import qiniuUploader from '../../../utils/qiniuUploader'
 import {
   formatTime,
   getDate
 } from '../../../utils/util'
+import {
+  baseUrl
+} from '../../../config'
 
 const app = getApp()
 
@@ -24,6 +29,7 @@ create(store, {
   data: {
     icon_type: "back",
     title_color: "#ffffff",
+    baseUrl: baseUrl,
     pageType: '',
     eventId: '',
     bg_opacity: 0,
@@ -233,8 +239,51 @@ create(store, {
           activity,
           uploadFileUrls: uploadFileUrls
         })
+        getQiniuCloudToken({}, resp => {
+          store.data.uptoken = resp.uptoken
+          store.update()
+          _this.uploadFiles()
+        })
       }
     })
+  },
+  
+  uploadFiles() {
+    let activity = this.data.activity
+    let tempFiles = activity.photos;
+    tempFiles.forEach(item => { //格式化接口返回的文件对象
+      console.log(item.path)
+      qiniuUploader.upload(item.path, (img) => {
+        console.log(img)
+        item.name = img.imageURL
+        item.id = ""
+        item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
+        item.path = baseUrl.imageUrl + img.imageURL
+        this.setData({
+          activity
+        })
+        console.log(activity.photos)
+      }, (error) => {
+        console.log('error: ' + error);
+      }, {
+        region: 'ECN',
+        key: 'web/' + (new Date()).getTime(),
+        //domain: 'http://upload.bmbee.cn/', // // bucket 域名，下载资源时用到。如果设置，会在 success callback 的 res 参数加上可以直接使用的 ImageURL 字段。否则需要自己拼接
+        // 以下方法三选一即可，优先级为：uptoken > uptokenURL > uptokenFunc
+        uptoken: store.data.uptoken
+      }, (res) => {
+        console.log('上传进度', res.progress)
+        console.log('已经上传的数据长度', res.totalBytesSent)
+        console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+      }, () => {
+        // 取消上传
+      }, () => {
+        // `before` 上传前执行的操作
+      }, (err) => {
+        // `complete` 上传接受后执行的操作(无论成功还是失败都执行)
+      })
+    })
+    console.log(this.data.activity)
   },
   /**
    * 监听滚动

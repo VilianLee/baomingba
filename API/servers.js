@@ -163,7 +163,7 @@ function cancelEvent(params, success) { //取消活动
 }
 
 function getMyPublicedEventInfo(params, success) { //我发布的活动信息
-  const des = '查询个人可编辑信息'
+  const des = '我发布的活动信息'
   networkget({
     url: `/event/${params.eventId}/options?from=publish`,
     des

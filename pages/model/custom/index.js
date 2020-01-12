@@ -252,7 +252,7 @@ create(store, {
       console.log(item.path)
       qiniuUploader.upload(item.path, (img) => {
         console.log(img)
-        item.name = 'web/' + (new Date()).getTime()
+        item.name = img.imageURL
         item.id = ""
         item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
         item.path = baseUrl.imageUrl + img.imageURL
@@ -264,7 +264,7 @@ create(store, {
         console.log('error: ' + error);
       }, {
         region: 'ECN',
-        key: 'web/' + (new Date()).getTime() + '.jpg',
+        key: 'web/' + (new Date()).getTime(),
         //domain: 'http://upload.bmbee.cn/', // // bucket 域名，下载资源时用到。如果设置，会在 success callback 的 res 参数加上可以直接使用的 ImageURL 字段。否则需要自己拼接
         // 以下方法三选一即可，优先级为：uptoken > uptokenURL > uptokenFunc
         uptoken: store.data.uptoken
