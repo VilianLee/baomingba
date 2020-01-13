@@ -31,23 +31,23 @@
 
 <view class="theme_content" style="border-bottom: solid 1px #e5e5e5">
   <view class="content_input">
-    <i-icon type="label_fill" size="24" class="input_icon" />
+    <i-icon type="label_fill" size="48" class="input_icon" />
     <input placeholder="活动主题（不超过35个字符）" value="{{title}}" data-name="title" maxlength="35" bindinput="inputOnChange" />
   </view>
   <navigator url="../change-time/index?key=beginTime" class="content_input">
-    <i-icon type="time_fill" size="24" class="input_icon" /> {{activity.beginTimeStr}} 开始
+    <i-icon type="time_fill" size="48" class="input_icon" /> {{activity.beginTimeStr}} 开始
   </navigator>
   <navigator url="../change-time/index?key=endTime" class="content_input">
     <view class="time_picker_content" wx:if="{{activity.endTimeStr !== ''}}">
       {{activity.endTimeStr}} 结束
       <view class="clear_selct" catchtap="clearEndTime">
-        <icon type="clear" size="24" color="#d5d5d5" />
+        <icon type="clear" size="22" color="#d5d5d5" />
       </view>
     </view>
     <view class="time_picker_placeholder" wx:else>活动结束时间（选填）</view>
   </navigator>
   <navigator url="../address-edit/index" class="content_input">
-    <i-icon type="coordinates_fill" size="24" class="input_icon" />
+    <i-icon type="coordinates_fill" size="48" class="input_icon" />
     <block wx:if="{{activity.address.longAddress}}">
       {{activity.address.longAddress}}
     </block>
@@ -62,7 +62,7 @@
     <textarea value="{{activity.intro}}" placeholder="输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦" bindinput="inputOnChange" data-name="intro"></textarea>
   </view>
   <view class="content_input" bindtap="financialSettingVisibleChange">
-    <i-icon type="financial_fill" size="24" class="input_icon" />
+    <i-icon type="financial_fill" size="48" class="input_icon" />
     <view class="content_cell">
       <view class="content_cell_title">费用设置</view>
       <block wx:if="{{activity.payPath == '0'}}">免费</block>
@@ -75,7 +75,7 @@
     <label class="input_cell_row">
       <view class="label">
         <view class="input_cell_icon">
-          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '0'}}" />
+          <i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '0'}}" />
         </view>
         活动免费
       </view>
@@ -86,7 +86,7 @@
     <label class="input_cell_row">
       <view class="label">
         <view class="input_cell_icon">
-          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '1'}}" />
+          <i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '1'}}" />
         </view>
         活动后再AA
       </view>
@@ -97,7 +97,7 @@
     <label class="input_cell_row">
       <view class="label">
         <view class="input_cell_icon">
-          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '2'}}" />
+          <i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '2'}}" />
         </view>
         活动现场付款
       </view>
@@ -109,7 +109,7 @@
     <label class="input_cell_row">
       <view class="label">
         <view class="input_cell_icon">
-          <i-icon type="success_fill" size="24" color="#999999" class="input_icon" wx:if="{{activity.payPath == '3'}}" />
+          <i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '3'}}" />
         </view>
         线上支付
       </view>
@@ -122,7 +122,7 @@
 </view>
 <view class="theme_content">
   <view class="content_input">
-    <i-icon type="success_fill" size="24" class="input_icon" />
+    <i-icon type="success_fill" size="48" class="input_icon" />
     <picker bindchange="onPickChange" data-name="publicType" value="{{activity.publicType}}" range="{{pravicy_arr}}">
       <view class="time_picker_content">
         {{pravicy_arr[activity.publicType]}}
@@ -133,7 +133,7 @@
 
 <view class="theme_content">
   <view class="content_input">
-    <i-icon type="success_fill" size="24" class="input_icon" />
+    <i-icon type="success_fill" size="48" class="input_icon" />
     <picker bindchange="onPickChange" data-name="anonSignUp" value="{{activity.anonSignUp}}" range="{{real_name_arr}}">
       <view class="time_picker_content">
         {{real_name_arr[activity.anonSignUp]}}

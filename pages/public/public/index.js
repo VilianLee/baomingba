@@ -96,13 +96,13 @@ create(store, {
       pageType: options.type,
       eventId: options.eventId
     })
+    this.AjaxGetEventInfo()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.AjaxGetEventInfo()
   },
   AjaxGetEventInfo() {
     const _this = this
@@ -159,7 +159,7 @@ create(store, {
     let str = JSON.stringify(this.data.seniorSetting);
     console.log(str)
     wx.navigateTo({
-      url: '../seniorSetting/index'
+      url: '../../model/seniorSetting/index'
     })
   },
   setSeniorSetting(key, obj) {

@@ -11,13 +11,14 @@
 				<view class="control_icon">
 					<image src="../../../images/activities/icon_read.png"></image>
 				</view>
-				阅读 4
+				阅读 {{info.visitorCount}}
 			</view>
-			<view class="right_item">
+			<view class="right_item" data-liked="{{info.userStatus.liked}}" bindtap="likeOnClick">
 				<view class="control_icon">
-					<i-icon type="like" color="#ffa404" size="40" />
+					<i-icon type="like_fill" color="#ffa404" size="40" wx:if="{{info.userStatus.liked}}" />
+					<i-icon type="like" color="#ffa404" size="40" wx:else />
 				</view>
-				收藏 0
+				收藏 {{info.likeCount}}
 			</view>
 		</view>
 	</view>
@@ -191,8 +192,8 @@
 		<block wx:if="{{pageLogic.isPayPending || pageLogic.showVoucher}}">
 			<!-- 显示两个按钮 -->
 			<!-- 第二个按钮 -->
-			<view class="join_btn" wx:if="{{pageLogic.showVoucher}}" bindtap="AjaxGetJoinCode">报名凭证</view>
-			<view class="join_btn" wx:elif="{{pageLogic.isPayPending}}" bindtap="AjaxGetPreOrder">立即支付</view>
+			<view class="pay_btn" wx:if="{{pageLogic.showVoucher}}" bindtap="AjaxGetJoinCode">报名凭证</view>
+			<view class="pay_btn" wx:elif="{{pageLogic.isPayPending}}" bindtap="AjaxGetPreOrder">立即支付</view>
 			<!-- 第一个按钮 -->
 			<block wx:if="{{pageLogic.isArticle}}">
 				<view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
@@ -223,12 +224,12 @@
 					</block>
 					<block wx:elif="{{info.eventStatus.signUpCancellable}}">
 						<block wx:if="{{info.eventStatus.signUpRefundApplied}}">
-							<view class="cancel_btn">
+							<view class="cancel_btn" bindtap="cancelOnClick">
 								取消报名(已申请）
 							</view>
 						</block>
 						<block wx:else>
-							<view class="cancel_btn">
+							<view class="cancel_btn" bindtap="cancelOnClick">
 								取消报名
 							</view>
 						</block>
@@ -259,12 +260,12 @@
 				</block>
 				<block wx:else>
 					<block wx:if="{{info.eventStatus.signUpVisible}}">
-						<block wx:if="{{info.userStatus.signupStatus != 7 && info.signUpRemark}}">
-							<view class="cancel_btn">
+						<block wx:if="{{info.userStatus.signupStatus !== 7 && info.signUpRemark}}">
+							<navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
 								{{info.signUpRemark}}
-							</view>
+							</navigator>
 						</block>
-						<block wx:elif="{{info.userStatus.signupStatus != 7}}">
+						<block wx:elif="{{info.userStatus.signupStatus !== 7}}">
 							<navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
 								{{info.signUpTitle}}
 							</navigator>
@@ -290,7 +291,20 @@
 				</block>
 			</block>
 		</block>
-
+		<view class="cover_view" wx:if="{{showCancelCover}}">
+			<view class="cancel_frame">
+				<view class="cover_view_title">确定取消活动</view>
+				<view class="cancel_cover_content">
+					<view class="cancel_input">
+						<input type="text" maxlength="30" placeholder="请输入原因，限30字（必填）" value="{{cancelReason}}" bindinput="inputOnChange"></input>
+					</view>
+				</view>
+				<view class="cover_control">
+					<view class="cover_cancel_btn cover_btn_cancel" bindtap="cancelOnClick">取消</view>
+					<view class="cover_cancel_btn" bindtap="AjaxCancelJoin">确定</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </view>
 <i-spin fix custom wx:if="{{loading}}">

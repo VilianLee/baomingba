@@ -4,9 +4,9 @@ import create from '../../../utils/create'
 
 import {
   getActivityDetails,
-  signUpActivity,
   getJoinCode,
-  getPreOrderInfo
+  getPreOrderInfo,
+  cancelJoin
 } from '../../../API/servers'
 import {
   formatTime
@@ -31,7 +31,9 @@ create(store, {
     btnDisable: false,
     showJoinCode: false,
     joinCode: {},
-    baseUrl: baseUrl
+    baseUrl: baseUrl,
+    showCancelCover: false,
+    cancelReason: ""
   },
   showJoinCodeOnHide(){
     this.setData({
@@ -43,8 +45,43 @@ create(store, {
       eventId: this.data.id
     }
     getPreOrderInfo(params, res => {
-      
     })
+  },
+  likeOnClick(e){ // 点击收藏按钮
+
+  },
+  cancelOnClick () { // 取消弹窗显示或取消
+    console.log(this.data.showCancelCover)
+    this.setData({
+      showCancelCover: !this.data.showCancelCover
+    })
+  },
+  inputOnChange(e){ // 输入取消原因
+    this.setData({
+      cancelReason: e.detail.value
+    })
+  },
+  AjaxCancelJoin(){ // 取消报名
+    const params = {
+      eventId: this.data.id,
+      reason: this.data.cancelReason
+    }
+    if(params.reason) {
+      cancelJoin(params, res => {
+        if(res.e === 0) {
+          this.setData({
+            showCancelCover: false
+          })
+          wx.showToast({
+            title: '已取消',
+          })
+          setTimeout(() => {
+            wx.hideToast()
+            this.AjaxGetDetails()
+          }, 2000)
+        }
+      })
+    }
   },
   AjaxGetJoinCode(){  // 获取报名凭证
     const _this = this

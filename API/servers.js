@@ -277,10 +277,21 @@ function getJoinCode(params, success) { //获取报名凭证
   })
 }
 
+function cancelJoin(params, success) { //取消报名
+  const des = '取消报名'
+  networkpost({
+    url: `/event/${params.eventId}/remove_signup`,
+    params: params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
 function getPreOrderInfo(params, success) { //支付生成预订单接口
   const des = '支付生成预订单接口'
   networkget({
-    url: `event/pay/weixin/${params.eventId}`,
+    url: `/event/pay/weixin/${params.eventId}`,
     des
   }).then(function (res) {
     return success(res.data)
@@ -307,6 +318,7 @@ module.exports = {
   getMyPublicedEventInfo,
   getEventInfo,
   getQrCode,
+  cancelJoin,
   prohibitSignUp,
   allowSignUp,
   cancelEvent,
