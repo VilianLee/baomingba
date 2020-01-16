@@ -6,7 +6,10 @@ import {
   getActivityDetails,
   getJoinCode,
   getPreOrderInfo,
-  cancelJoin
+  cancelJoin,
+  getLeftPayTime,
+  likeActivity,
+  cancelLiked
 } from '../../../API/servers'
 import {
   formatTime
@@ -24,51 +27,119 @@ create(store, {
    */
   data: {
     id: '',
-    loading:false,
+    loading: false,
     userInfo: {},
     info: {},
     pageLogic: {},
     btnDisable: false,
     showJoinCode: false,
+    isOverShare: true,
     joinCode: {},
     baseUrl: baseUrl,
     showCancelCover: false,
+    applicantId: '',
     cancelReason: ""
   },
-  showJoinCodeOnHide(){
+  showJoinCodeOnHide() {
     this.setData({
       showJoinCode: false
     })
   },
-  AjaxGetPreOrder(){
+  AjaxGetPreOrder() { // 预下单
+    console.log(this.data.applicantId)
+    const params = {
+      applicantid: this.data.applicantId
+    }
+    getPreOrderInfo(params, res => {
+      let obj = JSON.parse(res.orderResult)
+      this.getWxPayApi(obj)
+    })
+  },
+  getWxPayApi(obj) { //唤起微信支付
+    const _this = this
+    console.log(obj)
+    store.data.loading = true
+    store.update()
+    wx.requestPayment({
+      'timeStamp': obj.timestamp,
+      'nonceStr': obj.nonceStr,
+      'package': obj.package,
+      'signType': obj.signType,
+      'paySign': obj.paySign,
+      'success': function (res) {
+        store.data.loading = false
+        store.update()
+        console.log('唤起微信支付成功')
+      },
+      'fail': function (res) {
+        console.log(res)
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: "支付未成功，请重新支付或联系客服",
+          icon: 'error'
+        });
+        setTimeout(() => {
+          wx.hideToast()
+        }, 1500)
+      }
+    })
+  },
+  likeOnClick(e) { // 点击收藏按钮
+    console.log(e)
     const params = {
       eventId: this.data.id
     }
-    getPreOrderInfo(params, res => {
-    })
+    let info = this.data.info
+    if (info.userStatus.liked) {
+      cancelLiked(params, res => {
+        if (res.e === 0) {
+          wx.showToast({
+            title: '已取消',
+          })
+          info.userStatus.liked = false
+          info.likeCount = info.likeCount - 1
+          this.setData({ info })
+          setTimeout(() => {
+            wx.hideToast()
+          }, 2000)
+        }
+      })
+    } else {
+      likeActivity(params, res => {
+        if (res.e === 0) {
+          wx.showToast({
+            title: '已收藏',
+          })
+          info.userStatus.liked = true
+          info.likeCount = info.likeCount + 1
+          this.setData({ info })
+          setTimeout(() => {
+            wx.hideToast()
+          }, 2000)
+        }
+      })
+    }
   },
-  likeOnClick(e){ // 点击收藏按钮
-
-  },
-  cancelOnClick () { // 取消弹窗显示或取消
+  cancelOnClick() { // 取消弹窗显示或取消
     console.log(this.data.showCancelCover)
     this.setData({
       showCancelCover: !this.data.showCancelCover
     })
   },
-  inputOnChange(e){ // 输入取消原因
+  inputOnChange(e) { // 输入取消原因
     this.setData({
       cancelReason: e.detail.value
     })
   },
-  AjaxCancelJoin(){ // 取消报名
+  AjaxCancelJoin() { // 取消报名
     const params = {
       eventId: this.data.id,
       reason: this.data.cancelReason
     }
-    if(params.reason) {
+    if (params.reason) {
       cancelJoin(params, res => {
-        if(res.e === 0) {
+        if (res.e === 0) {
           this.setData({
             showCancelCover: false
           })
@@ -83,7 +154,7 @@ create(store, {
       })
     }
   },
-  AjaxGetJoinCode(){  // 获取报名凭证
+  AjaxGetJoinCode() {  // 获取报名凭证
     const _this = this
     getJoinCode({
       eventId: this.data.id
@@ -94,7 +165,7 @@ create(store, {
       })
     })
   },
-  AjaxGetDetails(){ //获取活动详情
+  AjaxGetDetails() { //获取活动详情
     const _this = this
     getActivityDetails(this.data.id, res => {
       let event = res.event
@@ -134,11 +205,12 @@ create(store, {
       }
       _this.setData({
         info: event,
+        applicantId: res.applicantId,
         pageLogic
       })
     })
   },
-  followOrganizer(){
+  followOrganizer() {
 
   },
   /**
@@ -197,6 +269,9 @@ create(store, {
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: this.data.info.title,
+      imageUrl: this.data.baseUrl.imageUrl + this.data.info.photos[0].name
+    };
   }
 })

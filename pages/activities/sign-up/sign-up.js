@@ -3,6 +3,7 @@ import create from '../../../utils/create'
 
 import {
   getActivityDetails,
+  getPreOrderInfo,
   joinActivity
 } from '../../../API/servers'
 import {
@@ -61,7 +62,12 @@ create(store, {
         })
         setTimeout(() => {
           wx.hideToast()
-          wx.navigateBack()
+          if(parseFloat(res.signupFee) > 0) {
+            console.log(res.applicantId)
+            this.AjaxGetPreOrder(res.applicantId)
+          } else {
+            wx.navigateBack()
+          }
         }, 2000)
       } else {
         wx.showToast({
@@ -72,6 +78,49 @@ create(store, {
         setTimeout(() => {
           wx.hideToast()
         }, 2000)
+      }
+    })
+  },
+  AjaxGetPreOrder(applicantid){ // 预下单
+    console.log(applicantid)
+    const params = {
+      applicantid
+    }
+    getPreOrderInfo(params, res => {
+      let obj = JSON.parse(res.orderResult)
+      this.getWxPayApi(obj)
+    })
+  },
+  getWxPayApi(obj) { //唤起微信支付
+    const _this = this
+    console.log(obj)
+    store.data.loading = true
+    store.update()
+    wx.requestPayment({
+      'timeStamp': obj.timestamp,
+      'nonceStr': obj.nonceStr,
+      'package': obj.package,
+      'signType': obj.signType,
+      'paySign': obj.paySign,
+      'success': function (res) {
+        store.data.loading = false
+        store.update()
+        console.log('唤起微信支付成功')
+      },
+      'fail': function (res) {
+        console.log(res)
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: "支付未成功，请重新支付或联系客服",
+          icon: 'error'
+        });
+        setTimeout(() => {
+          wx.hideToast()
+          wx.redirectTo({
+            url: '../activity-details/index?id=' + _this.data.eventId,
+          })
+        }, 1500)
       }
     })
   },

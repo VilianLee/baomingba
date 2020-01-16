@@ -100,15 +100,18 @@ create(store, {
       activity.beginTime = nowDate.getTime()
       activity.beginTimeStr = formatTime(nowDate)
       this.setData({
-        activity
+        activity: activity
       })
+      console.log(this.data.activity)
     }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { },
+  onShow: function () { 
+    console.log(this.data.activity)
+  },
   AjaxGetEventInfo() {
     const _this = this
     getEventInfo({
@@ -139,6 +142,18 @@ create(store, {
       activity
     })
   },
+  seniorOnChange(){ // 高级设置保存
+    let activity = this.data.activity
+    activity.signUpStartTime = store.data.activity.signUpStartTime
+    activity.expireTime = store.data.activity.expireTime
+    activity.telephone = store.data.activity.telephone
+    activity.organizer = store.data.activity.organizer
+    activity.hideActLocation = store.data.activity.hideActLocation
+    this.setData({
+      activity
+    })
+    console.log(this.data.activity)
+  },
   agreeOnChange() {
     this.setData({
       agree: !this.data.agree
@@ -156,9 +171,8 @@ create(store, {
     console.log(this.data.activity)
   },
   seniorSetting() { //跳转高级设置
-    let str = JSON.stringify(this.data.seniorSetting);
-    console.log(str)
-    store.data.seniorSetting = this.data.seniorSetting
+    console.log(this.data.activity)
+    store.data.activity = this.data.activity
     store.update()
     wx.navigateTo({
       url: '../seniorSetting/index'

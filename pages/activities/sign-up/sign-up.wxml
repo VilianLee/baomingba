@@ -31,7 +31,7 @@
   </view>
   <view class="block field_list">
     <view class="input_cell" style="margin-top: 0;">
-      <block wx:for="{{event.conditions}}" wx:key="{{item.name}}">
+      <block wx:for="{{event.conditions}}" wx:key="name">
         <view class="input_cell_row" wx:if="{{item.type === 'text'}}">
           <view class="label">
             <view class="require" wx:if="{{item.required === 1}}">*</view>

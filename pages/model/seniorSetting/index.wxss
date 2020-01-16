@@ -25,8 +25,10 @@ page {
   border: solid #d5d5d5 1rpx;
   color: #333;
   font-size: 24rpx;
-  line-height: 44rpx;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input_cell_row .select_tag::after {

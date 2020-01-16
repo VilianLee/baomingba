@@ -73,11 +73,22 @@ create(store, {
     })
   },
   deleteOption(e) {
+    console.log(e)
     let add_option = this.data.add_option
-    const optionIndex = e.target.dataset.index
+    const optionIndex = e.currentTarget.dataset.key
     add_option.options = add_option.options.filter((item, index) => index !== optionIndex)
     this.setData({
       add_option
+    })
+  },
+  deleteConditions(e) {
+    let conditions = this.data.conditions
+    const optionIndex = e.currentTarget.dataset.index
+    console.log(conditions)
+    conditions = conditions.filter((item, index) => index !== optionIndex)
+    console.log(conditions)
+    this.setData({
+      conditions
     })
   },
   inputOnChange(e) {

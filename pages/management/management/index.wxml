@@ -58,7 +58,7 @@
           <view class="input_cell_icon">
             <image src="../../../images/management/icon_edit.png"></image>
           </view>
-          编辑活动
+          编辑活动{{activityInfo.status === 4 ? '(已取消)' : ''}}
         </view>
         <view class="form_item">
         </view>

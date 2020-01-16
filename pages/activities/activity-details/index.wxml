@@ -1,11 +1,6 @@
 <!--pages/activities/activity-details/index.wxml-->
 <view class="detail_page">
 	<view class="banner">
-		<swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
-			<swiper-item wx:for="{{info.photos}}" wx:key="id">
-				<image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name}}"></image>
-			</swiper-item>
-		</swiper>
 		<view class="banner_control">
 			<view class="left_item">
 				<view class="control_icon">
@@ -13,7 +8,7 @@
 				</view>
 				阅读 {{info.visitorCount}}
 			</view>
-			<view class="right_item" data-liked="{{info.userStatus.liked}}" bindtap="likeOnClick">
+			<view class="right_item" data-liked="{{info.userStatus.liked}}" catchtap="likeOnClick">
 				<view class="control_icon">
 					<i-icon type="like_fill" color="#ffa404" size="40" wx:if="{{info.userStatus.liked}}" />
 					<i-icon type="like" color="#ffa404" size="40" wx:else />
@@ -21,6 +16,11 @@
 				收藏 {{info.likeCount}}
 			</view>
 		</view>
+		<swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
+			<swiper-item wx:for="{{info.photos}}" wx:key="id">
+				<image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name}}"></image>
+			</swiper-item>
+		</swiper>
 	</view>
 	<view class="block">
 		<view class="detail_base">

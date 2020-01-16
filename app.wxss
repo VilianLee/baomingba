@@ -62,6 +62,9 @@ page .i-icon {
   min-width: 180rpx;
   white-space: nowrap;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .input_cell .input_cell_row .label .require {

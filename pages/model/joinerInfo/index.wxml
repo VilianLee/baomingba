@@ -3,7 +3,7 @@
   <view class="input_cell">
     <view class="input_cell_row">
       <view class="label">
-        <i-icon type="barrage_fill" size="20" color="#d5d5d5" style="margin-right:12rpx" /> 单文本
+        <i-icon type="barrage_fill" size="40" color="#d5d5d5" style="margin-right:12rpx" /> 单文本
       </view>
     </view>
     <view class="input_cell_row">
@@ -15,16 +15,16 @@
     </view>
   </view>
   <view class="input_cell">
-    <view class="more_info" wx:for="{{conditions}}" wx:key="{{item.name}}">
+    <view class="more_info" wx:for="{{conditions}}" wx:key="index">
       <view class="more_info_row" wx:if="{{item.type !== 'text'}}">
-        <view class="delete">
-          <i-icon type="offline_fill" color="#f44f50" size="22" />
+        <view class="delete" bindtap="deleteConditions" data-index="{{index}}">
+          <i-icon type="offline_fill" color="#f44f50" size="40" />
         </view>
         <view class="icon">
-          <i-icon type="barrage_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'textarea'}}" />
-          <i-icon type="flag_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'radio'}}" />
-          <i-icon type="task_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'checkbox'}}" />
-          <i-icon type="picture_fill" color="#d5d5d5" size="22" wx:if="{{item.type === 'image'}}" />
+          <i-icon type="barrage_fill" color="#d5d5d5" size="40" wx:if="{{item.type === 'textarea'}}" />
+          <i-icon type="flag_fill" color="#d5d5d5" size="40" wx:if="{{item.type === 'radio'}}" />
+          <i-icon type="task_fill" color="#d5d5d5" size="40" wx:if="{{item.type === 'checkbox'}}" />
+          <i-icon type="picture_fill" color="#d5d5d5" size="40" wx:if="{{item.type === 'image'}}" />
         </view>
         <view class="text">
           {{item.text}}
@@ -96,13 +96,13 @@
             <input class="option_input" placeholder="选项名称" value="{{item.value}}" data-index="{{index}}" data-key="value" bindinput="inputOnChange" data-option="value"/>
           </view>
           <view class="delete_option" bindtap="deleteOption" data-key="{{index}}" wx:if="{{add_option.options.length > 1}}">
-            <i-icon type="offline_fill" color="{{new_checkbox > 2 ? '#f44f50' : '#999999'}}" size="22" />
+            <i-icon type="offline_fill" color="{{new_checkbox > 2 ? '#f44f50' : '#999999'}}" size="40" />
           </view>
         </view>
         <view class="modal_cell_row">
           <view class="add_option_lable">添加选项</view>
           <view class="add_option" bindtap="addOption">
-            <i-icon type="add" color="#fda402" size="22" />
+            <i-icon type="add" color="#fda402" size="40" />
           </view>
         </view>
       </view>
@@ -130,13 +130,13 @@
             <input class="option_input" placeholder="选项名称" value="{{item.value}}" data-index="{{index}}" data-key="value" bindinput="inputOnChange" data-option="value"/>
           </view>
           <view class="delete_option" bindtap="deleteOption" data-key="{{index}}" wx:if="{{add_option.options.length > 1}}">
-            <i-icon type="offline_fill" color="{{new_checkbox > 2 ? '#f44f50' : '#999999'}}" size="22" />
+            <i-icon type="offline_fill" color="{{new_checkbox > 2 ? '#f44f50' : '#999999'}}" size="40" />
           </view>
         </view>
         <view class="modal_cell_row">
           <view class="add_option_lable">添加选项</view>
           <view class="add_option" bindtap="addOption">
-            <i-icon type="add" color="#fda402" size="22" />
+            <i-icon type="add" color="#fda402" size="40" />
           </view>
         </view>
       </view>

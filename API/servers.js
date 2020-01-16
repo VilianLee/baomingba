@@ -276,6 +276,27 @@ function getJoinCode(params, success) { //获取报名凭证
     return success(res.data)
   })
 }
+function likeActivity (params, success) { // 收藏活动
+  const des = '收藏活动'
+  networkpost({
+    url: `/event/${params.eventId}/like`,
+    params: {},
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
+function cancelLiked(params, success) { //取消收藏
+  const des = '取消收藏'
+  networkpost({
+    url: `/event/${params.eventId}/unlike`,
+    params: {},
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
 
 function cancelJoin(params, success) { //取消报名
   const des = '取消报名'
@@ -291,7 +312,17 @@ function cancelJoin(params, success) { //取消报名
 function getPreOrderInfo(params, success) { //支付生成预订单接口
   const des = '支付生成预订单接口'
   networkget({
-    url: `/event/pay/weixin/${params.eventId}`,
+    url: `/event/pay/weixinxcx/${params.applicantid}`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+const getLeftPayTime = (params, success) => { // 获取支付剩余时间
+  const des = '获取支付剩余时间'
+  networkget({
+    url: `/event/${params.eventId}/payment_left_time`,
     des
   }).then(function (res) {
     return success(res.data)
@@ -308,6 +339,7 @@ const getQiniuCloudToken = (params, success) => { // 获取七牛云token
   })
 }
 
+
 module.exports = {
   joinActivity,
   getPayLeftTime,
@@ -317,10 +349,13 @@ module.exports = {
   getSignerList,
   getMyPublicedEventInfo,
   getEventInfo,
+  likeActivity,
+  cancelLiked,
   getQrCode,
   cancelJoin,
   prohibitSignUp,
   allowSignUp,
+  getLeftPayTime,
   cancelEvent,
   login,
   bindPhoneNo,

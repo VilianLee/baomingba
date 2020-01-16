@@ -43,6 +43,9 @@
   padding: 20rpx 0;
   line-height: 60rpx;
   height: 60rpx;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 .more_info_row .delete {
   float: left;
@@ -72,6 +75,7 @@
 .more_info_row .require {
   color: #f44f50;
   margin-left: 10rpx;
+  flex-grow: 1;
 }
 .addOption {
   padding: 30rpx;

@@ -26,7 +26,7 @@ page {
 
 .banner_control {
   box-sizing: border-box;
-  z-index: 2;
+  z-index: 10;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -35,7 +35,6 @@ page {
   padding: 0 28rpx;
   background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
-  pointer-events: none;
   display: flex;
   justify-content: space-between;
 }

@@ -101,8 +101,8 @@
     </navigator>
   </view>
   <view class="input_cell">
-    <view class="input_cell_row">
-      <view class="label is_link">
+    <view class="input_cell_row is_link">
+      <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/mine/icon_scan.png"></image>
         </view>

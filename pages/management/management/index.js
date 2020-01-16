@@ -30,7 +30,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       activityId: options.eventId
     })
@@ -39,7 +39,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     this.AjaxGetEditInfo()
   },
   AjaxGetEditInfo() {
@@ -52,10 +52,12 @@ create(store, {
       })
     })
   },
-  clickGoEdit(){
-    wx.navigateTo({
-      url: '../../public/public/index?type=edit&eventId=' + this.data.activityId,
-    })
+  clickGoEdit() {
+    if (this.data.activityInfo.status !== 4) {
+      wx.navigateTo({
+        url: '../../public/public/index?type=edit&eventId=' + this.data.activityId,
+      })
+    }
   },
   inputOnChange(e) {
     const value = e.detail.value
@@ -69,7 +71,7 @@ create(store, {
       showQrCode: !this.data.showQrCode
     })
   },
-  doAnything() {},
+  doAnything() { },
   showCancelChange() {
     this.setData({
       showCancelCover: !this.data.showCancelCover
@@ -84,12 +86,12 @@ create(store, {
       _this.AjaxAllowSignUp()
     }
   },
-  AjaxGetQrCode(){
+  AjaxGetQrCode() {
     const _this = this
     getQrCode({
       eventId: this.data.activityId
     }, res => {
-      if(res.e === 0) {
+      if (res.e === 0) {
         _this.setData({
           qrCode: res.qrcode
         })
@@ -183,35 +185,35 @@ create(store, {
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
