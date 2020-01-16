@@ -19,6 +19,8 @@ import {
   baseUrl
 } from '../../../config'
 
+import {deepCopy, initPublic} from '../../../utils/wxfunction'
+
 const app = getApp()
 
 create(store, {
@@ -144,6 +146,7 @@ create(store, {
   },
   seniorOnChange(){ // 高级设置保存
     let activity = this.data.activity
+    activity.conditions = store.data.activity.conditions
     activity.signUpStartTime = store.data.activity.signUpStartTime
     activity.expireTime = store.data.activity.expireTime
     activity.telephone = store.data.activity.telephone
@@ -208,7 +211,7 @@ create(store, {
       activity
     })
   },
-  ajaxPublicActivity() {
+  ajaxPublicActivity() { // 发布活动
     const params = this.data.activity
     publicActivity(params, res => {
       console.log(res)
@@ -218,6 +221,8 @@ create(store, {
           icon: 'success',
           mask: true
         })
+        store.data.activity = deepCopy(initPublic)
+        store.update()
         setTimeout(() => {
           wx.hideToast()
           wx.redirectTo({

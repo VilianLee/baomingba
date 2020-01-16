@@ -62,7 +62,7 @@ create(store, {
       conditions
     })
   },
-  addOption() {
+  addOption() { // 添加选项
     let add_option = this.data.add_option
     add_option.options.push({
       key: "",
@@ -72,7 +72,7 @@ create(store, {
       add_option
     })
   },
-  deleteOption(e) {
+  deleteOption(e) { // 删除选项
     console.log(e)
     let add_option = this.data.add_option
     const optionIndex = e.currentTarget.dataset.key
@@ -81,7 +81,7 @@ create(store, {
       add_option
     })
   },
-  deleteConditions(e) {
+  deleteConditions(e) { // 删除报名项
     let conditions = this.data.conditions
     const optionIndex = e.currentTarget.dataset.index
     console.log(conditions)
@@ -91,7 +91,7 @@ create(store, {
       conditions
     })
   },
-  inputOnChange(e) {
+  inputOnChange(e) { // 输入数据
     const value = e.detail.value
     const key = e.target.dataset.key
     const option = e.target.dataset.option
@@ -151,8 +151,9 @@ create(store, {
       })
       const pages = getCurrentPages();
       const prevPage = pages[pages.length - 2]; //上一页
-      console.log(prevPage)
-      prevPage.dataOnChange("conditions", conditions)
+      console.log(prevPage.data)
+      prevPage.conditionsOnChange(conditions)
+      console.log(prevPage.data)
     } else {
       wx.showToast({
         title: err_tip,

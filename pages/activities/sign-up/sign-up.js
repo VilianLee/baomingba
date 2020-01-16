@@ -28,6 +28,15 @@ create(store, {
     event.conditions[index].value = value
     this.setData({event})
   },
+  selectOnChange(e){
+    console.log(e)
+    const index = e.target.dataset.index
+    const position = e.detail.value
+    let event = this.data.event
+    event.conditions[index].select = position 
+    event.conditions[index].value = event.conditions[index].options[position].value
+    this.setData({event})
+  },
   AjaxSignUpActivity() { // 
     const _this = this
     for (let i in this.data.event.conditions) {
@@ -53,22 +62,22 @@ create(store, {
         }
       })
     }
-    joinActivity(params, res => {
+    joinActivity(params, res => { // 提交报名表单
       if(res.e === 0) {
-        wx.showToast({
-          title: '报名成功',
-          icon: 'none',
-          duration: 2000
-        })
-        setTimeout(() => {
-          wx.hideToast()
-          if(parseFloat(res.signupFee) > 0) {
-            console.log(res.applicantId)
-            this.AjaxGetPreOrder(res.applicantId)
-          } else {
-            wx.navigateBack()
-          }
-        }, 2000)
+        if(parseFloat(res.signupFee) > 0) {
+          console.log(res.applicantId)
+          this.AjaxGetPreOrder(res.applicantId)
+        } else {
+          wx.showToast({
+            title: '报名成功',
+            icon: 'none',
+            duration: 2000
+          })
+          setTimeout(() => {
+            wx.hideToast()
+          }, 2000)
+          wx.navigateBack()
+        }
       } else {
         wx.showToast({
           title: res.msg,
@@ -105,7 +114,17 @@ create(store, {
       'success': function (res) {
         store.data.loading = false
         store.update()
-        console.log('唤起微信支付成功')
+        wx.showToast({
+          title: '报名成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.redirectTo({
+            url: '../activity-details/index?id=' + _this.data.eventId,
+          })
+        }, 2000)
       },
       'fail': function (res) {
         console.log(res)

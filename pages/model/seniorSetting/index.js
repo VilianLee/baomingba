@@ -91,11 +91,12 @@ create(store, {
       conditions
     })
   },
-  dataOnChange(key, value, page) {
-    console.log(key)
+  conditionsOnChange(arr) {
     this.setData({
-      [key]: value
+      conditions: arr
     })
+    store.data.activity.conditions = arr
+    store.update()
   },
   submitSeniorSetting(){
     store.data.activity.conditions = this.data.conditions
@@ -113,8 +114,8 @@ create(store, {
     const pages = getCurrentPages()
     const prevPage = pages[pages.length - 2]; //上一页
     console.log(prevPage)
-    //prevPage.seniorOnChange()
-    //wx.navigateBack()
+    prevPage.seniorOnChange()
+    wx.navigateBack()
   },
   /**
    * 生命周期函数--监听页面加载
