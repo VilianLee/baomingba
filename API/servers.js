@@ -309,6 +309,17 @@ function cancelJoin(params, success) { //取消报名
   })
 }
 
+function cancelPayJoin(params, success) { //取消收费报名
+  const des = '取消收费报名'
+  networkpost({
+    url: `/refund/requestdelappl/${params.eventId}`,
+    params: params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
 function getPreOrderInfo(params, success) { //支付生成预订单接口
   const des = '支付生成预订单接口'
   networkget({
@@ -353,6 +364,7 @@ module.exports = {
   cancelLiked,
   getQrCode,
   cancelJoin,
+  cancelPayJoin,
   prohibitSignUp,
   allowSignUp,
   getLeftPayTime,

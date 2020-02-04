@@ -18,6 +18,7 @@ import {
 import {
   baseUrl
 } from '../../../config'
+import {deepCopy, initPublic} from '../../../utils/wxfunction'
 
 const app = getApp()
 
@@ -139,6 +140,19 @@ create(store, {
       activity
     })
   },
+  seniorOnChange(){ // 高级设置保存
+    let activity = this.data.activity
+    activity.conditions = store.data.activity.conditions
+    activity.signUpStartTime = store.data.activity.signUpStartTime
+    activity.expireTime = store.data.activity.expireTime
+    activity.telephone = store.data.activity.telephone
+    activity.organizer = store.data.activity.organizer
+    activity.hideActLocation = store.data.activity.hideActLocation
+    this.setData({
+      activity
+    })
+    console.log(this.data.activity)
+  },
   agreeOnChange() {
     this.setData({
       agree: !this.data.agree
@@ -156,8 +170,9 @@ create(store, {
     console.log(this.data.activity)
   },
   seniorSetting() { //跳转高级设置
-    let str = JSON.stringify(this.data.seniorSetting);
-    console.log(str)
+    console.log(this.data.activity)
+    store.data.activity = this.data.activity
+    store.update()
     wx.navigateTo({
       url: '../../model/seniorSetting/index'
     })
@@ -201,6 +216,8 @@ create(store, {
         icon: 'success',
         mask: true
       })
+      store.data.activity = deepCopy(initPublic)
+      store.update()
       setTimeout(() => {
         wx.hideToast()
         wx.redirectTo({

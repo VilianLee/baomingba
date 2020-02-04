@@ -8,6 +8,7 @@ import {
   getPreOrderInfo,
   cancelJoin,
   getLeftPayTime,
+  cancelPayJoin,
   likeActivity,
   cancelLiked
 } from '../../../API/servers'
@@ -114,7 +115,9 @@ create(store, {
           })
           info.userStatus.liked = false
           info.likeCount = info.likeCount - 1
-          this.setData({ info })
+          this.setData({
+            info
+          })
           setTimeout(() => {
             wx.hideToast()
           }, 2000)
@@ -128,7 +131,9 @@ create(store, {
           })
           info.userStatus.liked = true
           info.likeCount = info.likeCount + 1
-          this.setData({ info })
+          this.setData({
+            info
+          })
           setTimeout(() => {
             wx.hideToast()
           }, 2000)
@@ -153,23 +158,51 @@ create(store, {
       reason: this.data.cancelReason
     }
     if (params.reason) {
-      cancelJoin(params, res => {
-        if (res.e === 0) {
-          this.setData({
-            showCancelCover: false
-          })
-          wx.showToast({
-            title: '已取消',
-          })
-          setTimeout(() => {
-            wx.hideToast()
-            this.AjaxGetDetails()
-          }, 2000)
-        }
-      })
+      if (this.data.info.eventStatus.needPay) { // 判断是否收费活动
+        this.AjaxNeedPayActCancel(params)
+      } else {
+        this.AjaxFreeActCancel(params)
+      }
     }
   },
-  AjaxGetJoinCode() {  // 获取报名凭证
+  AjaxNeedPayActCancel(params) { // 收费活动取消报名
+    const _this = this
+    cancelPayJoin(params, res => {
+      if (res.e === 0) {
+        this.setData({
+          showCancelCover: false
+        })
+        wx.showModal({
+          title: '主办方已收到退款通知，请等待确认',
+          content: '通过后，报名费将微信支付原路退回',
+          showCancel: false,
+          confirmColor: '#ffa404',
+          success(res) {
+            if (res.confirm) {
+              _this.AjaxGetDetails()
+            }
+          }
+        })
+      }
+    })
+  },
+  AjaxFreeActCancel(params) { // 免费活动取消报名
+    cancelJoin(params, res => {
+      if (res.e === 0) {
+        this.setData({
+          showCancelCover: false
+        })
+        wx.showToast({
+          title: '已取消',
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          this.AjaxGetDetails()
+        }, 2000)
+      }
+    })
+  },
+  AjaxGetJoinCode() { // 获取报名凭证
     const _this = this
     getJoinCode({
       eventId: this.data.id

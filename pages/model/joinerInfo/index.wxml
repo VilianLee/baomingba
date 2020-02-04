@@ -8,7 +8,7 @@
     </view>
     <view class="input_cell_row">
       <view class="select_tag">
-        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="{{item.name}}" wx:if="{{item.type === 'text'}}">
+        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="index" wx:if="{{item.type === 'text'}}">
           <view class="tag {{item.require ? 'require' : ''}}">{{item.text}} {{item.require ? "*" : ""}}</view>
         </view>
       </view>
@@ -41,7 +41,7 @@
 </view>
 <i-modal title="添加报名表项" visible="{{ modal_visible }}" bind:ok="addInfo" bind:cancel="cancelAdd" style="height:300rpx;">
   <view class="modal_tab">
-    <view class="modal_tab_btn {{item.value === add_option.type ? 'tab_focuse' : ''}}" wx:for="{{add_type_arr}}" wx:key="{{item.value}}" data-value="{{item.value}}" bindtap="selectTab">
+    <view class="modal_tab_btn {{item.value === add_option.type ? 'tab_focuse' : ''}}" wx:for="{{add_type_arr}}" wx:key="index" data-value="{{item.value}}" bindtap="selectTab">
       {{item.name}}
     </view>
   </view>
@@ -88,7 +88,7 @@
         </view>
       </view>
       <view class="modal_cell">
-        <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="{{index}}">
+        <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="index">
           <view class="options_item">
             <input class="option_input" placeholder="选项key值" value="{{item.name}}" data-index="{{index}}" data-key="name" bindinput="inputOnChange" data-option="name" />
           </view>
@@ -122,7 +122,7 @@
         </view>
       </view>
       <view class="modal_cell">
-        <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="{{index}}">
+        <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="index">
           <view class="options_item">
             <input class="option_input" placeholder="选项key值" value="{{item.name}}" data-index="{{index}}" data-key="text" bindinput="inputOnChange" data-option="name" />
           </view>
