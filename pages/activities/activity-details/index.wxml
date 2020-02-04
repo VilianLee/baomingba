@@ -72,10 +72,10 @@
 						<image mode="aspectFill" src="{{item.coverURL}}"></image>
 					</view>
 					<view class="organizer_info">
-						<view class="organizer_name">{{item.name}}</view>
+						<view class="organizer_name">{{item.name ? item.name : "未知用户"}}</view>
 						<view class="auth_type clearfix">
 							<block wx:if="{{item.authStatus === 3}}">
-								<view class="auty_type_tag tag_unauth">
+								<view class="auty_type_tag tag_unauth" catchtap="showAutyFrame" data-content="{{item.authenticateStatus}}">
 									<view class="type_icon_err">!</view>未认证
 								</view>
 							</block>
@@ -109,7 +109,7 @@
 					</view>
 				</view>
 				<view class="organizer_des">
-					{{item.intro}}
+					{{item.intro ? item.intro : "暂无介绍"}}
 				</view>
 				<view class="organizer_control clearfix">
 					<view class="organizer_control_item">
@@ -307,6 +307,13 @@
 		</view>
 	</view>
 </view>
+
+<auty-frame 
+	autyShow="{{autyShow}}" 
+	autyContent="{{autyContent}}"
+	bind:hideauty="hideAutyFrame"
+></auty-frame>
+
 <i-spin fix custom wx:if="{{loading}}">
 	<view class="loading"></view>
 </i-spin>

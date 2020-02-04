@@ -32,5 +32,5 @@
   line-height: 90rpx;
   color: #ffffff;
   font-size: 32rpx;
-  border-radius: 4rpx;
+  border-radius: 8rpx;
 }

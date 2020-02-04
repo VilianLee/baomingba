@@ -1,0 +1,82 @@
+/* components/auty-frame/index.wxss */
+.cover_bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cover_frame {
+  width: 500rpx;
+  border-radius: 10rpx;
+  background-color: #ffffff;
+  padding: 40rpx;
+  position: relative;
+}
+.frame_close {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  height: 40rpx;
+  width: 40rpx;
+}
+.frame_title {
+  margin-bottom: 40rpx;
+}
+.auty_logo {
+  border-bottom: solid 1rpx #e5e5e5;
+}
+.content_row {
+  margin-bottom: 40rpx;
+}
+.content_row .auty_title {
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.content_row .auty_content {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #333333;
+}
+
+.jump_url {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #fda402;
+}
+
+.unauty_title {
+  height: 50rpx;
+  position: relative;
+}
+
+.unauty_logo {
+  width: 100rpx;
+  height: 100rpx;
+  margin: auto;
+  border-radius: 50%;
+  background-color: #ffffff;
+  position: relative;
+  top: -90rpx;
+  overflow: hidden;
+}
+
+.frame_btn {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 28rpx;
+  background-color: #fda402;
+  color: #ffffff;
+  border-radius: 10rpx;
+}

@@ -37,8 +37,23 @@ create(store, {
     joinCode: {},
     baseUrl: baseUrl,
     showCancelCover: false,
+    autyShow: false,
+    autyContent: {},
     applicantId: '',
     cancelReason: ""
+  },
+  showAutyFrame(e){
+    const content = e.currentTarget.dataset.content
+    console.log(content)
+    this.setData({
+      autyShow: true,
+      autyContent: content
+    })
+  },
+  hideAutyFrame(){
+    this.setData({
+      autyShow: false
+    })
   },
   showJoinCodeOnHide() {
     this.setData({

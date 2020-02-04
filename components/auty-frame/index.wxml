@@ -1,0 +1,84 @@
+<!--components/auty-frame/index.wxml-->
+<view class="cover_bg" wx:if="{{autyShow}}">
+	<block wx:if="{{autyContent.authStatus === 2}}">
+		<!-- 已通过认证 -->
+		<view class="cover_frame" wx:if="{{autyContent.authType === 1}}">
+			<!-- 个人认证 -->
+      <view class="frame_close"  bindtap="_hideFrame">
+        <image src="../../images/activities/icon_close.png"></image>
+      </view>
+			<view class="frame_title">
+				<view class="auty_logo">
+					<image src="../../images/activities/auty_personal.png" mode="widthFix"></image>
+				</view>
+			</view>
+			<view class="frame_content">
+				<view class="content_row">
+					<view class="auty_title">真实姓名</view>
+					<view class="auty_content">{{autyContent.name}}测试</view>
+				</view>
+				<view class="content_row">
+					<view class="auty_title">证件号码</view>
+					<view class="auty_content">{{autyContent.idCard}}测试</view>
+				</view>
+				<view class="content_row">
+					<view class="auty_title">认证时间</view>
+					<view class="auty_content">{{autyContent.time}}完成认证，每年报名吧都会对其资料进行审核</view>
+				</view>
+				<view class="content_row">
+					<view class="auty_title">报名吧认证声明</view>
+					<view class="auty_content">个人认证是报名吧对主办方帐号背后运营主体真实身份的认证，不代表报名吧对主办方所使用名称、介绍及真实营业情况的认证。</view>
+				</view>
+				<navigator url="../../pages/user/auty-detail/index" class="jump_url">我也要认证 ></navigator>
+			</view>
+		</view>
+		<view class="cover_frame" wx:elif="{{autyContent.authType === 2 || autyContent.authType === 3}}">
+			<!-- 企业、组织认证 -->
+      <view class="frame_close"  bindtap="_hideFrame">
+        <image src="../../images/activities/icon_close.png"></image>
+      </view>
+			<view class="frame_title">
+				<view class="auty_logo">
+					<image src="../../images/activities/auty_company.png" mode="widthFix"></image>
+				</view>
+			</view>
+			<view class="frame_content">
+				<view class="content_row">
+					<view class="auty_title">企业名称</view>
+					<view class="auty_content">{{autyContent.name}}测试</view>
+				</view>
+				<view class="content_row">
+					<view class="auty_title">工商执照注册号/统一社会信用代码</view>
+					<view class="auty_content">{{autyContent.idCard}}测试</view>
+				</view>
+				<view class="content_row">
+					<view class="auty_title">认证时间</view>
+					<view class="auty_content">{{autyContent.time}}完成认证，每年报名吧都会对其资料进行审核</view>
+				</view>
+				<view class="content_row">
+					<view class="auty_title">报名吧认证声明</view>
+					<view class="auty_content">个人认证是报名吧对主办方帐号背后运营主体真实身份的认证，不代表报名吧对主办方所使用名称、介绍及真实营业情况的认证。</view>
+				</view>
+				<navigator url="../../pages/user/auty-detail/index" class="jump_url">我也要认证 ></navigator>
+			</view>
+		</view>
+	</block>
+	<block wx:else>
+		<view class="cover_frame">
+      <view class="frame_close"  bindtap="_hideFrame">
+        <image src="../../images/activities/icon_close.png"></image>
+      </view>
+			<view class="unauty_title">
+				<view class="unauty_logo">
+          <image src="../../images/mine/logo.png"></image>
+				</view>
+			</view>
+			<view class="frame_content">
+				<view class="content_row">
+					<view class="auty_content" style="text-align: center">温馨提醒:该主办方未在平台认证,请注意风险防范哦!</view>
+				</view>
+			</view>
+			<view class="frame_btn" bindtap="_hideFrame">我知道了</view>
+		</view>
+	</block>
+</view>

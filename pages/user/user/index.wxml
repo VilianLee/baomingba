@@ -9,7 +9,7 @@
         <view class="personal_base_info_content">
           <view class="name">
             {{userInfo.username}}
-            <view class="authentication" wx:if="{{userInfo.authenticateStatus.authStatus}}">
+            <view class="authentication" wx:if="{{userInfo.authenticateStatus.authStatus === 2}}">
               <view class="icon">
                 <image src="../../../images/activities/icon_authed.png"></image>
               </view>
@@ -18,7 +18,7 @@
               <text wx:if="{{userInfo.authenticateStatus.authType === 3}}">组织认证</text>
               <text wx:else>已认证</text>
             </view>
-            <view class="authentication_disable" catchtap="" wx:else>
+            <view class="authentication_disable" catchtap="goAuty" wx:else>
               <view class="icon">
                 !
               </view>
@@ -111,7 +111,6 @@
     </view>
   </view>
 </view>
-
 <i-modal title="需要获取您的手机号" visible="{{ getPhoneNumVisible }}" show-ok="{{false}}" show-cancel="{{false}}" actions="{{ allowActions }}">
   <view>
     <button size="mini" bindtap="alertHidden" style="margin-right: 20rpx">

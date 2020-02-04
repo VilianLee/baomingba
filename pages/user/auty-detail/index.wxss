@@ -1,0 +1,12 @@
+/* pages/user/auty-detail/index.wxss */
+.app_btn {
+  width: 690rpx;
+  margin: 40rpx auto;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ffa405;
+  text-align: center;
+  color: #ffffff;
+  font-size: 32rpx;
+  border-radius: 8rpx;
+}

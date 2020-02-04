@@ -19,7 +19,8 @@
     "pages/model/address-edit/index",
     "pages/user/wallet/index",
     "pages/web-view/index",
-    "pages/management/signup-list/index"
+    "pages/management/signup-list/index",
+    "pages/user/auty-detail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,6 +40,7 @@
     "i-grid-icon": "/dist/grid-icon/index",
     "i-grid-label": "/dist/grid-label/index",
     "title-bar": "/components/title-bar/title-bar",
+    "auty-frame": "/components/auty-frame/index",
     "i-button": "/dist/button/index",
     "i-cell-group": "/dist/cell-group/index",
     "i-cell": "/dist/cell/index",

@@ -25,8 +25,10 @@ create(store, {
     userInfo: {},
     getPhoneNumVisible: false,
   },
-  onShareClick() {
-
+  goAuty(){
+    wx.navigateTo({
+      url: '../auty-detail/index',
+    })
   },
   getPhoneNumber(e) { //绑定手机
     console.log(e)
