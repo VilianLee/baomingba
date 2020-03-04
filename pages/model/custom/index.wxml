@@ -10,10 +10,13 @@
     </view>
     <swiper indicator-dots="true" indicator-color="rgba(255, 255, 255, 0.3)" indicator-active-color="#ffffff">
       <block wx:if="{{activity.photos.length > 0}}">
-        <block wx:for="{{activity.photos}}" wx:key="{{item.id}}">
+        <block wx:for="{{activity.photos}}" wx:key="id">
           <swiper-item>
             <view class="swiper-item">
               <image src="{{item.path}}" mode="aspectFill"></image>
+            </view>
+            <view class="delete_item" catchtap="deletePic" data-index="{{index}}">
+              <image src="../../../images/activities/icon_delete_pic.png"/>
             </view>
           </swiper-item>
         </block>
@@ -21,7 +24,7 @@
       <block wx:else>
         <swiper-item>
           <view class="swiper-item">
-            <image src="../../../images/pic_01.jpg" mode="aspectFill"></image>
+            <image src="https://upload.51bmb.com/web/Picture1454586220407.jpg?imageView2/2/w/640" mode="aspectFill"></image>
           </view>
         </swiper-item>
       </block>
@@ -34,10 +37,10 @@
     <i-icon type="label_fill" size="48" class="input_icon" />
     <input placeholder="活动主题（不超过35个字符）" value="{{title}}" data-name="title" maxlength="35" bindinput="inputOnChange" />
   </view>
-  <navigator url="../change-time/index?key=beginTime" class="content_input">
+  <navigator url="../change-time/index?key=beginTime&timeStap={{activity.beginTime}}" class="content_input">
     <i-icon type="time_fill" size="48" class="input_icon" /> {{activity.beginTimeStr}} 开始
   </navigator>
-  <navigator url="../change-time/index?key=endTime" class="content_input">
+  <navigator url="../change-time/index?key=endTime&timeStap={{activity.endTime}}" class="content_input">
     <view class="time_picker_content" wx:if="{{activity.endTimeStr !== ''}}">
       {{activity.endTimeStr}} 结束
       <view class="clear_selct" catchtap="clearEndTime">
@@ -46,21 +49,28 @@
     </view>
     <view class="time_picker_placeholder" wx:else>活动结束时间（选填）</view>
   </navigator>
-  <navigator url="../address-edit/index" class="content_input">
+  <view bindtap="setAddress" class="content_input">
     <i-icon type="coordinates_fill" size="48" class="input_icon" />
     <block wx:if="{{activity.address.longAddress}}">
       {{activity.address.longAddress}}
     </block>
     <block wx:else>
-      <input placeholder="活动详细地址（选填）"  />
+      <text style="color:#999999">请选择地址</text>
     </block>
-  </navigator>
+  </view>
 </view>
 
 <view class="theme_content">
-  <view class="theme_rich_text">
-    <textarea value="{{activity.intro}}" placeholder="输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦" bindinput="inputOnChange" data-name="intro"></textarea>
-  </view>
+  <navigator url="../../public/rich-editor/index?content={{enCodeIntro}}" class="theme_rich_text">
+    <block wx:if="{{activity.intro}}">
+      <rich-text nodes="{{activity.intro}}"></rich-text>
+    </block>
+    <block wx:else>
+      <view class="content_placeholder">
+        输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦
+      </view>
+    </block>
+  </navigator>
   <view class="content_input" bindtap="financialSettingVisibleChange">
     <i-icon type="financial_fill" size="48" class="input_icon" />
     <view class="content_cell">
@@ -130,8 +140,8 @@
     </picker>
   </view>
 </view>
-
-<view class="theme_content">
+<!-- 是否需要实名 -->
+<!-- <view class="theme_content">
   <view class="content_input">
     <i-icon type="success_fill" size="48" class="input_icon" />
     <picker bindchange="onPickChange" data-name="anonSignUp" value="{{activity.anonSignUp}}" range="{{real_name_arr}}">
@@ -140,7 +150,7 @@
       </view>
     </picker>
   </view>
-</view>
+</view> -->
 <view class="agreement_text">
   <icon type="success" size="12" color="{{agree ? '#fda402' : '#d5d5d5'}}" bindtap="agreeOnChange" /> 同意
   <text style="color:#fda402">《报名吧服务协议》</text>

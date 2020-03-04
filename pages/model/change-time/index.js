@@ -19,6 +19,7 @@ create(store, {
     nowDate: '',
     nowTime: '',
     nowTimeStap: 0,
+    timeStap: null,
     dateStap: 0,
     key: ''
   },
@@ -27,8 +28,10 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
     this.setData({
-      key: options.key
+      key: options.key,
+      timeStap: options.timeStap === 'null' ? null : parseInt(options.timeStap)
     })
   },
 
@@ -36,36 +39,67 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    let date
     const nowDate = new Date()
-    console.log(formatTime(nowDate, 'date'))
+    if(this.data.timeStap) {
+      date = new Date(this.data.timeStap)
+    }
+    console.log(typeof(this.data.timeStap))
+    console.log(!this.data.timeStap)
     this.setData({
-      dateStr: formatTime(nowDate, 'date'),
-      nowDate: formatTime(nowDate, 'date'),
-      timeStr: formatTime(nowDate, 'time'),
-      nowTime: formatTime(nowDate, 'time'),
+      dateStr: formatTime(this.data.timeStap ? date : nowDate, 'date', 'picker'),
+      nowDate: formatTime(nowDate, 'date', 'picker'),
+      timeStr: formatTime(this.data.timeStap ? date : nowDate, 'time', 'picker'),
+      nowTime: formatTime(nowDate, 'time', 'picker'),
       nowTimeStap: nowDate.getTime()
     })
   },
 
+  validLogin() {
+    if (!store.data.isLogin) {
+      wx.showModal({
+        title: '您还未登录',
+        content: '是否跳转登录',
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../../user/user/index',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false
+    } else {
+      return true
+    }
+  },
   pickerOnChange(e) {
+    if(!this.validLogin()) {
+      return
+    }
     console.log(e)
     const key = e.target.dataset.key
     let value = e.detail.value
     if (key === 'timeStr') {
-      value = value + ':00'
+      value = value
     }
     this.setData({
       [key]: value
     })
   },
   okOnClick() {
-    const date = this.data.dateStr + ' ' + this.data.timeStr
+    if(!this.validLogin()) {
+      return
+    }
+    const date = this.data.dateStr + ' ' + this.data.timeStr + ':00'
     console.log(date)
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一页
     console.log(getDate(date))
     prevPage.dataOnChange(this.data.key, getDate(date).getTime(), pages)
-    prevPage.dataOnChange(this.data.key + 'Str', date, pages)
+    prevPage.dataOnChange(this.data.key + 'Str', this.data.dateStr + ' ' + this.data.timeStr, pages)
     wx.navigateBack()
   },
 

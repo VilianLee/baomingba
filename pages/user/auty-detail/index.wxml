@@ -14,4 +14,4 @@
 <view class="auty_img">
   <image src="../../../images/auty/05.png" mode="widthFix"></image>
 </view>
-<view class="app_btn">前往APP中申请认证</view>
+<navigator url="../../about/download/index" class="app_btn">前往APP中申请认证</navigator>

@@ -10,6 +10,8 @@ import {
   getLeftPayTime,
   cancelPayJoin,
   likeActivity,
+  unFollowUser,
+  followUser,
   cancelLiked
 } from '../../../API/servers'
 import {
@@ -43,7 +45,27 @@ create(store, {
     applicantId: '',
     cancelReason: ""
   },
-  showAutyFrame(e){
+  validLogin() {
+    if (!store.data.isLogin) {
+      wx.showModal({
+        title: '您还未登录',
+        content: '是否跳转登录',
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../../user/user/index',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false
+    } else {
+      return true
+    }
+  },
+  showAutyFrame(e) {
     const content = e.currentTarget.dataset.content
     console.log(content)
     this.setData({
@@ -51,24 +73,47 @@ create(store, {
       autyContent: content
     })
   },
-  hideAutyFrame(){
+  hideAutyFrame() {
     this.setData({
       autyShow: false
     })
   },
   showJoinCodeOnHide() {
+    if (!this.validLogin()) {
+      return
+    }
     this.setData({
       showJoinCode: false
     })
   },
   AjaxGetPreOrder() { // 预下单
+    if (!this.validLogin()) {
+      return
+    }
     console.log(this.data.applicantId)
     const params = {
       applicantid: this.data.applicantId
     }
     getPreOrderInfo(params, res => {
-      let obj = JSON.parse(res.orderResult)
-      this.getWxPayApi(obj)
+      if (res.e === 0) {
+        let obj = JSON.parse(res.orderResult)
+        this.getWxPayApi(obj)
+      } else {
+        wx.showToast({
+          title: '预下单异常，请重试',
+          icon: 'error',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+  previewImg(e){
+    const url = e.currentTarget.dataset.url
+    wx.previewImage({
+      urls: [url],
     })
   },
   getWxPayApi(obj) { //唤起微信支付
@@ -102,6 +147,9 @@ create(store, {
     })
   },
   likeOnClick(e) { // 点击收藏按钮
+    if (!this.validLogin()) {
+      return
+    }
     console.log(e)
     const params = {
       eventId: this.data.id
@@ -142,6 +190,9 @@ create(store, {
     }
   },
   cancelOnClick() { // 取消弹窗显示或取消
+    if (!this.validLogin()) {
+      return
+    }
     console.log(this.data.showCancelCover)
     this.setData({
       showCancelCover: !this.data.showCancelCover
@@ -166,6 +217,9 @@ create(store, {
     }
   },
   AjaxNeedPayActCancel(params) { // 收费活动取消报名
+    if (!this.validLogin()) {
+      return
+    }
     const _this = this
     cancelPayJoin(params, res => {
       if (res.e === 0) {
@@ -187,6 +241,9 @@ create(store, {
     })
   },
   AjaxFreeActCancel(params) { // 免费活动取消报名
+    if (!this.validLogin()) {
+      return
+    }
     cancelJoin(params, res => {
       if (res.e === 0) {
         this.setData({
@@ -203,6 +260,9 @@ create(store, {
     })
   },
   AjaxGetJoinCode() { // 获取报名凭证
+    if (!this.validLogin()) {
+      return
+    }
     const _this = this
     getJoinCode({
       eventId: this.data.id
@@ -258,8 +318,63 @@ create(store, {
       })
     })
   },
-  followOrganizer() {
-
+  followOrganizer(e) { // 关注
+    const params = {
+      userUid: e.currentTarget.dataset.id
+    }
+    followUser(params, res => {
+      if(res.e === 0) {
+        wx.showToast({
+          title: '关注成功',
+          icon: 'success'
+        })
+        this.AjaxGetDetails()
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+  AjaxUnFollow(e){ // 取关
+    const params = {
+      userUid: e.currentTarget.dataset.id
+    }
+    unFollowUser(params, res => {
+      if(res.e === 0) {
+        wx.showToast({
+          title: '关注成功',
+          icon: 'success'
+        })
+        this.AjaxGetDetails()
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+  makePhoneCall(e) { // 联系组织者
+    const phone = e.currentTarget.dataset.phone
+    console.log(e)
+    if (phone) {
+      wx.makePhoneCall({
+        phoneNumber: phone 
+      })
+    } else {
+      wx.showToast({
+        title: '该用户未认证手机号码',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+    }
+  },
+  seeMap(){
+    const address = this.data.info.address
+    const url=`../map/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
+    wx.navigateTo({
+      url: url,
+    })
   },
   /**
    * 生命周期函数--监听页面加载

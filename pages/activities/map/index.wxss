@@ -1,0 +1,120 @@
+/* pages/activities/map/index.wxss */
+/* pages/public/location/index.wxss */
+.search {
+  position: absolute;
+  left: 40rpx;
+  top: 40rpx;
+  right: 40rpx;
+}
+
+.search_tab {
+  height: 80rpx;
+  display: flex;
+  background-color: #ffffff;
+}
+
+.search_input {
+  height: 80rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  position: relative;
+  flex-grow: 1;
+}
+
+.search_btn {
+  height: 80rpx;
+  padding: 20rpx 0;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #999999;
+  text-align: center;
+  width: 100rpx;
+}
+
+.search_btn .text {
+  border-left: solid 1rpx #e5e5e5;
+}
+
+.text{
+  height: 40rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.input{
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  /* margin-top为text的高度，保持视觉上一致 */
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  left: 20rpx;
+}
+
+.search_list {
+  background-color: #ffffff;
+  border-top: solid 1rpx #e5e5e5;
+  padding: 0 15rpx;
+  max-height: 800rpx;
+  overflow-y: scroll;
+}
+
+.search_result_item {
+  padding: 10rpx 0;
+  border-bottom: solid 1rpx #e5e5e5
+}
+
+.search_list .search_result_item:last-child{
+  border-bottom: none;
+}
+
+.search_result_item .item_title {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 40rpx;
+  margin-bottom: 15rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search_result_item .item_address {
+  font-size: 24rpx;
+  color: #999999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 40rpx;
+}
+
+.loading_more {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #999999;
+  text-align: center;
+}
+
+.save_btn{
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  background-color: #fda402;
+  color: #ffffff;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  left: 0;right: 0;
+}
+
+.location {
+  position: fixed;
+  bottom: 130rpx;
+  right: 40rpx;
+  height: 60rpx;
+  width: 60rpx;
+  padding: 5rpx;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.2);
+}

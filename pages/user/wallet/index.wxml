@@ -7,12 +7,13 @@
           <view class="icon">
             <image src="../../../images/mine/icon_balance.png"></image>
           </view>
-          {{balance}}元
+          {{balance / 100}}元
         </view>
         <view class="page_tips" bindtap="seeNormalProblem">常见问题</view>
       </view>
       <view class="app_tips">
-        进行收款、提现操作请到，报名吧APP >>
+        进行收款、提现操作请到，
+        <navigator url="../../about/download/index">报名吧APP >></navigator>
       </view>
     </view>
   </view>
@@ -22,11 +23,11 @@
         交易明细
       </view>
       <block wx:if="{{detailList.length > 0}}">
-        <view class="detail_item" wx:for="{{detailList}}" wx:key="{{item.id}}">
+        <view class="detail_item" wx:for="{{detailList}}" wx:key="id">
           <view class="detail_item_des">
             {{item.shortName}}
             <view class="detail_amount {{item.amount > 0 ? 'income' : ''}}">
-              {{item.amount > 0 ? '+' + item.amount : item.amount}}
+              {{ item.flowType === 1 ? '+' + (item.amount / 100) : '-' + (item.amount / 100)}}
             </view>
           </view>
           <view class="serial_num">{{item.name}}</view>

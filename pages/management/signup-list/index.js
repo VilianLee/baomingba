@@ -5,7 +5,9 @@ import create from '../../../utils/create'
 import {
   getSignerList,
   exportListToEmail,
-  rejectSignUp
+  rejectSignUp,
+  rejectNeedPaySignUp,
+  rejectNeedPaySignUpPay
 } from '../../../API/servers'
 import {
   formatTime
@@ -56,8 +58,10 @@ create(store, {
     showEmailInput: false,
     postEmail: '',
     rejectReason: '',
-    signupPermit: false,
-    showReject: false
+    signUpPermit: true,
+    showReject: false,
+    showRejectPay: false,
+    needPay: false
   },
 
   /**
@@ -65,7 +69,8 @@ create(store, {
    */
   onLoad: function(options) {
     this.setData({
-      eventId: options.eventId
+      eventId: options.eventId,
+      needPay: options.needPay
     })
   },
 
@@ -73,7 +78,7 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    //this.AjaxGetSignerList()
+    this.AjaxGetSignerList()
   },
 
   signupPermitOnChange() { // 是否允许再次报名
@@ -96,12 +101,24 @@ create(store, {
     if (this.data.showReject) {
       this.setData({
         showReject: false,
-        signupPermit: false
+        signUpPermit: true
       })
     } else {
       this.setData({
         showReject: true,
         selectSigner: this.data.signerList[index]
+      })
+    }
+  },
+
+  showRejectPayOnChange() { // 显示拒绝报名退款弹窗
+    if (this.data.showRejectPay) {
+      this.setData({
+        showRejectPay: false
+      })
+    } else {
+      this.setData({
+        showRejectPay: true
       })
     }
   },
@@ -162,13 +179,108 @@ create(store, {
     //没啥用，防冒泡
   },
 
-  AjaxRejectSign() { //拒绝报名
+  clickReject(){ // 点击拒绝报名
+    if(this.data.selectSigner.charge > 0) {
+      this.AjaxRejectNeedPaySign()
+    } else {
+      this.AjaxRejectFreeSign()
+    }
+  },
+
+  AjaxRejectNeedPaySign() {//拒绝收费活动报名
+    const params = {
+      applid: this.data.selectSigner.id,
+      status: 3,
+      rejectReason: this.data.rejectReason,
+      signupPermit: this.data.signUpPermit
+    }
+    if (!params.rejectReason) {
+      wx.showToast({
+        title: '请输入拒绝理由',
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+      return
+    }
+    const _this = this
+    rejectNeedPaySignUp(params,res => {
+      if(res.e === 0) {
+        _this.setData({
+          showReject: false
+        })
+        _this.showRejectPayOnChange()
+      }
+    })
+  },
+
+  prePayForReject() {
+    const params = {
+      eventId: this.data.eventId,
+      userId: this.data.selectSigner.userId,
+      ps: 5
+    }
+    this.showRejectPayOnChange()
+    rejectNeedPaySignUpPay(params, res => {
+      if(res.e === 0) {
+        let obj = JSON.parse(res.orderResult)
+        this.getWxPayApi(obj)
+      }
+    })
+  },
+
+  getWxPayApi(obj) { //唤起微信支付
+    const _this = this
+    console.log(obj)
+    store.data.loading = true
+    store.update()
+    wx.requestPayment({
+      'timeStamp': obj.timestamp,
+      'nonceStr': obj.nonceStr,
+      'package': obj.package,
+      'signType': obj.signType,
+      'paySign': obj.paySign,
+      'success': function (res) {
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: '退款成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          _this.setData({
+            signerList: []
+          })
+          _this.AjaxGetSignerList()
+        }, 2000)
+      },
+      'fail': function (res) {
+        console.log(res)
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: "支付未成功，请重新操作或联系客服",
+          icon: 'error'
+        });
+        setTimeout(() => {
+          wx.hideToast()
+          wx.navigateBack()
+        }, 1500)
+      }
+    })
+  },
+
+  AjaxRejectFreeSign() { //拒绝免费活动报名
     const params = {
       eventId: this.data.eventId,
       signerId: this.data.selectSigner.id,
       status: 3,
       rejectReason: this.data.rejectReason,
-      signupPermit: this.data.signupPermit
+      signUpPermit: this.data.signUpPermit
     }
     if (!params.rejectReason) {
       wx.showToast({
@@ -183,21 +295,30 @@ create(store, {
     }
     const _this = this
     rejectSignUp(params, res => {
+      console.log("123")
       if (res.e === 0) {
         _this.setData({
           showReject: false,
           signerList: []
         })
-        _this.AjaxGetSignerList()
-      } else {
         wx.showToast({
-          title: res.msg,
+          title: '操作成功',
           icon: 'none',
           duration: 2000
         })
         setTimeout(() => {
           wx.hideToast()
+          _this.AjaxGetSignerList()
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '操作失败，请联系客服',
+          icon: 'none',
+          duration: 2000
         })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
       }
     })
   },
@@ -237,15 +358,29 @@ create(store, {
     }
     const _this = this
     getSignerList(params, res => {
-      let list = _this.data.signerList.concat(res.signUps.map(item => {
+      console.log(res.signUps)
+      let arr = res.signUps.map(item => {
         item.showDetail = false
-      }))
+        return item
+      })
+      console.log(arr)
+      let list = _this.data.signerList.concat(arr)
+      console.log(list)
+      let totalRows = 0
+      if(params.status === 2) { // 已报名
+        totalRows = res.passedTotal
+      } else if (params.status === 3) { // 已拒绝
+        totalRows = res.rejectedTotal
+      } else if (params.status === 5) { // 已取消
+        totalRows = res.canceledTotal
+      }
       _this.setData({
-        totalRows: res.signUpTotal,
+        totalRows: totalRows,
         signerList: list
       })
     })
   },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */

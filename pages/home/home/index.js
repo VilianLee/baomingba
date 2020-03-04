@@ -27,6 +27,27 @@ create(store, {
     totalRows: 0,
     ActiveList: [],
   },
+  
+  validLogin() {
+    if (!store.data.isLogin) {
+      wx.showModal({
+        title: '您还未登录',
+        content: '是否跳转登录',
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../../user/user/index',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false
+    } else {
+      return true
+    }
+  },
   seeDetail(e){
     const id = e.currentTarget.dataset.id
     if (this.data.activeType === 'publiced') {
@@ -40,6 +61,9 @@ create(store, {
     }
   },
   tabsChange(e) {
+    if(!this.validLogin()) {
+      return
+    }
     const key = e.detail.key
     this.setData({
       activeType: key,

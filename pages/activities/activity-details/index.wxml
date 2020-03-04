@@ -17,16 +17,23 @@
 			</view>
 		</view>
 		<swiper class="banner_swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
-			<swiper-item wx:for="{{info.photos}}" wx:key="id">
-				<image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name}}"></image>
-			</swiper-item>
+			<block wx:if="{{info.photos.length > 0}}">
+				<swiper-item wx:for="{{info.photos}}" wx:key="id">
+					<image mode="aspectFill" src="{{baseUrl.imageUrl + '/' + item.name}}"></image>
+				</swiper-item>
+			</block>
+			<block wx:else>
+				<swiper-item>
+					<image mode="aspectFill" src="https://upload.51bmb.com/web/Picture1454586220407.jpg?imageView2/2/w/640"></image>
+				</swiper-item>
+			</block>
 		</swiper>
 	</view>
 	<view class="block">
 		<view class="detail_base">
 			<view class="activity_tittle">{{info.title}}</view>
 			<view class="sign_des">
-				已报名 {{info.signUps.length}}/{{info.signUpLimit}}
+				已报名 {{info.signUps.length}}/{{info.signUpLimit === 0 ? '人数不限' : info.signUpLimit}}
 				<block wx:if="{{info.eventStatus.needPay}}">
 					<text>￥{{info.charge}}</text>
 				</block>
@@ -42,15 +49,15 @@
 				<view class="input_cell_icon">
 					<image src="../../../images/activities/icon_clock.png"></image>
 				</view>
-				{{info.beginTimeStr}} - {{info.endTimeStr}}
+				{{info.endTimeStr === '1970-01-01 08:00' ? info.beginTimeStr + '开始' : info.beginTimeStr + '至' + info.endTimeStr}}
 			</view>
 		</view>
-		<view class="input_cell_row is_link">
+		<view class="input_cell_row is_link" wx:if="{{!info.hideAddr && info.address.longAddress}}" bindtap="seeMap">
 			<view class="label">
 				<view class="input_cell_icon">
 					<image src="../../../images/activities/icon_location.png"></image>
 				</view>
-				{{info.address.longAddress}}
+				<text>{{info.address.longAddress ? info.address.longAddress : '地点不限'}}</text>
 			</view>
 		</view>
 		<view class="input_cell_row is_link">
@@ -113,15 +120,15 @@
 				</view>
 				<view class="organizer_control clearfix">
 					<view class="organizer_control_item">
-						<view class="organizer_btn disable_btn" wx:if="{{item.isFollow}}">
+						<view class="organizer_btn disable_btn" wx:if="{{item.isFollow}}" data-id="{{item.id}}" bindtap="AjaxUnFollow">
 							已关注
 						</view>
-						<view class="organizer_btn" bindtap="followOrganizer" wx:else>
+						<view class="organizer_btn" data-id="{{item.id}}" bindtap="followOrganizer" wx:else>
 							关注
 						</view>
 					</view>
 					<view class="organizer_control_item">
-						<view class="organizer_btn">
+						<view class="organizer_btn" bindtap="makePhoneCall" data-phone="{{item.phone}}">
 							联系Ta
 						</view>
 					</view>
@@ -138,7 +145,9 @@
 			<rich-text nodes="{{info.intro}}"></rich-text>
 		</view>
 	</view>
-	<view class="block">
+
+	<view style="height: 90rpx;"></view>
+	<!-- <view class="block">
 		<view class="organizer">
 			<view class="block_title">
 				评论 {{info.commentCount}}
@@ -151,8 +160,7 @@
 			</view>
 			<view class="evaluate_content">我来说点什么...</view>
 		</view>
-		<view style="height: 90rpx;"></view>
-	</view>
+	</view> -->
 
 	<view class="cover_bg" wx:if="{{showJoinCode}}">
 		<view class="cover_block">
@@ -163,12 +171,12 @@
 			<view class="cover_block_content">
 				<view class="cover_block_text">{{joinCode.activityTitle}}</view>
 				<view class="cover_block_text">凭证号：<text>{{joinCode.voucherSerial}}</text></view>
-				<view class="join_code_img">
+				<view class="join_code_img" bindtap="previewImg" data-url="{{joinCode.qrcodeURL}}">
 					<image src="{{joinCode.qrcodeURL}}" mode="widthFix"></image>
 				</view>
 			</view>
-			<view class="cover_block_text">长按保存二维码</view>
-			<view class="cover_btn">下载APP查看凭证</view>
+			<view class="cover_block_text">点击预览，长按保存二维码</view>
+			<navigator url="../../about/download/index" class="cover_btn">下载APP查看凭证</navigator>
 		</view>
 	</view>
 
@@ -308,12 +316,4 @@
 	</view>
 </view>
 
-<auty-frame 
-	autyShow="{{autyShow}}" 
-	autyContent="{{autyContent}}"
-	bind:hideauty="hideAutyFrame"
-></auty-frame>
-
-<i-spin fix custom wx:if="{{loading}}">
-	<view class="loading"></view>
-</i-spin>
+<auty-frame autyShow="{{autyShow}}" autyContent="{{autyContent}}" bind:hideauty="hideAutyFrame"></auty-frame>

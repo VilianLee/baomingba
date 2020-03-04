@@ -3,7 +3,7 @@ import store from '../../../store'
 import create from '../../../utils/create'
 
 import {
-  getUserInfo
+  feedBack
 } from '../../../API/servers'
 
 
@@ -18,6 +18,36 @@ create(store, {
   textOnChange(e) {
     this.setData({
       feedback: e.detail.value
+    })
+  },
+  AjaxFeedBack(){
+    if(!this.data.feedback || this.data.feedback === "") {
+      wx.showToast({
+        title: '请输入反馈意见后提交',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+      return
+    }
+    const params = {
+      content: this.data.feedback
+    }
+    feedBack(params, res => {
+      console.log(res)
+      if(res.e === 0) {
+        this.setData({
+          feedback: ""
+        })
+        wx.showToast({
+          title: '提交成功',
+          icon: 'none'
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
     })
   },
   /**

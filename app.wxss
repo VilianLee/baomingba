@@ -42,6 +42,7 @@ page .i-icon {
 .input_cell .input_cell_row {
   border-bottom: solid 1px #e5e5e5;
   padding: 20rpx 0;
+  padding-right: 30rpx;
   height: 80rpx;
   display: flex;
   align-content: space-between;
@@ -50,9 +51,11 @@ page .i-icon {
   background: #ffffff;
 }
 
+
 .input_cell .input_cell_rich_row {
   border-bottom: solid 1px #e5e5e5;
   padding: 20rpx 0;
+  padding-right: 30rpx;
   position: relative;
 }
 
@@ -68,7 +71,15 @@ page .i-icon {
   position: relative;
 }
 
-.input_cell .input_cell_row:last-child {
+.input_cell .input_cell_rich_row .content textarea {
+  display: block;
+  width: 100%;
+  height: 120rpx;
+  font-size: 28rpx;
+  line-height: 44rpx;
+}
+
+.input_cell view:last-child {
   border-bottom: none;
 }
 
@@ -85,7 +96,14 @@ page .i-icon {
   justify-content: start;
 }
 
-.input_cell .input_cell_row .label .require {
+.input_cell .input_cell_row .label text {
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.input_cell .label .require {
   color: #ff6633;
   position: absolute;
   left: -15rpx;
@@ -113,7 +131,6 @@ button::after {
   line-height: 40rpx;
   font-size: 28rpx;
   color: #666666;
-  padding-right: 30rpx;
   box-sizing: border-box;
 }
 .input_cell_row .form_item text {
@@ -121,12 +138,23 @@ button::after {
 }
 .input_cell .is_link{
   width: auto;
-}
-.input_cell .is_link .form_item {
   padding-right: 60rpx;
 }
 .input_cell .is_link::after {
   content: " ";
+  display: inline-block;
+  width: 12rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 50%;
+  right: 30rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #999;
+  border-style: solid;
+  transform: translateY(-50%) matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+}
+
+.input_cell .is_link .btn_is_link {
   display: inline-block;
   width: 12rpx;
   height: 12rpx;

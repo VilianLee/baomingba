@@ -6,8 +6,8 @@
     </view>
     <view class="input_cell_row">
       <view class="select_tag">
-        <view class="select_tag_item " wx:for="{{conditions}}" wx:key="index" data-index="{{index}}" bindtap="tagOnChange">
-          <view class="tag {{item.require ? 'require' : ''}}">{{item.text}} {{item.require ? "*" : ""}}</view>
+        <view class="select_tag_item " wx:for="{{activity.conditions}}" wx:key="index" data-index="{{index}}" bindtap="tagOnChange">
+          <view class="tag {{item.required ? 'require' : ''}}">{{item.text}} {{item.required ? "*" : ""}}</view>
         </view>
         <view class="select_tag_item">
           <view class="tag" bindtap="editMoreInfo">
@@ -22,28 +22,28 @@
     <navigator url="../change-time/index?key=signUpStartTime" class="input_cell_row">
       <view class="label">报名开始时间</view>
       <view class="form_item">
-        {{signUpStartTimeStr}}
+        {{activity.signUpStartTimeStr}}
       </view>
     </navigator>
     <navigator url="../change-time/index?key=expireTime" class="input_cell_row">
       <view class="label">报名截止时间</view>
       <view class="form_item">
-        {{expireTimeStr}}
+        {{activity.expireTimeStr}}
       </view>
     </navigator>
   </view>
 
   <view class="input_cell">
-    <view class="input_cell_row">
+    <!-- <view class="input_cell_row">
       <view class="label">自定义主办方</view>
       <view class="form_item">
         <input placeholder="主办方名称" value="{{organizer}}" data-key="organizer" bindinput="inputOnChange"/>
       </view>
-    </view>
+    </view> -->
     <view class="input_cell_row">
       <view class="label">联系电话</view>
       <view class="form_item">
-        <input placeholder="请输入联系电话" value="{{telephone}}" data-key="telephone" bindinput="inputOnChange"/>
+        <input placeholder="请输入联系电话" value="{{activity.telephone}}" data-key="telephone" bindinput="inputOnChange"/>
       </view>
     </view>
   </view>
@@ -53,7 +53,7 @@
     <view class="input_cell_row">
       <view class="label">隐藏报名名单</view>
       <view class="form_item">
-        <switch color="#fda402" checked="{{hideJoinerList}}" data-key="" bindchange="switchChange" />
+        <switch color="#fda402" checked="{{activity.hideJoinerList}}" data-key="" bindchange="switchChange" />
       </view>
     </view>
   </view> -->
@@ -63,7 +63,7 @@
     <view class="input_cell_row">
       <view class="label">隐藏活动地址</view>
       <view class="form_item">
-        <switch color="#fda402" checked="{{hideAddr}}" data-key="hideAddr" bindchange="inputOnChange" />
+        <switch color="#fda402" checked="{{activity.hideAddr}}" data-key="hideAddr" bindchange="inputOnChange" />
       </view>
     </view>
   </view>

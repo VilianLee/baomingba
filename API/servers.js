@@ -204,6 +204,17 @@ function getQrCode(params, success) { //获取签到二维码
   })
 }
 
+function signupOnQrCode(params, success) { //扫描二维码签到
+  const des = '扫描二维码签到'
+  networkpost({
+    url: `/event/${params.signInId}/signin`,
+    params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
 function getEventInfo(params, success) { //编辑时获取当前活动信息
   const des = '编辑时获取当前活动信息'
   networkget({
@@ -217,7 +228,7 @@ function getEventInfo(params, success) { //编辑时获取当前活动信息
 function getSignerList(params, success) { //报名名单
   const des = '报名名单'
   networkget({
-    url: `/event/${params.eventId}/detail_signups?l=${params.pageSize}&an=${params.startNum}&status=${params.status}`,
+    url: `/event/${params.eventId}/status_signups?l=${params.pageSize}&an=${params.startNum}&status=${params.status}`,
     des
   }).then(function(res) {
     return success(res.data)
@@ -235,8 +246,8 @@ function exportListToEmail(params, success) { //导出名单到邮箱
   })
 }
 
-function rejectSignUp(params, success) { //禁止报名
-  const des = '禁止报名'
+function rejectSignUp(params, success) { //拒绝免费活动报名
+  const des = '拒绝免费活动报名'
   networkpost({
     url: `/event/${params.eventId}/signup/${params.signerId}/review`,
     params,
@@ -245,6 +256,29 @@ function rejectSignUp(params, success) { //禁止报名
     return success(res.data)
   })
 }
+
+function rejectNeedPaySignUp(params, success) { //拒绝收费活动报名
+  const des = '拒绝收费活动报名'
+  networkpost({
+    url: `/refund/rejectappl`,
+    params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
+function rejectNeedPaySignUpPay(params, success) { //拒绝收费活动报名后预支付
+  const des = '拒绝收费活动报名后预支付'
+  networkpost({
+    url: `/event/${params.eventId}/weixin/reject`,
+    params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
 
 function joinActivity(params, success) { //活动报名
   const des = '活动报名'
@@ -320,6 +354,17 @@ function cancelPayJoin(params, success) { //取消收费报名
   })
 }
 
+function feedBack(params, success) { //意见反馈
+  const des = '意见反馈'
+  networkpost({
+    url: `/feedback`,
+    params: params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
 function getPreOrderInfo(params, success) { //支付生成预订单接口
   const des = '支付生成预订单接口'
   networkget({
@@ -340,6 +385,16 @@ const getLeftPayTime = (params, success) => { // 获取支付剩余时间
   })
 }
 
+const getHeadPicQiniuCloudToken = (params, success) => { // 获取七牛云token
+  const des = '获取上传头像七牛云token'
+  networkget({
+    url: `/qiniu/avatar_token`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 const getQiniuCloudToken = (params, success) => { // 获取七牛云token
   const des = '获取七牛云token'
   networkget({
@@ -350,13 +405,69 @@ const getQiniuCloudToken = (params, success) => { // 获取七牛云token
   })
 }
 
+const getQrCodeResult = (url, success) => { // 扫描二维码后发起请求
+  const des = '扫描二维码后发起请求'
+  console.log(des)
+  networkget({
+    url: url,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+const followUser = (params, success) => { // 关注用户
+  const des = '关注用户'
+  networkget({
+    url: `/follow/${params.userUid}`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+const unFollowUser = (params, success) => { // 取消关注用户
+  const des = '取消关注用户'
+  networkget({
+    url: `/unfollow/${params.userUid}`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+const createActivityLink = (params, success) => { // 生成活动链接
+  const des = '生成活动链接'
+  networkget({
+    url: `/event/${params.eventId}/signup/qrcode`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+const checkVidCount = (params, success) => { // 查询实名认证包
+  const des = '查询实名认证包'
+  networkget({
+    url: `/vid/allcounts`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
 
 module.exports = {
+  followUser,
+  unFollowUser,
   joinActivity,
   getPayLeftTime,
   getJoinCode,
   rejectSignUp,
+  rejectNeedPaySignUp,
+  createActivityLink,
+  rejectNeedPaySignUpPay,
   exportListToEmail,
+  checkVidCount,
   getSignerList,
   getMyPublicedEventInfo,
   getEventInfo,
@@ -365,6 +476,7 @@ module.exports = {
   getQrCode,
   cancelJoin,
   cancelPayJoin,
+  feedBack,
   prohibitSignUp,
   allowSignUp,
   getLeftPayTime,
@@ -384,5 +496,8 @@ module.exports = {
   getEditFields,
   submitEditPersonalInfo,
   getPreOrderInfo,
-  getQiniuCloudToken
+  getQiniuCloudToken,
+  getHeadPicQiniuCloudToken,
+  getQrCodeResult,
+  signupOnQrCode
 }

@@ -4,12 +4,11 @@ import store from '../../../store'
 import create from '../../../utils/create'
 import {
   publicActivity,
-  getEventInfo,
-  getQiniuCloudToken
+  getEventInfo
 } from '../../../API/servers'
 import {
-  upLoadImg
-} from '../../../utils/wxfunction'
+  uploadFile
+} from '../../../utils/uploads'
 import qiniuUploader from '../../../utils/qiniuUploader'
 import {
   formatTime,
@@ -35,7 +34,7 @@ create(store, {
     eventId: '',
     bg_opacity: 0,
     pic_list: [],
-    agree: false,
+    agree: true,
     date: '2018-10-01',
     time: '12:00',
     endTimeInput: false,
@@ -47,6 +46,8 @@ create(store, {
     real_name_arr: ["无需身份实名", "需要身份实名", "查看实名认证包"],
     real_name: "1",
     uploadFileUrls: [],
+    beginTImeChange: false,
+    enCodeIntro: '',
     activity: {
       createSource: 2, //创建源,(安卓，ios还是h5)
       title: null, //活动标题
@@ -117,7 +118,8 @@ create(store, {
         activity.signUpStartTimeStr = formatTime(new Date(activity.signUpStartTime))
         activity.expireTimeStr = formatTime(new Date(activity.expireTime))
         _this.setData({
-          activity
+          activity,
+          enCodeIntro: encodeURIComponent(activity.intro)
         })
       } else {
         wx.showToast({
@@ -136,6 +138,11 @@ create(store, {
     console.log(key, value)
     activity[key] = value
     console.log(activity)
+    if(key === 'beginTime') {
+      this.setData({
+        beginTImeChange: true
+      })
+    }
     this.setData({
       activity
     })
@@ -189,7 +196,15 @@ create(store, {
     const key = e.target.dataset.name
     const value = e.detail.value
     let activity = this.data.activity
-    activity[key] = value
+    if (key === 'charge') {
+      const reg = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/
+      if (reg.test(value)) {
+        console.log('right')
+        activity[key] = value
+      }
+    } else {
+      activity[key] = value
+    }
     this.setData({
       activity
     })
@@ -208,7 +223,57 @@ create(store, {
     })
   },
   ajaxPublicActivity() {
+    if(!this.data.agree) {
+      wx.showToast({
+        title: '请勾选“同意《报名吧服务协议》”',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    const now = new Date()
+    console.log(params)
     const params = this.data.activity
+    if(!params.beginTime) {
+      wx.showToast({
+        title: '请选择开始时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if(this.data.beginTImeChange && params.beginTime && params.beginTime < now.getTime()) {
+      wx.showToast({
+        title: '修改后开始时间不得早于当前时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if(params.endTime && params.endTime < now.getTime()) {
+      wx.showToast({
+        title: '结束时间不得早于当前时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (params.endTime && params.endTime < params.beginTime) {
+      wx.showToast({
+        title: '结束时间不得早于开始时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if(!params.title || params.title === '') {
+      wx.showToast({
+        title: '请输入活动标题',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     publicActivity(params, res => {
       console.log(res)
       wx.showToast({
@@ -236,16 +301,6 @@ create(store, {
         console.log(res)
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         let tempFiles = res.tempFiles;
-        tempFiles.map(item => { //格式化接口返回的文件对象
-          item.name = 'web/' + (new Date()).getTime()
-          item.id = ""
-          item.base64 = wx.getFileSystemManager().readFileSync(item.path, "base64")
-          upLoadImg(item.path, res => {
-            //item.base64
-            console.log(JSON.parse(res.data).base64String)
-            item.base64 = JSON.parse(res.data).base64String
-          })
-        })
         let activity = _this.data.activity
         let uploadFileList = activity.photos.concat(tempFiles);
         let tempPaths = res.tempFilePaths
@@ -256,11 +311,7 @@ create(store, {
           activity,
           uploadFileUrls: uploadFileUrls
         })
-        getQiniuCloudToken({}, resp => {
-          store.data.uptoken = resp.uptoken
-          store.update()
-          _this.uploadFiles()
-        })
+        _this.uploadFiles()
       }
     })
   },
@@ -270,7 +321,7 @@ create(store, {
     let tempFiles = activity.photos;
     tempFiles.forEach(item => { //格式化接口返回的文件对象
       console.log(item.path)
-      qiniuUploader.upload(item.path, (img) => {
+      uploadFile(item.path, img => {
         console.log(img)
         item.name = img.imageURL
         item.id = ""
@@ -279,28 +330,38 @@ create(store, {
         this.setData({
           activity
         })
-        console.log(activity.photos)
-      }, (error) => {
-        console.log('error: ' + error);
-      }, {
-        region: 'ECN',
-        key: 'web/' + (new Date()).getTime(),
-        //domain: 'http://upload.bmbee.cn/', // // bucket 域名，下载资源时用到。如果设置，会在 success callback 的 res 参数加上可以直接使用的 ImageURL 字段。否则需要自己拼接
-        // 以下方法三选一即可，优先级为：uptoken > uptokenURL > uptokenFunc
-        uptoken: store.data.uptoken
-      }, (res) => {
-        console.log('上传进度', res.progress)
-        console.log('已经上传的数据长度', res.totalBytesSent)
-        console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-      }, () => {
-        // 取消上传
-      }, () => {
-        // `before` 上传前执行的操作
-      }, (err) => {
-        // `complete` 上传接受后执行的操作(无论成功还是失败都执行)
       })
     })
-    console.log(this.data.activity)
+  },
+  
+  setAddress(){
+    const address = this.data.activity.address
+    const url=`../location/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
+    wx.navigateTo({
+      url: url,
+    })
+  },
+
+  deletePic(e){ // 删除图片
+    const picIndex = e.currentTarget.dataset.index
+    let activity = this.data.activity
+    let photos = activity.photos
+    const _this = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确定删除这张图片',
+      success (res) {
+        if (res.confirm) {
+          //console.log('用户点击确定')
+          const newPhotos = photos.filter((item,index) => index !== picIndex)
+          console.log(newPhotos)
+          activity.photos = newPhotos
+          _this.setData({activity})
+        } else if (res.cancel) {
+          //console.log('用户点击取消')
+        }
+      }
+    })
   },
   /**
    * 监听滚动

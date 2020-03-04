@@ -1,7 +1,7 @@
 <!--pages/about/contact/index.wxml-->
 <view class="about_page">
   <view class="input_cell">
-    <view class="input_cell_row">
+    <view class="input_cell_row" bindtap="makePhoneCall" data-phone="4008764808">
       <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/mine/icon_phone.png"></image>
@@ -12,7 +12,7 @@
         <text>400 8764 808</text>
       </view>
     </view>
-    <view class="input_cell_row">
+    <button open-type="contact" session-from="weapp"  class="input_cell_row" bindcontact="handleContact">
       <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/mine/icon_wechat.png"></image>
@@ -20,8 +20,8 @@
         微信客服
       </view>
       <view class="form_item">
-        <text>xiaocao111777</text>
+        <text>点击联系客服</text>
       </view>
-    </view>
+    </button>
   </view>
 </view>

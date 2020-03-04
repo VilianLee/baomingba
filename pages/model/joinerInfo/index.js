@@ -49,7 +49,8 @@ create(store, {
     picture_des: "",
     new_checkbox: ["", ""],
     new_radios: ["", ""],
-    joiner_may_add: false
+    joiner_may_add: false,
+    itemIndex: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -64,6 +65,7 @@ create(store, {
   },
   addOption() { // 添加选项
     let add_option = this.data.add_option
+    let itemIndex = this.data.itemIndex > 9 ? this.data.itemIndex + 1 : '0' + (this.data.itemIndex + 1)
     add_option.options.push({
       key: "",
       value: ""
@@ -71,6 +73,12 @@ create(store, {
     this.setData({
       add_option
     })
+  },
+  addRequireChange(e){
+    console.log(e)
+    const add_option = this.data.add_option
+    add_option.require = e.detail.value ? 1 : 0
+    this.setData({add_option})
   },
   deleteOption(e) { // 删除选项
     console.log(e)
@@ -108,19 +116,21 @@ create(store, {
     console.log(this.data.add_option[key])
   },
   willAddInfo(e) { //添加选项弹窗
+    let itemIndex = this.data.itemIndex > 9 ? this.data.itemIndex + 1 : '0' + (this.data.itemIndex + 1)
     this.setData({
       modal_visible: true,
       add_option: {
         text: "",
         enableOther: 0,
-        name: '',
+        name: "item" + itemIndex,
         type: 'text',
         require: 1,
         options: [{
           name: "",
           value: ""
         }]
-      }
+      },
+      itemIndex: this.data.itemIndex + 1
     })
   },
   addInfo(e) { //确定添加选项
@@ -130,9 +140,6 @@ create(store, {
     let err_tip = ""
     if (add_option.text === '') {
       err_tip = '报名项标题不能为空'
-      vertify = false
-    } else if (add_option.name === '') {
-      err_tip = '报名项key值不能为空'
       vertify = false
     } else if (add_option.type === 'radio' || add_option.type === 'checkbox') {
       add_option.options.forEach(item => {
@@ -173,18 +180,10 @@ create(store, {
   selectTab(e) { //选择选项属性
     console.log(e)
     const value = e.target.dataset.value
+    let add_option = this.data.add_option
+    add_option.type = value
     this.setData({
-      add_option: {
-        text: "",
-        enableOther: 0,
-        name: '',
-        type: value,
-        require: 1,
-        options: [{
-          name: "",
-          value: ""
-        }]
-      }
+      add_option
     })
   },
   /**

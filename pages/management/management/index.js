@@ -9,7 +9,8 @@ import {
   prohibitSignUp,
   getQrCode,
   allowSignUp,
-  cancelEvent
+  cancelEvent,
+  createActivityLink
 } from '../../../API/servers'
 
 
@@ -22,6 +23,7 @@ create(store, {
     activityId: '',
     activityInfo: {},
     showQrCode: false,
+    showEventLink: false,
     showCancelCover: false,
     cancelReason: '',
     qrCode: ''
@@ -52,6 +54,19 @@ create(store, {
       })
     })
   },
+  AjaxCreateLink(){
+    const params = {
+      eventId: this.data.activityId
+    }
+    createActivityLink(params, res => {
+      if(res.e === 0) {
+        this.setData({
+          qrCode: res.qrcode,
+          showEventLink: true
+        })
+      }
+    })
+  },
   clickGoEdit() {
     if (this.data.activityInfo.status !== 4) {
       wx.navigateTo({
@@ -69,6 +84,17 @@ create(store, {
     this.AjaxGetQrCode()
     this.setData({
       showQrCode: !this.data.showQrCode
+    })
+  },
+  showEventLinkChange(){
+    this.setData({
+      showEventLink: !this.data.showEventLink
+    })
+  },
+  previewImage(e){
+    const url = e.currentTarget.dataset.qr
+    wx.previewImage({
+      urls: [url],
     })
   },
   doAnything() { },

@@ -2,10 +2,7 @@
 import store from '../store.js'
 import {baseUrl} from '../config'
 
-let localHeader = {
-  'content-type': 'application/json',
-  'cookie': wx.getStorageSync("_baomingbaCookie")
-}
+
 
 function networkpost({
   url,
@@ -15,7 +12,11 @@ function networkpost({
   des
 }) {
   // console.log(baseUrl)
-  // console.log(localHeader)
+  let localHeader = {
+    'content-type': 'application/json',
+    'cookie': wx.getStorageSync("_baomingbaCookie")
+  }
+  console.log(localHeader)
   wx.showLoading({
     title: '加载中',
     mask: true
@@ -49,7 +50,10 @@ function networkget({
   app,
   des
 }) {
-  console.log(localHeader)
+  let localHeader = {
+    'content-type': 'application/json',
+    'cookie': wx.getStorageSync("_baomingbaCookie")
+  }
   wx.showLoading({
     title: '加载中',
   })

@@ -15,6 +15,28 @@ Page({
 
   },
 
+  makePhoneCall(e) {
+    const phone = e.currentTarget.dataset.phone
+    console.log(e)
+    wx.makePhoneCall({
+      phoneNumber: phone
+    })
+  },
+  handleContact(e) { // 跳转用户所点消息的页面路径
+    console.log(e)
+    let query = ''
+    if(e.detail.query) {
+      query = '?'
+      for(let key in e.detail.query) {
+        const text = key + '=' + e.detail.query[key]
+        query += text
+      }
+    }
+    wx.reLaunch({
+      url: e.detail.path + query,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

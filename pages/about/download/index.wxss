@@ -1,0 +1,47 @@
+/* pages/about/download/index.wxss */
+.about_page {
+  padding-top: 40rpx;
+  box-sizing: border-box;
+}
+.about_page view {
+  box-sizing: border-box;
+}
+
+.logo_large {
+  width: 200rpx;
+  height: 200rpx;
+  margin: 0 auto 30rpx;
+}
+
+.logo_name {
+  font-size: 28rpx;
+  line-height: 44rpx;
+  margin-bottom: 60rpx;
+  color: #888888;
+  text-align: center;
+}
+
+.about_p {
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 44rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.about_p_text {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 44rpx;
+}
+
+.qr_content {
+  background-color: #ffffff;
+  padding: 40rpx 80rpx;
+}
+
+.qr_content .qr_wrap {
+  margin: 0 auto 30rpx;
+  width: 260rpx;
+}

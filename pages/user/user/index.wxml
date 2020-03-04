@@ -8,7 +8,7 @@
         </view>
         <view class="personal_base_info_content">
           <view class="name">
-            {{userInfo.username}}
+            {{userInfo.name}}
             <view class="authentication" wx:if="{{userInfo.authenticateStatus.authStatus === 2}}">
               <view class="icon">
                 <image src="../../../images/activities/icon_authed.png"></image>
@@ -37,7 +37,7 @@
       </view>
     </block>
   </view>
-  <navigator url="../wallet/index" class="input_cell">
+  <navigator url="../wallet/index" class="input_cell" wx:if="{{isLogin}}">
     <view class="input_cell_row is_link">
       <view class="label">
         <view class="input_cell_icon">
@@ -49,6 +49,7 @@
   </navigator>
   <view class="input_cell">
     <button class="input_cell_row is_link" open-type="share">
+      <view class="btn_is_link"></view>
       <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/mine/icon_share.png"></image>
@@ -56,23 +57,22 @@
         推荐报名吧给好友
       </view>
     </button>
-    <!-- <view class="input_cell_row">
-      <view class="label is_link">
+    <navigator url="../../about/download/index" class="input_cell_row is_link">
+      <view class="label">
         <view class="input_cell_icon">
           <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAgVJREFUeNrsmM9OwkAQxgvxpgm8gT14BxOPJPQN4A3EqxfxCcQnEC5e5erJ8gTAG5QnEE96E54AvzEfCdlsG7q2KZWZZNL/u/vbndnOTGWz2Xhll6r3D0QhDkVO8my88+z5OPSg0eTWC/Pqp5KXYxMggtZ46wYg47KZk78DsL1Wn1AIhVAIhVAIhVCIo4liEdTVcWhSQwR0y4yDxj6DxmWatqspAb6hU+iTdIZ73YwG34RGbFfaf8d1kIc51Y1riVDf0NmYgK4Akm/MoA3jUTNzCC7vyPLoWgYhs5nWNKGSKL0YIbvIAv0Nc3FsNCw2e2951CBIf1/zoe13bN1AgzTjcsrsOAiZxfOYQfRoDtOd+4+YhAG+HeD8wfLdGtp3yf6c01P6wZDmZMoHdGwMdkSwtuX9hYADICokx6ZjDi12va+MaKbFFgpYFAgtO0ySrDn7f66CZFrtAIysyN0er86hXQCsMi/Z0M5D2u2EM7VKCRKwjTjz+nVwx7+5fLfiBERxW2xvx/Fk+0v9R0bjM5Zn5hZnv3QE8Pk3r3FHHCTFTuaf13dZXq5ewO1UVmbJ7dPVfPykceZaxnSZdc0nFEIhFEIhFEIhHEo229ChaPHTQJgvt2MysaLlIsmc/JJY0GkSRFgSiEViZgcfaOFwBf2iHoqc0Yw+ER2/5pae6hZ77BA/AgwA/+qd0HgA9uoAAAAASUVORK5CYII="></image>
         </view>
         下载报名吧APP
       </view>
-    </view> -->
-    <view class="input_cell_row is_link">
+    </navigator>
+    <navigator url="../official/index" class="input_cell_row is_link">
       <view class="label">
         <view class="input_cell_icon">
           <image src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBJREFUeNrsWTtvE0EQ3nPCWyEGGhCgXEFDk4QKiQJf/gCxKBFS7IIKIUxHA46gRpxFiRCxQHQgU1ESKkSFQ0NDkQgQNEDigBNeOWasiWWvbvf2bi93a3QjjVa213Pz7ezMfLtneZ7HBl1y7D+QDEQGIgPRL8Nh/7B86ZoDg8N/DdrM37k5r2jDhqEIOglqcz+jjQbYaqr6ZKmUWHhoHoYK6BXQvZKpLdD7oC44sehjB52eBZ1W8G0J54KdOW0Q8OASDLUA53lZBb0ODrg9dtD5aoTd8gKjBraWI4GAB+MqzGhs1zpF0NW0gxEuiLaYEEQMADZlBXQ0BjsIZMwvIjnJFpqJqXiMxmQHt3NDqcRSEteSLJHbxo+zHVOn2NCRQ0FTC7TAgSXWDZnEeo1qf57tuXCu+/nPu0XWfvCYbXwV5vEN0DlhJCgKZ5OMAjr74+4j9uvVa+atrbPhYzYbuXpRFpWjfDT47YQNaCTpjvv7zVvWfviEtaq32N+Pn5m1ayfbfV66lkUZCCdN+oCR+F671xmHDh9k20+eEE2dkoGw0+ZBCODn/MtuwosqFVEXXxAFEwgdbq+Ocwf2yabZRrPYjS/fupVrYKn4ZmXCJI8CYsWIQw5FwGuvSbmpCETTlJzA/rH+7LlwTi8ZzPkcSFIXrFCdnvHhk4yeC7dTY0BOpA0hCArRkuEAWlLuRFIxHMRt/kyR80kYDNVTQwEsgH+zqn0CWeKCgduoqNzsKFwl+qMpMu13gyLt2JTkBUOAlGV3WlLaYQiQctDdUyB3ShlIWeXyTIkApgRECUAoFktAxhKoWqthAISm4lS1nC3sIxjp02EAoFhR39nB8RCvdi7H2ciwrIe5Ddc+FMHDkJ6UY8oTZKVOFABakeiJyCQRsomIJurgfEnrEKW7hLR6mCf1iBWopOuDFed7bIhKkcAEXYO+Bz0Tdfts6UUBMeAJ/uTFCVa28bgAxB4JLipImatc/e97e2Q8iJ6kr9DNhCtioUaDSEqyl/EZiAxEv/wTYABFNhy0m4HWhQAAAABJRU5ErkJggg=="></image>
         </view>
         关注公众号
       </view>
-      <official-account></official-account>
-    </view>
+    </navigator>
     <navigator url="../../about/about-us/index" class="input_cell_row is_link">
       <view class="label">
         <view class="input_cell_icon">
@@ -101,7 +101,7 @@
     </navigator>
   </view>
   <view class="input_cell">
-    <view class="input_cell_row is_link">
+    <view class="input_cell_row is_link" bindtap="scanOnClick">
       <view class="label">
         <view class="input_cell_icon">
           <image src="../../../images/mine/icon_scan.png"></image>

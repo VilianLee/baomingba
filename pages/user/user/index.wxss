@@ -58,10 +58,15 @@
   font-size: 40rpx;
   font-weight: bold;
   color: #333;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
 .personal_base_info_content .authentication {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40rpx;
   padding: 0 15rpx;
   line-height: 40rpx;
@@ -70,18 +75,19 @@
   background: #ffa409;
   border-radius: 20rpx;
   position: relative;
-  bottom: 8rpx;
+  margin-left: 20rpx;
 }
 
 .personal_base_info_content .authentication .icon {
   height: 38rpx;
   width: 38rpx;
   margin-right: 5rpx;
-  float: left
 }
 
 .personal_base_info_content .authentication_disable {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40rpx;
   padding: 0 15rpx;
   line-height: 40rpx;
@@ -90,13 +96,12 @@
   border-radius: 20rpx;
   font-size: 20rpx;
   position: relative;
-  bottom: 8rpx;
+  margin-left: 20rpx;
 }
 
 .personal_base_info_content .authentication_disable .icon {
   height: 34rpx;
   width: 34rpx;
-  float: left;
   border-radius: 17rpx;
   line-height: 34rpx;
   background: #f84810;
@@ -105,7 +110,6 @@
   color: #ffffff;
   margin-right: 5rpx;
   position: relative;
-  top: 4rpx;
 }
 
 .personal_base_info_content .phoneNum {

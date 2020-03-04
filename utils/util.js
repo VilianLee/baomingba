@@ -1,16 +1,16 @@
-const formatTime = (date, type) => {
+const formatTime = (date, type, tag) => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
   const hour = date.getHours()
   const minute = date.getMinutes()
-  const second = date.getSeconds()
+  const second = tag === 'picker' ? '00' : date.getSeconds()
   if (type === 'date') {
     return [year, month, day].map(formatNumber).join('-')
   } else if (type === 'time') {
-    return [hour, minute, second].map(formatNumber).join(':')
+    return [hour, minute].map(formatNumber).join(':')
   } else {
-    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
   }
 }
 

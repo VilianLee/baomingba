@@ -164,6 +164,15 @@
   border-bottom: solid 1rpx #e5e5e5;
 }
 
+.cover_view_title_2 {
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0 30rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #333333;
+}
+
 .cancel_cover_content {
   padding: 30rpx;
 }
@@ -205,6 +214,15 @@
   line-height: 40rpx;
   height: 40rpx;
   color: #333333;
+}
+
+.cancel_cover_content .text_2 {
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+  color: #999999;
+  text-align: center;
 }
 
 .cancel_select_row {

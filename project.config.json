@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.2",
+	"libVersion": "2.10.1",
 	"appid": "wx7758de782c51657c",
 	"projectname": "baomingba",
 	"debugOptions": {

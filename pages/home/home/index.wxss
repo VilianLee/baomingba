@@ -21,8 +21,7 @@ page{
 }
 
 .active_card {
-  height: 221rpx;
-  padding: 30rpx;
+  padding: 20rpx 30rpx;
   padding-left: 0;
   border-bottom: solid 1rpx #e6e6e6;
   display: block;

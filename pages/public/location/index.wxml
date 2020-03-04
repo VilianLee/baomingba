@@ -1,0 +1,29 @@
+<!--pages/public/location/index.wxml-->
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" bindcontroltap="controltap" markers="{{markers}}" bindregionchange="regiOnChange" bindtap="mapOnClick" show-location show-compass="{{true}}" style="width: 100%; height: {{view.Height}}px;">
+	<cover-view class="search">
+		<cover-view class="search_tab">
+			<cover-view class="search_input" bindtap='tapInput'>
+				<cover-view class='text'>{{inputInfo}}</cover-view>
+				<input class='input' value='{{inputInfo}}' focus='{{inputFocus}}' confirm-type="搜索" bindinput="inputOnChange" bindconfirm="searchLocation" bindblur='blurInput'></input>
+			</cover-view>
+			<cover-view class="search_btn">
+				<cover-view class="text" bindtap="searchLocation">搜索</cover-view>
+			</cover-view>
+		</cover-view>
+		<cover-view class="search_list" wx:if="{{searchData.length > 0}}">
+			<block wx:for="{{searchData}}" wx:key="id">
+				<cover-view class="search_result_item" data-position="{{index}}" bindtap="addressOnClick">
+					<cover-view class="item_title">{{item.title}}</cover-view>
+					<cover-view class="item_address">{{item.address}}</cover-view>
+				</cover-view>
+			</block>
+			<cover-view class="loading_more" bindtap="loadingMore" wx:if="{{searchData.length < totalCount}}">加载更多</cover-view>
+		</cover-view>
+	</cover-view>
+	<cover-view class="save_btn" bindtap="saveAddress">
+		保存
+	</cover-view>
+  <cover-view class="location" bindtap="getMyLocation">
+    <cover-image src="../../../images/activities/location.png"></cover-image>
+  </cover-view>
+</map>

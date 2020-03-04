@@ -54,6 +54,10 @@ create(store, {
     const _this = this
     const detailList = this.data.detailList
     getWalletSerails(params, res => {
+      res.paymentFlows.forEach(item => {
+        console.log(item)
+        item.createTimeStr = formatTime(new Date(item.createTime))
+      })
       _this.setData({
         detailList: detailList.concat(res.paymentFlows),
         totalRows: res.total ? res.total : this.data.totalRows

@@ -41,6 +41,11 @@
   text-align: center;
 }
 
+.app_tips navigator {
+  display: inline-block;
+  color: #fda402;
+}
+
 .trader_details {
   padding: 0 30rpx;
 }
@@ -48,7 +53,7 @@
 .block_title {
   height: 90rpx;
   line-height: 50rpx;
-  padding: 20rpx;
+  padding: 20rpx 0;
   border-bottom: solid 1rpx #e5e5e5;
   font-size: 32rpx;
   color: #333333;

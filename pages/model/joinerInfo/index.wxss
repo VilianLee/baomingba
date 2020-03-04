@@ -131,6 +131,7 @@
 }
 .modal_cell input, .modal_cell textarea {
   font-size: 24rpx;
+  line-height: 34rpx;
 }
 .modal_cell .modal_cell_row {
   min-height: 60rpx;

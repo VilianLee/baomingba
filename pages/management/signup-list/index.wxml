@@ -7,7 +7,7 @@
 
 <view class="list">
   <block wx:if="{{signerList.length > 0}}">
-    <view class="list_item" wx:for="{{signerList}}" wx:key="{{item.id}}" data-index="{{index}}" bindtap="cardDetailOnClick">
+    <view class="list_item" wx:for="{{signerList}}" wx:key="id" data-index="{{index}}" bindtap="cardDetailOnClick">
       <view class="list_item_base {{item.showDetail ? 'show_detail' : 'hide_detail'}}">
         <view class="item_head">
           <image src="{{item.headPhoto}}"></image>
@@ -36,7 +36,7 @@
             <view class="icon">
               <image src="../../../images/management/icon_reject.png"></image>
             </view>
-            禁止报名
+            拒绝报名
           </view>
         </view>
       </view>
@@ -89,7 +89,23 @@
     </view>
     <view class="cover_control">
       <view class="cover_btn cover_btn_cancel" bindtap="showRejectOnChange">取消</view>
-      <view class="cover_btn" bindtap="AjaxRejectSign">确定</view>
+      <view class="cover_btn" bindtap="clickReject">确定</view>
+    </view>
+  </view>
+</view>
+
+
+<view class="cover_view" wx:if="{{showRejectPay}}">
+  <view class="cancel_frame">
+    <view class="cover_view_title_2">将返还活动费用：￥{{selectSigner.charge}}</view>
+    <view class="cancel_cover_content">
+      <view class="text_2" >
+        确定拒绝{{selectSigner.username}}的报名
+      </view>
+    </view>
+    <view class="cover_control">
+      <view class="cover_btn cover_btn_cancel" bindtap="showRejectPayOnChange">取消</view>
+      <view class="cover_btn" bindtap="prePayForReject">确定</view>
     </view>
   </view>
 </view>

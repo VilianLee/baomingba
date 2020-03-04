@@ -14,8 +14,8 @@
 					人数不限
 				</block>
 				<view class="text">
-					<block wx:if="{{info.eventStatus.needPay}}">
-						<text>￥{{info.charge}}</text>
+					<block wx:if="{{event.eventStatus.needPay}}">
+						<text>￥{{event.charge}}</text>
 					</block>
 					<block wx:else>
 						<text>免费活动</text>
@@ -68,6 +68,15 @@
 						<input value="{{item.value}}" type="text" data-index="{{index}}" placeholder="请输入" bindinput="inputOnChange"></input>
 					</view>
 				</view>
+				<view class="input_cell_rich_row" wx:if="{{item.type === 'textarea'}}">
+					<view class="label">
+						<view class="require" wx:if="{{item.required === 1}}">*</view>
+						{{item.text}}
+					</view>
+					<view class="content">
+						<textarea value="{{item.value}}" type="text" data-index="{{index}}" placeholder="请输入" bindinput="inputOnChange"></textarea>
+					</view>
+				</view>
 				<view class="input_cell_row is_link" wx:if="{{item.type === 'radio'}}">
 					<view class="label">
 						<view class="require" wx:if="{{item.required === 1}}">*</view>
@@ -86,11 +95,30 @@
 						<checkbox-group>
 							<checkbox>
 								<label class="checkbox" wx:for="{{items.options}}">
-									<checkbox value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
+									<checkbox value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
 								</label>
 							</checkbox>
 						</checkbox-group>
 						<picker range="{{item.options}}" range-key="name" data-index="{{index}}" bindchange="selectOnChange">{{item.select ? item.options[item.select].name : '请选择'}}</picker>
+					</view>
+				</view>
+				<view class="input_cell_rich_row" wx:if="{{item.type === 'image'}}">
+					<view class="label">
+						<view class="require" wx:if="{{item.required === 1}}">*</view>
+						{{item.text}}
+					</view>
+					<view class="content">
+						<view class="image_list">
+							<view class="image_item" wx:for="{{item.value}}" wx:for-index="position" wx:key="position">
+								<image src="{{baseUrl.imageUrl + item.name}}" mode="aspectFill"></image>
+								<view class="delete" data-index="{{index}}" data-position="{{position}}" catchtap="deleteImage">
+									<image src="../../../images/activities/icon_close.png"></image>
+								</view>
+							</view>
+							<view class="image_add" wx:if="{{item.value.length < 9 || !item.value}}" bindtap="postImage" data-position="{{index}}">
+								<image src="../../../images/activities/icon_upload_pic.png"></image>
+							</view>
+						</view>
 					</view>
 				</view>
 			</block>

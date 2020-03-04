@@ -20,8 +20,18 @@
     "pages/user/wallet/index",
     "pages/web-view/index",
     "pages/management/signup-list/index",
-    "pages/user/auty-detail/index"
+    "pages/user/auty-detail/index",
+    "pages/user/official/index",
+    "pages/about/download/index",
+    "pages/public/rich-editor/index",
+    "pages/public/location/index",
+    "pages/activities/map/index"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

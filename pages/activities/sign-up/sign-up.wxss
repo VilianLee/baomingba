@@ -60,9 +60,6 @@
   padding: 0 30rpx;
 }
 
-.field_list {
-  padding: 0 30rpx;
-}
 
 .page_tips {
   height: 30rpx;
@@ -87,4 +84,38 @@
   color: #ffffff;
   text-align: center;
   font-size: 30rpx;
+}
+.input_cell .input_cell_rich_row .content .image_list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.content .image_list .image_item {
+  width: 180rpx;
+  height: 180rpx;
+  margin-top: 10rpx;
+  margin-right: 10rpx;
+  position: relative;
+}
+
+.content .image_list .image_item .delete {
+  position: absolute;
+  background-color: #000000;
+  right: -5rpx;
+  top: -5rpx;
+  width: 30rpx;
+  height: 30rpx;
+  padding: 5rpx;
+  border-radius: 15rpx;
+  box-sizing: border-box;
+}
+
+.content .image_list .image_add {
+  width: 180rpx;
+  height: 180rpx;
+  margin-top: 10rpx;
+  margin-right: 10rpx;
+  padding: 60rpx;
+  background-color: #f2f2f2;
 }

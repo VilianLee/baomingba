@@ -63,7 +63,7 @@ create(store, {
     } else {
       wx.showToast({
         title: '请完善地址信息',
-        icon: none,
+        icon: 'none',
         duration: 2000
       })
       setTimeout(() => {

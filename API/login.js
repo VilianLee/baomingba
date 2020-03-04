@@ -11,6 +11,7 @@ module.exports.Login = ({url,headers,des}) => {
         console.log(baseUrl + url)
         console.log(res.header["Set-Cookie"])
         wx.setStorageSync("_baomingbaCookie", res.header["Set-Cookie"])
+        console.log(wx.getStorageSync("_baomingbaCookie"))
         console.log(res.data)
         if (res.statusCode == 200) {
           resolve(res);

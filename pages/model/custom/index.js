@@ -5,21 +5,20 @@ import create from '../../../utils/create'
 import {
   publicActivity,
   getEventInfo,
-  getQiniuCloudToken
+  checkVidCount
 } from '../../../API/servers'
 import {
-  upLoadImg
-} from '../../../utils/wxfunction'
+  uploadFile
+} from '../../../utils/uploads'
 import {
   formatTime,
   getDate
 } from '../../../utils/util'
-import qiniuUploader from '../../../utils/qiniuUploader'
 import {
   baseUrl
 } from '../../../config'
 
-import {deepCopy, initPublic} from '../../../utils/wxfunction'
+import { deepCopy, initPublic } from '../../../utils/wxfunction'
 
 const app = getApp()
 
@@ -33,7 +32,7 @@ create(store, {
     title_color: "#ffffff",
     bg_opacity: 0,
     pic_list: [],
-    agree: false,
+    agree: true,
     date: '2018-10-01',
     time: '12:00',
     endTimeInput: false,
@@ -45,6 +44,7 @@ create(store, {
     real_name_arr: ["无需身份实名", "需要身份实名", "查看实名认证包"],
     real_name: "1",
     uploadFileUrls: [],
+    enCodeIntro: '',
     activity: {
       createSource: 2, //创建源,(安卓，ios还是h5)
       title: null, //活动标题
@@ -72,10 +72,55 @@ create(store, {
       hideAddr: false, //是否隐藏地址
       publicType: 1, //公开类型(公开，私密)
       anonSignUp: 0, //匿名报名
-      conditions: [{ //报名项
-        name: "username"
+      conditions: [{
+        text: "姓名",
+        enableOther: 0,
+        name: 'username',
+        type: 'text',
+        required: 1,
+        default: true
       }, {
-        name: "telephone"
+        text: "手机",
+        enableOther: 0,
+        name: 'telephone',
+        type: 'text',
+        required: 1,
+        default: true
+      }, {
+        text: "公司",
+        enableOther: 0,
+        name: 'company',
+        type: 'text',
+        required: 0,
+        default: true
+      }, {
+        text: "邮箱",
+        enableOther: 0,
+        name: 'email',
+        type: 'text',
+        required: 0,
+        default: true
+      }, {
+        text: "职位",
+        enableOther: 0,
+        name: 'position',
+        type: 'text',
+        required: 0,
+        default: true
+      }, {
+        text: "性别",
+        enableOther: 0,
+        name: 'sex',
+        type: 'text',
+        required: 0,
+        default: true
+      }, {
+        text: "年龄",
+        enableOther: 0,
+        name: 'age',
+        type: 'text',
+        required: 0,
+        default: true
       }],
       photowallControl: false, //是否有照片墙
       tipControl: false, //是否可以打赏
@@ -91,30 +136,102 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.type === 'edit') {
-      this.setData({
-        pageType: options.type,
-        eventId: options.eventId
-      })
+
+  },
+
+  setBeginTime() {
+    const nowDate = new Date()
+    let activity = this.data.activity
+    let year = nowDate.getFullYear()
+    let month = nowDate.getMonth() + 1
+    let day = nowDate.getDate()
+    let hour = nowDate.getHours()
+    let minute = nowDate.getMinutes()
+    let second = "00"
+    let leftNum = parseInt(minute / 5)
+    console.log(year, month, day, hour, minute, second)
+    if (leftNum === 11) { // 大于55分
+      minute = "00"
+      if (hour === 23) { // 23点后
+        hour = '00'
+        minute = '00'
+        if (month.indexOf([1, 3, 5, 7, 8, 10]) > 0 && day === 31) { // 大月月末
+          day = "01"
+        } else if (month.indexOf(4, 6, 9, 11) > 0 && day === 30) { // 小月月末
+          day = "01"
+        } else if (month === 12 && day === 31) { // 年末
+          day = "01"
+          year = year + 1
+          month = '01'
+        } else if (month === 2 && day === 28) { // 2月月末
+          if (year % 4 === 0) { // 触发闰年基本条件
+            if (year % 100 === 0) { // 逢百年
+              if (year % 400 === 0) { // 世纪闰年
+                day = '29'
+              } else { // 非世纪闰年
+                day = '01'
+                month = '03'
+              }
+            } else { // 普通闰年
+              day = '01'
+              month = '03'
+            }
+          } else { // 非普通闰年
+            day = '01'
+            month = '03'
+          }
+        } else {
+          day = (day + 1) > 10 ? String(day + 1) : '0' + (day + 1)
+        }
+      } else { // 23点之前
+        hour = (hour + 1) > 10 ? String(hour + 1) : '0' + (hour + 1)
+      }
     } else {
-      const nowDate = new Date()
-      let activity = this.data.activity
-      activity.beginTime = nowDate.getTime()
-      activity.beginTimeStr = formatTime(nowDate)
-      this.setData({
-        activity: activity
-      })
-      console.log(this.data.activity)
+      minute = leftNum > 1 ? String((leftNum + 1) * 5) : '05'
     }
+    let beginTime = new Date(year, month - 1, day, hour, minute, second)
+    console.log(beginTime)
+    activity.beginTime = beginTime.getTime()
+    activity.beginTimeStr = formatTime(beginTime)
+    this.setData({
+      activity: activity
+    })
+    console.log(this.data.activity)
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { 
+  onShow: function () {
+    if (!this.data.activity.beginTime) {
+      this.setBeginTime()
+    }
     console.log(this.data.activity)
   },
+  validLogin() {
+    if (!store.data.isLogin) {
+      wx.showModal({
+        title: '您还未登录',
+        content: '是否跳转登录',
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../../user/user/index',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false
+    } else {
+      return true
+    }
+  },
   AjaxGetEventInfo() {
+    if (!this.validLogin()) {
+      return
+    }
     const _this = this
     getEventInfo({
       eventId: this.data.eventId
@@ -136,6 +253,9 @@ create(store, {
     })
   },
   dataOnChange(key, value) { //其他页面引用导致的活动数据变化
+    if (!this.validLogin()) {
+      return
+    }
     let activity = this.data.activity
     console.log(key, value)
     activity[key] = value
@@ -143,8 +263,24 @@ create(store, {
     this.setData({
       activity
     })
+    if(key === 'intro') {
+      this.setData({
+        enCodeIntro: encodeURIComponent(value)
+      })
+    }
   },
-  seniorOnChange(){ // 高级设置保存
+  clearEndTime() {
+    let activity = this.data.activity
+    activity.endTime = null
+    activity.endTimeStr = ""
+    this.setData({
+      activity
+    })
+  },
+  seniorOnChange() { // 高级设置保存
+    if (!this.validLogin()) {
+      return
+    }
     let activity = this.data.activity
     activity.conditions = store.data.activity.conditions
     activity.signUpStartTime = store.data.activity.signUpStartTime
@@ -158,22 +294,62 @@ create(store, {
     console.log(this.data.activity)
   },
   agreeOnChange() {
+    if (!this.validLogin()) {
+      return
+    }
     this.setData({
       agree: !this.data.agree
     })
   },
   onPickChange(e) {
+    if (!this.validLogin()) {
+      return
+    }
     console.log(e)
     const key = e.target.dataset.name
     const value = e.detail.value
     const activity = this.data.activity
-    activity[key] = value
-    this.setData({
-      activity
-    })
+    if (key === 'anonSignUp') {
+      checkVidCount({}, res => {
+        if (res.e === 0) {
+          if (res.vidLeftCount > 0) {
+            activity[key] = value
+            this.setData({
+              activity
+            })
+          } else {
+            wx.showToast({
+              title: '实名认证包数量不足，请充值',
+              icon: 'none',
+              duration: 2000
+            })
+            setTimeout(() => {
+              wx.hideToast()
+            }, 2000)
+          }
+        } else {
+          wx.showToast({
+            title: '获取实名认证包数据失败',
+            icon: 'none',
+            duration: 2000
+          })
+          setTimeout(() => {
+            wx.hideToast()
+          }, 2000)
+        }
+      })
+    } else {
+      activity[key] = value
+      this.setData({
+        activity
+      })
+    }
     console.log(this.data.activity)
   },
   seniorSetting() { //跳转高级设置
+    if (!this.validLogin()) {
+      return
+    }
     console.log(this.data.activity)
     store.data.activity = this.data.activity
     store.update()
@@ -182,6 +358,9 @@ create(store, {
     })
   },
   setSeniorSetting(key, obj) {
+    if (!this.validLogin()) {
+      return
+    }
     let activity = this.data.activity
     activity[key] = obj
     this.setData({
@@ -189,21 +368,38 @@ create(store, {
     })
   },
   inputOnChange(e) {
+    if (!this.validLogin()) {
+      return
+    }
     console.log(e)
     const key = e.target.dataset.name
     const value = e.detail.value
     let activity = this.data.activity
-    activity[key] = value
+    if (key === 'charge') {
+      const reg = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/
+      if (reg.test(value)) {
+        console.log('right')
+        activity[key] = value
+      }
+    } else {
+      activity[key] = value
+    }
     this.setData({
       activity
     })
   },
   financialSettingVisibleChange() { // 费用设置显示
+    if (!this.validLogin()) {
+      return
+    }
     this.setData({
       financialSetting: !this.data.financialSetting
     })
   },
   financialTypeOnChange(e) { // 支付方式设置
+    if (!this.validLogin()) {
+      return
+    }
     const value = e.detail.value
     let activity = this.data.activity
     activity.payPath = value
@@ -212,7 +408,63 @@ create(store, {
     })
   },
   ajaxPublicActivity() { // 发布活动
+    if (!this.validLogin()) {
+      return
+    }
+    if (!this.data.agree) {
+      wx.showToast({
+        title: '请勾选“同意《报名吧服务协议》”',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     const params = this.data.activity
+    const now = new Date()
+    console.log(params)
+    if (!params.beginTime) {
+      wx.showToast({
+        title: '请选择开始时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (params.beginTime && params.beginTime < now.getTime()) {
+      wx.showToast({
+        title: '开始时间不得早于当前时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (params.endTime && params.endTime < now.getTime()) {
+      wx.showToast({
+        title: '结束时间不得早于当前时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (params.endTime && params.endTime < params.beginTime) {
+      wx.showToast({
+        title: '结束时间不得早于开始时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (!params.title || params.title === '') {
+      wx.showToast({
+        title: '请输入活动标题',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    let conditions = params.conditions.filter(item => (item.default && item.required === 1) || !item.default)
+    console.log(conditions)
+    params.conditions = conditions
     publicActivity(params, res => {
       console.log(res)
       if (res.e === 0) {
@@ -221,13 +473,13 @@ create(store, {
           icon: 'success',
           mask: true
         })
-        store.data.activity = deepCopy(initPublic)
         store.update()
         setTimeout(() => {
           wx.hideToast()
           wx.redirectTo({
             url: '../../activities/activity-details/index?id=' + res.eventId,
           })
+          store.data.activity = deepCopy(initPublic)
         }, 2000)
       } else {
         wx.showToast({
@@ -239,6 +491,9 @@ create(store, {
     })
   },
   addPic() {
+    if (!this.validLogin()) {
+      return
+    }
     let _this = this
     wx.chooseImage({
       count: 9 - _this.data.activity.photos.length, // 默认9
@@ -258,11 +513,7 @@ create(store, {
           activity,
           uploadFileUrls: uploadFileUrls
         })
-        getQiniuCloudToken({}, resp => {
-          store.data.uptoken = resp.uptoken
-          store.update()
-          _this.uploadFiles()
-        })
+        _this.uploadFiles()
       }
     })
   },
@@ -271,8 +522,7 @@ create(store, {
     let tempFiles = activity.photos;
     tempFiles.forEach(item => { //格式化接口返回的文件对象
       console.log(item.path)
-      qiniuUploader.upload(item.path, (img) => {
-        console.log(img)
+      uploadFile(item.path, img => {
         item.name = img.imageURL
         item.id = ""
         item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
@@ -280,26 +530,36 @@ create(store, {
         this.setData({
           activity
         })
-        console.log(activity.photos)
-      }, (error) => {
-        console.log('error: ' + error);
-      }, {
-        region: 'ECN',
-        key: 'web/' + (new Date()).getTime(),
-        //domain: 'http://upload.bmbee.cn/', // // bucket 域名，下载资源时用到。如果设置，会在 success callback 的 res 参数加上可以直接使用的 ImageURL 字段。否则需要自己拼接
-        // 以下方法三选一即可，优先级为：uptoken > uptokenURL > uptokenFunc
-        uptoken: store.data.uptoken
-      }, (res) => {
-        console.log('上传进度', res.progress)
-        console.log('已经上传的数据长度', res.totalBytesSent)
-        console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-      }, () => {
-        // 取消上传
-      }, () => {
-        // `before` 上传前执行的操作
-      }, (err) => {
-        // `complete` 上传接受后执行的操作(无论成功还是失败都执行)
       })
+    })
+  },
+  setAddress(){
+    const address = this.data.activity.address
+    
+    const url=`../../public/location/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
+    wx.navigateTo({
+      url: url,
+    })
+  },
+  deletePic(e) { // 删除图片
+    const picIndex = e.currentTarget.dataset.index
+    let activity = this.data.activity
+    let photos = activity.photos
+    const _this = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确定删除这张图片',
+      success(res) {
+        if (res.confirm) {
+          //console.log('用户点击确定')
+          const newPhotos = photos.filter((item, index) => index !== picIndex)
+          console.log(newPhotos)
+          activity.photos = newPhotos
+          _this.setData({ activity })
+        } else if (res.cancel) {
+          //console.log('用户点击取消')
+        }
+      }
     })
   },
   /**

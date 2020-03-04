@@ -62,6 +62,7 @@ create(store, {
         }, res => {
           if (res.e === 0) {
             store.data.isLogin = true
+            store.data.sessionkey = res.sessionKey
             store.update()
           }
         })
