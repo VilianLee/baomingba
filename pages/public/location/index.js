@@ -145,7 +145,8 @@ create(store, {
   searchLocation() { // 根据输入查找对应地址
     this.setData({
       page_index: 1,
-      searchData: []
+      searchData: [],
+      inputFocus: false
     })
     this.getSuggestion(this.data.inputInfo)
   },
@@ -208,12 +209,18 @@ create(store, {
 
   addressOnClick(e) { // 点击选中地址
     const position = e.currentTarget.dataset.position
-    const searchData = this.data.searchData
-    let obj = searchData[position]
-    obj.shortAddress = obj.title
-    obj.longAddress = obj.address + obj.title
-    obj.longitude = obj.location.lng
-    obj.latitude = obj.location.lat
+    const searchData = this.data.searchData  
+    console.log(searchData[position])  
+    const obj = {
+      province: searchData[position].province, //省
+      city: searchData[position].city,//市
+      district: searchData[position].district,//区
+      shortAddress: searchData[position].title,//地址
+      longAddress: searchData[position].address + searchData[position].title,//完整地址
+      title: searchData[position].title, //marker标题
+      longitude: searchData[position].location.lng,//经度
+      latitude: searchData[position].location.lat//维度
+    }
     this.setData({
       address: obj,
       markers: [obj],
@@ -221,8 +228,8 @@ create(store, {
       searchData: [],
       page_index: 1,
       totalCount: 0,
-      longitude: obj.location.lng,
-      latitude: obj.location.lat
+      longitude: obj.longitude,
+      latitude: obj.latitude
     })
   },
 

@@ -3,8 +3,8 @@
 	<cover-view class="search">
 		<cover-view class="search_tab">
 			<cover-view class="search_input" bindtap='tapInput'>
-				<cover-view class='text'>{{inputInfo}}</cover-view>
-				<input class='input' value='{{inputInfo}}' focus='{{inputFocus}}' confirm-type="搜索" bindinput="inputOnChange" bindconfirm="searchLocation" bindblur='blurInput'></input>
+				<input class='input' wx:if="{{inputFocus}}" value='{{inputInfo}}' focus='{{inputFocus}}' confirm-type="搜索" bindinput="inputOnChange" bindconfirm="searchLocation" bindblur='blurInput'></input>
+				<cover-view class='text' wx:else>{{inputInfo}}</cover-view>
 			</cover-view>
 			<cover-view class="search_btn">
 				<cover-view class="text" bindtap="searchLocation">搜索</cover-view>
