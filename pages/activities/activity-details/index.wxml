@@ -251,6 +251,7 @@
 			</block>
 		</block>
 		<block wx:else>
+
 			<!-- 显示一个按钮 -->
 			<block wx:if="{{pageLogic.isArticle}}">
 				<view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
@@ -298,6 +299,11 @@
 					</block>
 				</block>
 			</block>
+			<block wx:if="{{info.userStatus.owned}}">
+				<view class="pay_btn" bindtap="AjaxCreateLink">
+					生成活动链接
+				</view>
+			</block>
 		</block>
 		<view class="cover_view" wx:if="{{showCancelCover}}">
 			<view class="cancel_frame">
@@ -312,6 +318,16 @@
 					<view class="cover_cancel_btn" bindtap="AjaxCancelJoin">确定</view>
 				</view>
 			</view>
+		</view>
+	</view>
+	
+	<view class="cover_view" wx:if="{{showEventLink}}" bindtap="showEventLinkChange">
+		<view class="show_qr_code_frame" catchtap="doAnything">
+			<view class="show_qr_code_image">
+				<image src="{{qrCode}}" data-url="{{qrCode}}" catchtap="previewImg"></image>
+			</view>
+			<view class="show_qr_code_tips">扫描二维码查看活动详情</view>
+			<view class="show_qr_code_tips">或点击预览图片后长按保存</view>
 		</view>
 	</view>
 </view>

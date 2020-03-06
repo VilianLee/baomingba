@@ -431,6 +431,7 @@ page {
   right: 0;
   left: 0;
   bottom: 0;
+  z-index: 10;
   background: rgba(0,0,0,0.3);
 }
 .show_qr_code_frame {
@@ -528,4 +529,27 @@ page {
   border-left: none;
   color: #ffa404;
   font-weight: bold;
+}
+
+.show_qr_code_frame {
+  width: 580rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -290rpx;
+  transform: translateY(-50%);
+  background: #ffffff;
+  padding: 30rpx 60rpx;
+}
+
+.show_qr_code_image {
+  height: 460rpx;
+  margin-bottom: 20rpx;
+}
+
+.show_qr_code_tips {
+  line-height: 36rpx;
+  font-size: 28rpx;
+  color: #999999;
+  text-align: center;
 }

@@ -7,7 +7,7 @@ import {
   getJoinCode,
   getPreOrderInfo,
   cancelJoin,
-  getLeftPayTime,
+  createActivityLink,
   cancelPayJoin,
   likeActivity,
   unFollowUser,
@@ -43,7 +43,27 @@ create(store, {
     autyShow: false,
     autyContent: {},
     applicantId: '',
-    cancelReason: ""
+    cancelReason: "",
+    qrCode: '',
+    showEventLink: false
+  },
+  AjaxCreateLink(){
+    const params = {
+      eventId: this.data.id
+    }
+    createActivityLink(params, res => {
+      if(res.e === 0) {
+        this.setData({
+          qrCode: res.qrcode,
+          showEventLink: true
+        })
+      }
+    })
+  },
+  showEventLinkChange(){
+    this.setData({
+      showEventLink: !this.data.showEventLink
+    })
   },
   validLogin() {
     if (!store.data.isLogin) {

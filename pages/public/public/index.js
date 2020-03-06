@@ -17,7 +17,7 @@ import {
 import {
   baseUrl
 } from '../../../config'
-import {deepCopy, initPublic} from '../../../utils/wxfunction'
+import { deepCopy, initPublic } from '../../../utils/wxfunction'
 
 const app = getApp()
 
@@ -93,7 +93,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       pageType: options.type,
       eventId: options.eventId
@@ -104,7 +104,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
   },
   AjaxGetEventInfo() {
     const _this = this
@@ -138,7 +138,7 @@ create(store, {
     console.log(key, value)
     activity[key] = value
     console.log(activity)
-    if(key === 'beginTime') {
+    if (key === 'beginTime') {
       this.setData({
         beginTImeChange: true
       })
@@ -147,7 +147,7 @@ create(store, {
       activity
     })
   },
-  seniorOnChange(){ // 高级设置保存
+  seniorOnChange() { // 高级设置保存
     let activity = this.data.activity
     activity.conditions = store.data.activity.conditions
     activity.signUpStartTime = store.data.activity.signUpStartTime
@@ -223,39 +223,51 @@ create(store, {
     })
   },
   ajaxPublicActivity() {
-    if(!this.data.agree) {
+    if (!this.data.agree) {
       wx.showToast({
         title: '请勾选“同意《报名吧服务协议》”',
         icon: 'none',
         duration: 2000
       })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
       return
     }
     const now = new Date()
     console.log(params)
     const params = this.data.activity
-    if(!params.beginTime) {
+    if (!params.beginTime) {
       wx.showToast({
         title: '请选择开始时间',
         icon: 'none',
         duration: 2000
       })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
       return
     }
-    if(this.data.beginTImeChange && params.beginTime && params.beginTime < now.getTime()) {
+    if (this.data.beginTImeChange && params.beginTime && params.beginTime < now.getTime()) {
       wx.showToast({
         title: '修改后开始时间不得早于当前时间',
         icon: 'none',
         duration: 2000
       })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
       return
     }
-    if(params.endTime && params.endTime < now.getTime()) {
+    if (params.endTime && params.endTime < now.getTime()) {
       wx.showToast({
         title: '结束时间不得早于当前时间',
         icon: 'none',
         duration: 2000
       })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
       return
     }
     if (params.endTime && params.endTime < params.beginTime) {
@@ -264,31 +276,57 @@ create(store, {
         icon: 'none',
         duration: 2000
       })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
       return
     }
-    if(!params.title || params.title === '') {
+    if (!params.title || params.title === '') {
       wx.showToast({
         title: '请输入活动标题',
         icon: 'none',
         duration: 2000
       })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
       return
     }
     publicActivity(params, res => {
       console.log(res)
-      wx.showToast({
-        title: '发布成功！',
-        icon: 'success',
-        mask: true
-      })
-      store.data.activity = deepCopy(initPublic)
-      store.update()
-      setTimeout(() => {
-        wx.hideToast()
-        wx.redirectTo({
-          url: '../../activities/activity-details/index?id=' + res.eventId,
+      if (res.e === 0) {
+        wx.showToast({
+          title: '发布成功！',
+          icon: 'success',
+          mask: true
         })
-      }, 2000)
+        store.data.activity = deepCopy(initPublic)
+        store.update()
+        setTimeout(() => {
+          wx.hideToast()
+          wx.redirectTo({
+            url: '../../activities/activity-details/index?id=' + res.eventId,
+          })
+        }, 2000)
+      } else if (res.e === 601) {
+        wx.showToast({
+          title: '有人报名中，不能修改价格',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '发布失败',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
     })
   },
   addPic() {
@@ -297,7 +335,7 @@ create(store, {
       count: 9 - _this.data.activity.photos.length, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: function (res) {
         console.log(res)
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         let tempFiles = res.tempFiles;
@@ -315,7 +353,7 @@ create(store, {
       }
     })
   },
-  
+
   uploadFiles() {
     let activity = this.data.activity
     let tempFiles = activity.photos;
@@ -333,16 +371,16 @@ create(store, {
       })
     })
   },
-  
-  setAddress(){
+
+  setAddress() {
     const address = this.data.activity.address
-    const url=`../location/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
+    const url = `../location/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
     wx.navigateTo({
       url: url,
     })
   },
 
-  deletePic(e){ // 删除图片
+  deletePic(e) { // 删除图片
     const picIndex = e.currentTarget.dataset.index
     let activity = this.data.activity
     let photos = activity.photos
@@ -350,13 +388,13 @@ create(store, {
     wx.showModal({
       title: '提示',
       content: '是否确定删除这张图片',
-      success (res) {
+      success(res) {
         if (res.confirm) {
           //console.log('用户点击确定')
-          const newPhotos = photos.filter((item,index) => index !== picIndex)
+          const newPhotos = photos.filter((item, index) => index !== picIndex)
           console.log(newPhotos)
           activity.photos = newPhotos
-          _this.setData({activity})
+          _this.setData({ activity })
         } else if (res.cancel) {
           //console.log('用户点击取消')
         }
@@ -366,7 +404,7 @@ create(store, {
   /**
    * 监听滚动
    */
-  onPageScroll: function(ev) {
+  onPageScroll: function (ev) {
     const _this = this
     const base_height = wx.getSystemInfoSync().windowWidth * 0.5
     this.setData({
@@ -387,7 +425,7 @@ create(store, {
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
@@ -395,35 +433,35 @@ create(store, {
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

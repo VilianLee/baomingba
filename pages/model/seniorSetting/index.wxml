@@ -7,7 +7,9 @@
     <view class="input_cell_row">
       <view class="select_tag">
         <view class="select_tag_item " wx:for="{{activity.conditions}}" wx:key="index" data-index="{{index}}" bindtap="tagOnChange">
-          <view class="tag {{item.required ? 'require' : ''}}">{{item.text}} {{item.required ? "*" : ""}}</view>
+          <view class="tag {{item.required ? 'require' : ''}}">
+            <view class="text">{{item.text}}</view> {{item.required ? "*" : ""}}
+          </view>
         </view>
         <view class="select_tag_item">
           <view class="tag" bindtap="editMoreInfo">

@@ -34,7 +34,7 @@ create(store, {
       enableOther: 0,
       name: '',
       type: 'value',
-      require: 1,
+      required: 1,
       options: [{
         name: "",
         value: ""
@@ -50,12 +50,14 @@ create(store, {
     new_checkbox: ["", ""],
     new_radios: ["", ""],
     joiner_may_add: false,
-    itemIndex: 0
+    itemIndex: 0,
+    add_type: '',
+    editIndex: 0
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     let conditions = decodeURIComponent(options.conditions)
     conditions = JSON.parse(conditions)
     console.log(conditions)
@@ -67,18 +69,28 @@ create(store, {
     let add_option = this.data.add_option
     let itemIndex = this.data.itemIndex > 9 ? this.data.itemIndex + 1 : '0' + (this.data.itemIndex + 1)
     add_option.options.push({
-      key: "",
+      name: "item" + itemIndex,
       value: ""
     })
     this.setData({
       add_option
     })
   },
-  addRequireChange(e){
+  editOption(e) {
+    const conditions = this.data.conditions
+    const index = e.currentTarget.dataset.index
+    this.setData({
+      modal_visible: true,
+      add_option: conditions[index],
+      add_type: 'edit',
+      editIndex: index
+    })
+  },
+  addRequireChange(e) {
     console.log(e)
     const add_option = this.data.add_option
-    add_option.require = e.detail.value ? 1 : 0
-    this.setData({add_option})
+    add_option.required = e.detail.value ? 1 : 0
+    this.setData({ add_option })
   },
   deleteOption(e) { // 删除选项
     console.log(e)
@@ -124,12 +136,13 @@ create(store, {
         enableOther: 0,
         name: "item" + itemIndex,
         type: 'text',
-        require: 1,
+        required: 1,
         options: [{
-          name: "",
+          name: 'item01',
           value: ""
         }]
       },
+      add_type: 'add',
       itemIndex: this.data.itemIndex + 1
     })
   },
@@ -143,18 +156,23 @@ create(store, {
       vertify = false
     } else if (add_option.type === 'radio' || add_option.type === 'checkbox') {
       add_option.options.forEach(item => {
-        if(item.name === '' || item.value === '') {
+        if (item.name === '' || item.value === '') {
           err_tip = '请完善选项内容'
           vertify = false
         }
       })
     }
     if (vertify) {
-      conditions.push(add_option)
+      if (this.data.add_type === 'edit') {
+        conditions[this.data.editIndex] = add_option
+      } else {
+        conditions.push(add_option)
+      }
       console.log(conditions)
       this.setData({
         modal_visible: false,
-        conditions
+        conditions,
+        add_type: ''
       })
       const pages = getCurrentPages();
       const prevPage = pages[pages.length - 2]; //上一页
@@ -189,49 +207,49 @@ create(store, {
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

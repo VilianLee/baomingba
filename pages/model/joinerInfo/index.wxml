@@ -9,14 +9,16 @@
     <view class="input_cell_row">
       <view class="select_tag">
         <view class="select_tag_item " wx:for="{{conditions}}" wx:key="index" wx:if="{{item.type === 'text'}}">
-          <view class="tag {{item.require ? 'require' : ''}}">{{item.text}} {{item.require ? "*" : ""}}</view>
+          <view class="tag {{item.required ? 'require' : ''}}">
+            <view class="text">{{item.text}}</view> {{item.required ? "*" : ""}}
+          </view>
         </view>
       </view>
     </view>
   </view>
   <view class="input_cell">
     <view class="more_info" wx:for="{{conditions}}" wx:key="index">
-      <view class="more_info_row" wx:if="{{item.type !== 'text'}}">
+      <view class="more_info_row" wx:if="{{item.type !== 'text'}}" data-index="{{index}}" bindtap="editOption">
         <view class="delete" bindtap="deleteConditions" data-index="{{index}}">
           <i-icon type="offline_fill" color="#f44f50" size="40" />
         </view>
@@ -85,9 +87,6 @@
       <view class="modal_cell">
         <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="index">
           <view class="options_item">
-            <input class="option_input" placeholder="选项key值" value="{{item.name}}" data-index="{{index}}" data-key="name" bindinput="inputOnChange" data-option="name" />
-          </view>
-          <view class="options_item">
             <input class="option_input" placeholder="选项名称" value="{{item.value}}" data-index="{{index}}" data-key="value" bindinput="inputOnChange" data-option="value"/>
           </view>
           <view class="delete_option" bindtap="deleteOption" data-key="{{index}}" wx:if="{{add_option.options.length > 1}}">
@@ -118,9 +117,6 @@
       </view>
       <view class="modal_cell">
         <view class="modal_cell_row" wx:for="{{add_option.options}}" wx:key="index">
-          <view class="options_item">
-            <input class="option_input" placeholder="选项key值" value="{{item.name}}" data-index="{{index}}" data-key="text" bindinput="inputOnChange" data-option="name" />
-          </view>
           <view class="options_item">
             <input class="option_input" placeholder="选项名称" value="{{item.value}}" data-index="{{index}}" data-key="value" bindinput="inputOnChange" data-option="value"/>
           </view>

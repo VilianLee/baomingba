@@ -91,6 +91,7 @@ create(store, {
   },
   editMoreInfo() {
     const conditions = encodeURIComponent(JSON.stringify(this.data.activity.conditions))
+    console.log(conditions)
     wx.navigateTo({
       url: '../joinerInfo/index?conditions=' + conditions,
     })
