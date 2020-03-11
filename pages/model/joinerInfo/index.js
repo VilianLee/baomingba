@@ -52,7 +52,8 @@ create(store, {
     joiner_may_add: false,
     itemIndex: 0,
     add_type: '',
-    editIndex: 0
+    editIndex: 0,
+    add_option_index: 1
   },
   /**
    * 生命周期函数--监听页面加载
@@ -67,13 +68,14 @@ create(store, {
   },
   addOption() { // 添加选项
     let add_option = this.data.add_option
-    let itemIndex = this.data.itemIndex > 9 ? this.data.itemIndex + 1 : '0' + (this.data.itemIndex + 1)
+    let itemIndex = this.data.add_option_index > 9 ? this.data.add_option_index + 1 : '0' + (this.data.add_option_index + 1)
     add_option.options.push({
       name: "item" + itemIndex,
       value: ""
     })
     this.setData({
-      add_option
+      add_option,
+      add_option_index: this.data.add_option_index + 1
     })
   },
   editOption(e) {
@@ -172,7 +174,8 @@ create(store, {
       this.setData({
         modal_visible: false,
         conditions,
-        add_type: ''
+        add_type: '',
+        add_option_index: 1
       })
       const pages = getCurrentPages();
       const prevPage = pages[pages.length - 2]; //上一页
@@ -202,6 +205,22 @@ create(store, {
     add_option.type = value
     this.setData({
       add_option
+    })
+  },
+  tagItemOnClick(e){
+    const index = e.currentTarget.dataset.index
+    const conditions = this.data.conditions
+    conditions[index].required = !conditions[index].required
+    this.setData({
+      conditions
+    })
+  },
+  deleteTag(e) {
+    const index = e.currentTarget.dataset.index
+    let conditions = this.data.conditions
+    conditions = conditions.filter((item, i) => i !== index)
+    this.setData({
+      conditions
     })
   },
   /**

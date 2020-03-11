@@ -312,11 +312,11 @@ create(store, {
         wx.showToast({
           title: '有人报名中，不能修改价格',
           icon: 'none',
-          duration: 2000
+          duration: 3000
         })
         setTimeout(() => {
           wx.hideToast()
-        }, 2000)
+        }, 3000)
       } else {
         wx.showToast({
           title: '发布失败',

@@ -18,35 +18,41 @@ create(store, {
       enableOther: 0,
       name: 'username',
       type: 'text',
+      based: true,
       required: 1
     }, {
       text: "手机",
       enableOther: 0,
       name: 'mobile',
       type: 'text',
+      based: true,
       required: 1
     }, {
       text: "公司",
       enableOther: 0,
       name: 'company',
       type: 'text',
+      based: true,
       required: 0
     }, {
       text: "邮箱",
       enableOther: 0,
       name: 'email',
       type: 'text',
+      based: true,
       required: 0
     }, {
       text: "职位",
       enableOther: 0,
       name: 'position',
       type: 'text',
+      based: true,
       required: 0
     }, {
       text: "性别",
       enableOther: 0,
       name: 'sex',
+      based: true,
       type: 'text',
       required: 0
     }, {
@@ -54,6 +60,7 @@ create(store, {
       enableOther: 0,
       name: 'age',
       type: 'text',
+      based: true,
       required: 0
     }], //报名者需填写
     signUpStartTime: 0, //报名开始时间

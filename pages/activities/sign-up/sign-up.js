@@ -93,6 +93,14 @@ create(store, {
     event.conditions[index].value = event.conditions[index].options[position].value
     this.setData({ event })
   },
+  checkOnChange(e) { // 多选
+    console.log(e)
+    const index = e.target.dataset.index
+    let event = this.data.event
+    event.conditions[index].value = e.detail.value
+    console.log(e.detail.value)
+    this.setData({ event })
+  },
   AjaxSignUpActivity() { // 提交报名表单
     const _this = this
     for (let i in this.data.event.conditions) {

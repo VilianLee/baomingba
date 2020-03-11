@@ -38,6 +38,7 @@ export default {
         name: 'username',
         type: 'text',
         required: 1,
+        based: true,
         default: true
       }, {
         text: "手机",
@@ -45,6 +46,7 @@ export default {
         name: 'telephone',
         type: 'text',
         required: 1,
+        based: true,
         default: true
       }, {
         text: "公司",
@@ -52,6 +54,7 @@ export default {
         name: 'company',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "邮箱",
@@ -59,6 +62,7 @@ export default {
         name: 'email',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "职位",
@@ -66,6 +70,7 @@ export default {
         name: 'position',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "性别",
@@ -73,6 +78,7 @@ export default {
         name: 'sex',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "年龄",
@@ -80,6 +86,7 @@ export default {
         name: 'age',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }],
       photowallControl: false, //是否有照片墙

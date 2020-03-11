@@ -21,7 +21,8 @@ create(store, {
     nowTimeStap: 0,
     timeStap: null,
     dateStap: 0,
-    key: ''
+    key: '',
+    showTime: true
   },
 
   /**
@@ -31,6 +32,7 @@ create(store, {
     console.log(options)
     this.setData({
       key: options.key,
+      showTime: options.showTime === 'false' ? false : true,
       timeStap: options.timeStap === 'null' ? null : parseInt(options.timeStap)
     })
   },
@@ -93,13 +95,13 @@ create(store, {
     if(!this.validLogin()) {
       return
     }
-    const date = this.data.dateStr + ' ' + this.data.timeStr + ':00'
+    const date = this.data.dateStr + ' ' + (this.data.showTime ? this.data.timeStr + ':00' : '00:00:00')
     console.log(date)
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一页
     console.log(getDate(date))
     prevPage.dataOnChange(this.data.key, getDate(date).getTime(), pages)
-    prevPage.dataOnChange(this.data.key + 'Str', this.data.dateStr + ' ' + this.data.timeStr, pages)
+    prevPage.dataOnChange(this.data.key + 'Str', this.data.dateStr + (this.data.showTime ? ' ' + this.data.timeStr : ''), pages)
     wx.navigateBack()
   },
 

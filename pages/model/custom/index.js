@@ -12,7 +12,7 @@ import {
 } from '../../../utils/uploads'
 import {
   formatTime,
-  getDate
+  DeepClone
 } from '../../../utils/util'
 import {
   baseUrl
@@ -78,6 +78,7 @@ create(store, {
         name: 'username',
         type: 'text',
         required: 1,
+        based: true,
         default: true
       }, {
         text: "手机",
@@ -85,6 +86,7 @@ create(store, {
         name: 'telephone',
         type: 'text',
         required: 1,
+        based: true,
         default: true
       }, {
         text: "公司",
@@ -92,6 +94,7 @@ create(store, {
         name: 'company',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "邮箱",
@@ -99,6 +102,7 @@ create(store, {
         name: 'email',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "职位",
@@ -106,6 +110,7 @@ create(store, {
         name: 'position',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "性别",
@@ -113,6 +118,7 @@ create(store, {
         name: 'sex',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }, {
         text: "年龄",
@@ -120,6 +126,7 @@ create(store, {
         name: 'age',
         type: 'text',
         required: 0,
+        based: true,
         default: true
       }],
       photowallControl: false, //是否有照片墙
@@ -371,7 +378,6 @@ create(store, {
     if (!this.validLogin()) {
       return
     }
-    console.log(e)
     const key = e.target.dataset.name
     const value = e.detail.value
     let activity = this.data.activity
@@ -419,7 +425,7 @@ create(store, {
       })
       return
     }
-    const params = this.data.activity
+    const params = DeepClone(this.data.activity)
     const now = new Date()
     console.log(params)
     if (!params.beginTime) {
@@ -473,6 +479,7 @@ create(store, {
           icon: 'success',
           mask: true
         })
+        store.data.activity = params
         store.update()
         setTimeout(() => {
           wx.hideToast()
@@ -484,7 +491,7 @@ create(store, {
       } else {
         wx.showToast({
           title: res.msg,
-          icon: 'error',
+          icon: 'none',
           mask: true
         })
       }

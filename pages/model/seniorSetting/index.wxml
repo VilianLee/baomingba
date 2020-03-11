@@ -21,13 +21,13 @@
   </view>
 
   <view class="input_cell">
-    <navigator url="../change-time/index?key=signUpStartTime" class="input_cell_row">
+    <navigator url="../change-time/index?key=signUpStartTime&showTime=false&timeStap={{activity.signUpStartTime}}" class="input_cell_row">
       <view class="label">报名开始时间</view>
       <view class="form_item">
         {{activity.signUpStartTimeStr}}
       </view>
     </navigator>
-    <navigator url="../change-time/index?key=expireTime" class="input_cell_row">
+    <navigator url="../change-time/index?key=expireTime&showTime=false&timeStap={{activity.expireTime}}" class="input_cell_row">
       <view class="label">报名截止时间</view>
       <view class="form_item">
         {{activity.expireTimeStr}}

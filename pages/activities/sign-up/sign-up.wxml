@@ -83,7 +83,7 @@
 						{{item.text}}
 					</view>
 					<view class="form_item">
-						<picker range="{{item.options}}" range-key="name" data-index="{{index}}" bindchange="selectOnChange">{{item.select ? item.options[item.select].name : '请选择'}}</picker>
+						<picker range="{{item.options}}" range-key="value" data-index="{{index}}" bindchange="selectOnChange">{{item.select ? item.options[item.select].value : '请选择'}}</picker>
 					</view>
 				</view>
 				<view class="input_cell_rich_row" wx:if="{{item.type === 'checkbox'}}">
@@ -92,14 +92,11 @@
 						{{item.text}}
 					</view>
 					<view class="content">
-						<checkbox-group>
-							<checkbox>
-								<label class="checkbox" wx:for="{{items.options}}">
-									<checkbox value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
-								</label>
-							</checkbox>
+						<checkbox-group class="checkbox_group" data-index="{{index}}" bindchange="checkOnChange">
+							<label class="checkbox" wx:for="{{item.options}}" wx:for-item="checkbox" wx:key="index">
+								<checkbox color="#ffa404" value="{{checkbox.value}}" />{{checkbox.value}}
+							</label>
 						</checkbox-group>
-						<picker range="{{item.options}}" range-key="name" data-index="{{index}}" bindchange="selectOnChange">{{item.select ? item.options[item.select].name : '请选择'}}</picker>
 					</view>
 				</view>
 				<view class="input_cell_rich_row" wx:if="{{item.type === 'image'}}">

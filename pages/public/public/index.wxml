@@ -141,7 +141,7 @@
 	</view>
 </view>
 
-<view class="theme_content">
+<!-- <view class="theme_content">
 	<view class="content_input">
 		<i-icon type="success_fill" size="48" class="input_icon" />
 		<picker bindchange="onPickChange" data-name="anonSignUp" value="{{activity.anonSignUp}}" range="{{real_name_arr}}">
@@ -150,7 +150,7 @@
 			</view>
 		</picker>
 	</view>
-</view>
+</view> -->
 <view class="agreement_text">
 	<icon type="success" size="12" color="{{agree ? '#fda402' : '#d5d5d5'}}" bindtap="agreeOnChange" /> 同意
 	<text style="color:#fda402">《报名吧服务协议》</text>

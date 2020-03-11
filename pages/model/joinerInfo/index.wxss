@@ -24,6 +24,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.input_cell_row .select_tag_item .tag .close {
+  position: absolute;
+  right: -5rpx;
+  top: -5rpx;
+}
+.input_cell_row .select_tag_item .tag .close icon {
+  display: block;
 }
 
 .input_cell_row .select_tag_item .tag .text {
@@ -154,6 +164,9 @@
   line-height: 60rpx;
   font-size: 28rpx;
   color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .text_area_row {
   height: 120rpx;
@@ -177,7 +190,6 @@
   height: 37rpx!important;
 }
 .modal_cell_row .delete_option, .modal_cell_row .add_option {
-  float: right;
   width: 10%;
   text-align: right;
 }
@@ -188,6 +200,7 @@
   margin-bottom: 4rpx;
   padding: 0 6rpx;
   box-sizing: border-box;
+  flex-grow: 1;
 }
 .modal_cell_row .add_option_lable {
   float: left;

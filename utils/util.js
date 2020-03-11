@@ -31,8 +31,17 @@ const getDate = (strDate) => {
   return date;
 }
 
+//深拷贝
+const DeepClone = (obj) => {
+	if (obj === null || typeof obj !== 'object') return obj;
+	var cpObj = obj instanceof Array ? [] : {};
+	for (var key in obj) cpObj[key] = DeepClone(obj[key]);
+	return cpObj;
+}
+
 module.exports = {
   formatTime,
   formatNumber,
-  getDate
+  getDate,
+  DeepClone
 }
