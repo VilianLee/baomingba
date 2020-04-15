@@ -169,17 +169,21 @@ create(store, {
       selected: false,
       based: true,
     }]
+    const repeatPosition = []
     arr = arr.filter(item => {
       item.selected = true
       let repeat = false
-      conditions.forEach(filter => {
+      conditions.forEach((filter,index) => {
+        filter.selected = false
         console.log(item.text === filter.text)
         if(item.text === filter.text || item.name === filter.name) {
           repeat = true
+          repeatPosition.push(index)
         }
       })
       if(!repeat) return item
     })
+    repeatPosition.forEach(item => conditions[item].selected = true)
     console.log(arr)
     this.setData({
       conditions: conditions.concat(arr)
