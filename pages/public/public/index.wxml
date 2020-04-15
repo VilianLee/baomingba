@@ -96,29 +96,6 @@
 		<label class="input_cell_row">
 			<view class="label">
 				<view class="input_cell_icon">
-					<i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '1'}}" />
-				</view>
-				活动后再AA
-			</view>
-			<view class="form_item">
-			</view>
-			<radio value="1" hidden="{{true}}"></radio>
-		</label>
-		<label class="input_cell_row">
-			<view class="label">
-				<view class="input_cell_icon">
-					<i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '2'}}" />
-				</view>
-				活动现场付款
-			</view>
-			<view class="form_item">
-				<input value="{{activity.charge}}" placeholder="请输入金额" data-name="charge" bindinput="inputOnChange" wx:if="{{activity.payPath == '2'}}" />
-			</view>
-			<radio value="2" hidden="{{true}}"></radio>
-		</label>
-		<label class="input_cell_row">
-			<view class="label">
-				<view class="input_cell_icon">
 					<i-icon type="success_fill" size="48" color="#999999" class="input_icon" wx:if="{{activity.payPath == '3'}}" />
 				</view>
 				线上支付
@@ -130,6 +107,29 @@
 		</label>
 	</radio-group>
 </view>
+
+<view class="theme_content senior_setting">
+	<view class="input_cell">
+		<view class="input_cell_row">
+			<view class="label">报名者需填写</view>
+		</view>
+		<view class="input_cell_row">
+			<view class="select_tag">
+				<view class="select_tag_item " wx:for="{{conditions}}" wx:key="index" data-index="{{index}}" bindtap="tagOnChange">
+					<view class="tag {{item.selected ? 'require' : ''}}">
+						<view class="text">{{item.text}}</view> {{item.required ? "*" : ""}}
+					</view>
+				</view>
+				<view class="select_tag_item">
+					<view class="tag" bindtap="editMoreInfo">
+						<i-icon type="add" color="#d5d5d5" size="30" />
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+
 <view class="theme_content">
 	<view class="content_input">
 		<i-icon type="success_fill" size="48" class="input_icon" />

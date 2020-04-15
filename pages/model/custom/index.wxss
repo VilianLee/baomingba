@@ -1,27 +1,34 @@
 /* pages/model/custom/index.wxss */
-page{
+page {
   padding-bottom: 180rpx;
 }
-page view, page label {
+
+page view,
+page label {
   box-sizing: border-box;
 }
-.theme_pic{
+
+.theme_pic {
   position: relative;
   z-index: 1;
-  background:#999999;
+  background: #999999;
 }
+
 .theme_pic_frame {
   position: relative;
   z-index: 2;
 }
+
 .theme_pic_frame swiper {
   height: 480rpx;
 }
-.swiper-item{
+
+.swiper-item {
   height: 100%;
   background-size: cover;
   position: relative;
 }
+
 .delete_item {
   position: absolute;
   right: 144rpx;
@@ -35,15 +42,17 @@ page view, page label {
   z-index: 5;
   box-sizing: border-box;
 }
-.theme_control{
+
+.theme_control {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   background: #fbfbfb;
   padding: 10rpx 8rpx;
-  box-shadow: 0 0 20rpx 0 rgba(0,0,0,.15)
+  box-shadow: 0 0 20rpx 0 rgba(0, 0, 0, .15)
 }
+
 .theme_control .defult_btn {
   margin: 10rpx 8rpx;
   border-radius: 8rpx;
@@ -56,55 +65,65 @@ page view, page label {
   background: #fff;
   border: solid 1rpx #e5e5e5
 }
+
 .theme_control .public_btn {
   background: #fda402;
   color: #ffffff;
   border: none;
 }
-.theme_content{
+
+.theme_content {
   background: #ffffff;
   padding-left: 40rpx;
   margin-bottom: 40rpx;
 }
+
 .theme_content .content_placeholder {
   color: #999999;
   font-size: 28rpx;
   line-height: 44rpx;
   height: 200rpx;
 }
-.content_input{
+
+.content_input {
   border-bottom: solid 1rpx #e5e5e5;
   position: relative;
   padding: 20rpx 70rpx;
   padding-right: 0;
 }
+
 .theme_content .content_input:last-child {
   border-bottom: none;
 }
+
 .content_input .input_icon {
   position: absolute;
   left: 0;
   color: #d5d5d5;
   font-size: 40rpx;
 }
-.content_input input{
+
+.content_input input {
   font-size: 28rpx;
   height: 24px;
   line-height: 24px;
   color: #333333;
 }
-.time_picker_content{
+
+.time_picker_content {
   font-size: 28rpx;
   height: 24px;
   line-height: 24px;
   color: #333333;
 }
-.time_picker_placeholder{
+
+.time_picker_placeholder {
   color: #999999;
   font-size: 28rpx;
   height: 24px;
   line-height: 24px;
 }
+
 .time_picker_content .clear_selct {
   float: right;
   border-radius: 9px;
@@ -114,7 +133,8 @@ page view, page label {
   text-align: center;
   margin: 3px 40rpx;
 }
-.content_input .content_cell{
+
+.content_input .content_cell {
   height: 24px;
   line-height: 24px;
   text-align: right;
@@ -122,33 +142,42 @@ page view, page label {
   color: #999999;
   font-size: 32rpx;
 }
-.content_input .content_cell .content_cell_title{
+
+.content_input .content_cell .content_cell_title {
   color: #333333;
   float: left;
   height: 24px;
 }
-.theme_rich_text{
+
+.theme_rich_text {
   padding: 20rpx 40rpx;
   font-size: 30rpx;
   color: #999999;
-  margin-left: -40rpx
+  margin-left: -40rpx;
+  min-height: 200rpx;
+  border-bottom: solid 1rpx #e5e5e5;
 }
+
 .theme_rich_text textarea {
   width: 100%;
 }
-.agreement_text{
+
+.agreement_text {
   padding: 0 40rpx;
   font-size: 26rpx;
   color: #333333;
   line-height: 30rpx;
 }
-.agreement_text icon{
+
+.agreement_text icon {
   margin-right: 14rpx;
 }
-.financial_group{
+
+.financial_group {
   padding-left: 50rpx;
 }
-.add_pic{
+
+.add_pic {
   position: absolute;
   right: 44rpx;
   bottom: 44rpx;
@@ -162,10 +191,71 @@ page view, page label {
   z-index: 5;
   box-sizing: border-box;
 }
-.add_pic image{
+
+.add_pic image {
   width: 40rpx;
   height: 40rpx;
   margin: auto;
 }
 
 
+.senior_setting .input_cell {
+  padding-left: 0;
+}
+
+.senior_setting .input_cell_row {
+  height: auto;
+}
+
+.input_cell_row .select_tag {
+  width: 100%;
+  height: auto;
+}
+
+.input_cell_row .select_tag_item {
+  float: left;
+  width: 25%;
+  padding: 0 15rpx;
+  box-sizing: border-box;
+  margin-bottom: 15rpx;
+}
+
+.input_cell_row .select_tag_item .tag {
+  height: 44rpx;
+  text-align: center;
+  border-radius: 22rpx;
+  border: solid #d5d5d5 1rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input_cell_row .select_tag_item .tag .text {
+  width: 50%;
+  height: 42rpx;
+  line-height: 42rpx;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  color: #333;
+  font-size: 24rpx;
+}
+
+.input_cell_row .select_tag::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.input_cell_row .select_tag .select_tag_item .require {
+  border: none;
+  color: #fff;
+  background: #fda402;
+}
+
+.input_cell_row .select_tag .select_tag_item .require .text {
+  color: #fff;
+}

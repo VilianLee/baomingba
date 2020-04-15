@@ -18,7 +18,10 @@ import {
   baseUrl
 } from '../../../config'
 
-import { deepCopy, initPublic } from '../../../utils/wxfunction'
+import {
+  deepCopy,
+  initPublic
+} from '../../../utils/wxfunction'
 
 const app = getApp()
 
@@ -72,12 +75,33 @@ create(store, {
       hideAddr: false, //是否隐藏地址
       publicType: 1, //公开类型(公开，私密)
       anonSignUp: 0, //匿名报名
+      conditions: [],
+      photowallControl: false, //是否有照片墙
+      tipControl: false, //是否可以打赏
+      intro: "", //活动介绍
+      introPhotos: [],
+      introType: 1, //介绍类型
+      photos: [],
+      isShare: 0 //是否可以分享
+    },
+    conditions: []
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.initCondition()
+  },
+  initCondition() {
+    this.setData({
       conditions: [{
         text: "姓名",
         enableOther: 0,
         name: 'username',
         type: 'text',
         required: 1,
+        selected: true,
         based: true,
         default: true
       }, {
@@ -86,6 +110,7 @@ create(store, {
         name: 'telephone',
         type: 'text',
         required: 1,
+        selected: true,
         based: true,
         default: true
       }, {
@@ -94,6 +119,7 @@ create(store, {
         name: 'company',
         type: 'text',
         required: 0,
+        selected: false,
         based: true,
         default: true
       }, {
@@ -103,6 +129,7 @@ create(store, {
         type: 'text',
         required: 0,
         based: true,
+        selected: false,
         default: true
       }, {
         text: "职位",
@@ -111,6 +138,7 @@ create(store, {
         type: 'text',
         required: 0,
         based: true,
+        selected: false,
         default: true
       }, {
         text: "性别",
@@ -119,6 +147,7 @@ create(store, {
         type: 'text',
         required: 0,
         based: true,
+        selected: false,
         default: true
       }, {
         text: "年龄",
@@ -126,26 +155,32 @@ create(store, {
         name: 'age',
         type: 'text',
         required: 0,
+        selected: false,
         based: true,
         default: true
-      }],
-      photowallControl: false, //是否有照片墙
-      tipControl: false, //是否可以打赏
-      intro: "", //活动介绍
-      introPhotos: [],
-      introType: 1, //介绍类型
-      photos: [],
-      isShare: 0 //是否可以分享
-    }
+      }]
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  conditionsOnChange(arr){
+    this.setData({
+      conditions: arr
+    })
   },
-
+  tagOnChange(e) {
+    const index = e.currentTarget.dataset.index
+    let conditions = this.data.conditions
+    conditions[index].selected = !conditions[index].selected
+    this.setData({
+      conditions
+    })
+  },
+  editMoreInfo() {
+    const conditions = encodeURIComponent(JSON.stringify(this.data.conditions))
+    console.log(conditions)
+    wx.navigateTo({
+      url: '../joinerInfo/index?conditions=' + conditions,
+    })
+  },
   setBeginTime() {
     const nowDate = new Date()
     let activity = this.data.activity
@@ -270,7 +305,7 @@ create(store, {
     this.setData({
       activity
     })
-    if(key === 'intro') {
+    if (key === 'intro') {
       this.setData({
         enCodeIntro: encodeURIComponent(value)
       })
@@ -317,34 +352,49 @@ create(store, {
     const value = e.detail.value
     const activity = this.data.activity
     if (key === 'anonSignUp') {
-      checkVidCount({}, res => {
-        if (res.e === 0) {
-          if (res.vidLeftCount > 0) {
-            activity[key] = value
-            this.setData({
-              activity
+      wx.showModal({
+        title: '提示',
+        content: '若需用户身份实名请前往报名吧APP发布',
+        confirmText: '去APP',
+        confirmColor: '#fda402',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../about/download/index',
             })
-          } else {
-            wx.showToast({
-              title: '实名认证包数量不足，请充值',
-              icon: 'none',
-              duration: 2000
-            })
-            setTimeout(() => {
-              wx.hideToast()
-            }, 2000)
+          } else if (res.cancel) {
+            console.log('用户点击取消')
           }
-        } else {
-          wx.showToast({
-            title: '获取实名认证包数据失败',
-            icon: 'none',
-            duration: 2000
-          })
-          setTimeout(() => {
-            wx.hideToast()
-          }, 2000)
         }
       })
+      // checkVidCount({}, res => {
+      //   if (res.e === 0) {
+      //     if (res.vidLeftCount > 0) {
+      //       activity[key] = value
+      //       this.setData({
+      //         activity
+      //       })
+      //     } else {
+      //       wx.showToast({
+      //         title: '实名认证包数量不足，请充值',
+      //         icon: 'none',
+      //         duration: 2000
+      //       })
+      //       setTimeout(() => {
+      //         wx.hideToast()
+      //       }, 2000)
+      //     }
+      //   } else {
+      //     wx.showToast({
+      //       title: '获取实名认证包数据失败',
+      //       icon: 'none',
+      //       duration: 2000
+      //     })
+      //     setTimeout(() => {
+      //       wx.hideToast()
+      //     }, 2000)
+      //   }
+      // })
     } else {
       activity[key] = value
       this.setData({
@@ -385,6 +435,27 @@ create(store, {
       const reg = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/
       if (reg.test(value)) {
         console.log('right')
+        activity[key] = value
+      }
+    } else if (key === 'payPath') {
+      if (value === '3') {
+        wx.showModal({
+          title: '提示',
+          content: '使用"报名吧"线上收费功能提现时需支付0.60%交易收付费，该手续费为微信交易手续费',
+          cancelText: '放弃',
+          confirmText: '同意支付',
+          confirmColor: '#fda402',
+          success: () => {
+            console.log(activity)
+            console.log(key)
+            console.log(value)
+            activity[key] = value
+            this.setData({
+              activity
+            })
+          }
+        })
+      } else {
         activity[key] = value
       }
     } else {
@@ -468,7 +539,7 @@ create(store, {
       })
       return
     }
-    let conditions = params.conditions.filter(item => (item.default && item.required === 1) || !item.default)
+    let conditions = this.data.conditions.filter(item => item.selected)
     console.log(conditions)
     params.conditions = conditions
     publicActivity(params, res => {
@@ -532,7 +603,7 @@ create(store, {
       uploadFile(item.path, img => {
         item.name = img.imageURL
         item.id = ""
-        item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
+        item.base64 = "" //wx.getFileSystemManager().readFileSync(item.path, "base64")
         item.path = baseUrl.imageUrl + img.imageURL
         this.setData({
           activity
@@ -540,10 +611,10 @@ create(store, {
       })
     })
   },
-  setAddress(){
+  setAddress() {
     const address = this.data.activity.address
-    
-    const url=`../../public/location/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
+
+    const url = `../../public/location/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
     wx.navigateTo({
       url: url,
     })
@@ -562,7 +633,9 @@ create(store, {
           const newPhotos = photos.filter((item, index) => index !== picIndex)
           console.log(newPhotos)
           activity.photos = newPhotos
-          _this.setData({ activity })
+          _this.setData({
+            activity
+          })
         } else if (res.cancel) {
           //console.log('用户点击取消')
         }

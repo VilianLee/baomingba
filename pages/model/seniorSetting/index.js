@@ -13,56 +13,7 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    conditions: [{
-      text: "姓名",
-      enableOther: 0,
-      name: 'username',
-      type: 'text',
-      based: true,
-      required: 1
-    }, {
-      text: "手机",
-      enableOther: 0,
-      name: 'mobile',
-      type: 'text',
-      based: true,
-      required: 1
-    }, {
-      text: "公司",
-      enableOther: 0,
-      name: 'company',
-      type: 'text',
-      based: true,
-      required: 0
-    }, {
-      text: "邮箱",
-      enableOther: 0,
-      name: 'email',
-      type: 'text',
-      based: true,
-      required: 0
-    }, {
-      text: "职位",
-      enableOther: 0,
-      name: 'position',
-      type: 'text',
-      based: true,
-      required: 0
-    }, {
-      text: "性别",
-      enableOther: 0,
-      name: 'sex',
-      based: true,
-      type: 'text',
-      required: 0
-    }, {
-      text: "年龄",
-      enableOther: 0,
-      name: 'age',
-      type: 'text',
-      based: true,
-      required: 0
-    }], //报名者需填写
+    conditions: [], //报名者需填写
     signUpStartTime: 0, //报名开始时间
     signUpStartTimeStr: '', //报名开始时间字符串
     expireTime: 0, //报名结束时间
@@ -96,24 +47,6 @@ create(store, {
     store.data.activity = activity
     store.update()
   },
-  editMoreInfo() {
-    const conditions = encodeURIComponent(JSON.stringify(this.data.activity.conditions))
-    console.log(conditions)
-    wx.navigateTo({
-      url: '../joinerInfo/index?conditions=' + conditions,
-    })
-  },
-  tagOnChange(e) {
-    const index = e.currentTarget.dataset.index
-    const activity = this.data.activity
-    let conditions = activity.conditions
-    conditions[index].required = conditions[index].required === 0 ? 1 : 0
-    this.setData({
-      activity
-    })
-    store.data.activity = activity
-    store.update()
-  },
   conditionsOnChange(arr) {
     const activity = this.data.activity
     activity.conditions = arr
@@ -124,6 +57,19 @@ create(store, {
     store.update()
   },
   submitSeniorSetting() {
+    const activity = this.data.activity
+    const reg = /^1[3456789]\d{9}$/
+    if(activity.telephone && !reg.test(activity.telephone)) {
+      wx.showToast({
+        title: `请填写正确的手机号码`,
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.hideToast()
+      }, 2000)
+      return false
+    }
     this.prePageDataChange()
   },
   prePageDataChange() {

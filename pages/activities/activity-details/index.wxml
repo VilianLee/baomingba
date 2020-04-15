@@ -299,11 +299,11 @@
 					</block>
 				</block>
 			</block>
-			<block wx:if="{{info.userStatus.owned}}">
+			<!-- <block wx:if="{{info.userStatus.owned}}">
 				<view class="pay_btn" bindtap="AjaxCreateLink">
 					生成活动链接
 				</view>
-			</block>
+			</block> -->
 		</block>
 		<view class="cover_view" wx:if="{{showCancelCover}}">
 			<view class="cancel_frame">

@@ -24,13 +24,13 @@
     <navigator url="../change-time/index?key=signUpStartTime&showTime=false&timeStap={{activity.signUpStartTime}}" class="input_cell_row">
       <view class="label">报名开始时间</view>
       <view class="form_item">
-        {{activity.signUpStartTimeStr}}
+        {{activity.signUpStartTimeStr === '1970-01-01 08:00' ? '' : activity.signUpStartTimeStr}}
       </view>
     </navigator>
     <navigator url="../change-time/index?key=expireTime&showTime=false&timeStap={{activity.expireTime}}" class="input_cell_row">
       <view class="label">报名截止时间</view>
       <view class="form_item">
-        {{activity.expireTimeStr}}
+        {{activity.expireTimeStr === '1970-01-01 08:00' ? '' : activity.expireTimeStr}}
       </view>
     </navigator>
   </view>

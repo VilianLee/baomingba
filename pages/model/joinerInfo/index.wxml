@@ -9,7 +9,7 @@
     <view class="input_cell_row">
       <view class="select_tag">
         <view class="select_tag_item " wx:for="{{conditions}}" wx:key="index" wx:if="{{item.type === 'text'}}">
-          <view class="tag {{item.required ? 'require' : ''}}" data-index="{{index}}" bindtap="tagItemOnClick">
+          <view class="tag {{item.selected ? 'require' : ''}}" data-index="{{index}}" bindtap="tagItemOnClick">
             <view class="close" wx:if="{{!item.based}}" catchtap="deleteTag" data-index="{{index}}"><icon type="clear" size="12" color="red"></icon></view>
             <view class="text">{{item.text}}</view> {{item.required ? "*" : ""}}
           </view>

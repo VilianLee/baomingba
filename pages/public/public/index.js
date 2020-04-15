@@ -17,7 +17,10 @@ import {
 import {
   baseUrl
 } from '../../../config'
-import { deepCopy, initPublic } from '../../../utils/wxfunction'
+import {
+  deepCopy,
+  initPublic
+} from '../../../utils/wxfunction'
 
 const app = getApp()
 
@@ -86,7 +89,8 @@ create(store, {
       introPhotos: [],
       introType: 1, //介绍类型
       photos: [],
-      isShare: 0 //是否可以分享
+      isShare: 0, //是否可以分享
+      conditions: []
     }
   },
 
@@ -104,7 +108,102 @@ create(store, {
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function () {},
+
+  initCondition(arr) {
+    console.log(arr)
+    let conditions = [{
+      text: "姓名",
+      enableOther: 0,
+      name: 'username',
+      type: 'text',
+      required: 1,
+      selected: true,
+      based: true,
+    }, {
+      text: "手机",
+      enableOther: 0,
+      name: 'telephone',
+      type: 'text',
+      required: 1,
+      selected: true,
+      based: true,
+    }, {
+      text: "公司",
+      enableOther: 0,
+      name: 'company',
+      type: 'text',
+      required: 0,
+      selected: false,
+      based: true,
+    }, {
+      text: "邮箱",
+      enableOther: 0,
+      name: 'email',
+      type: 'text',
+      required: 0,
+      based: true,
+      selected: false,
+    }, {
+      text: "职位",
+      enableOther: 0,
+      name: 'position',
+      type: 'text',
+      required: 0,
+      based: true,
+      selected: false,
+    }, {
+      text: "性别",
+      enableOther: 0,
+      name: 'sex',
+      type: 'text',
+      required: 0,
+      based: true,
+      selected: false,
+    }, {
+      text: "年龄",
+      enableOther: 0,
+      name: 'age',
+      type: 'text',
+      required: 0,
+      selected: false,
+      based: true,
+    }]
+    arr = arr.filter(item => {
+      item.selected = true
+      let repeat = false
+      conditions.forEach(filter => {
+        console.log(item.text === filter.text)
+        if(item.text === filter.text || item.name === filter.name) {
+          repeat = true
+        }
+      })
+      if(!repeat) return item
+    })
+    console.log(arr)
+    this.setData({
+      conditions: conditions.concat(arr)
+    })
+  },
+  conditionsOnChange(arr) {
+    this.setData({
+      conditions: arr
+    })
+  },
+  tagOnChange(e) {
+    const index = e.currentTarget.dataset.index
+    let conditions = this.data.conditions
+    conditions[index].selected = !conditions[index].selected
+    this.setData({
+      conditions
+    })
+  },
+  editMoreInfo() {
+    const conditions = encodeURIComponent(JSON.stringify(this.data.conditions))
+    console.log(conditions)
+    wx.navigateTo({
+      url: '../../model/joinerInfo/index?conditions=' + conditions,
+    })
   },
   AjaxGetEventInfo() {
     const _this = this
@@ -117,6 +216,7 @@ create(store, {
         activity.endTimeStr = formatTime(new Date(activity.endTime))
         activity.signUpStartTimeStr = formatTime(new Date(activity.signUpStartTime))
         activity.expireTimeStr = formatTime(new Date(activity.expireTime))
+        _this.initCondition(activity.conditions)
         _this.setData({
           activity,
           enCodeIntro: encodeURIComponent(activity.intro)
@@ -170,10 +270,28 @@ create(store, {
     const key = e.target.dataset.name
     const value = e.detail.value
     const activity = this.data.activity
-    activity[key] = value
-    this.setData({
-      activity
-    })
+    if (key === 'anonSignUp') {
+      wx.showModal({
+        title: '提示',
+        content: '若需用户身份实名请前往报名吧APP发布',
+        confirmText: '去APP',
+        confirmColor: '#fda402',
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../about/download/index',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    } else {
+      activity[key] = value
+      this.setData({
+        activity
+      })
+    }
     console.log(this.data.activity)
   },
   seniorSetting() { //跳转高级设置
@@ -200,6 +318,27 @@ create(store, {
       const reg = /((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/
       if (reg.test(value)) {
         console.log('right')
+        activity[key] = value
+      }
+    } else if (key === 'payPath') {
+      if (value === '3') {
+        wx.showModal({
+          title: '提示',
+          content: '使用"报名吧"线上收费功能提现时需支付0.60%交易收付费，该手续费为微信交易手续费',
+          cancelText: '放弃',
+          confirmText: '同意支付',
+          confirmColor: '#fda402',
+          success: () => {
+            console.log(activity)
+            console.log(key)
+            console.log(value)
+            activity[key] = value
+            this.setData({
+              activity
+            })
+          }
+        })
+      } else {
         activity[key] = value
       }
     } else {
@@ -292,6 +431,8 @@ create(store, {
       }, 2000)
       return
     }
+    let conditions = this.data.conditions.filter(item => item.selected)
+    params.conditions = conditions
     publicActivity(params, res => {
       console.log(res)
       if (res.e === 0) {
@@ -363,7 +504,7 @@ create(store, {
         console.log(img)
         item.name = img.imageURL
         item.id = ""
-        item.base64 = ""//wx.getFileSystemManager().readFileSync(item.path, "base64")
+        item.base64 = "" //wx.getFileSystemManager().readFileSync(item.path, "base64")
         item.path = baseUrl.imageUrl + img.imageURL
         this.setData({
           activity
@@ -394,7 +535,9 @@ create(store, {
           const newPhotos = photos.filter((item, index) => index !== picIndex)
           console.log(newPhotos)
           activity.photos = newPhotos
-          _this.setData({ activity })
+          _this.setData({
+            activity
+          })
         } else if (res.cancel) {
           //console.log('用户点击取消')
         }

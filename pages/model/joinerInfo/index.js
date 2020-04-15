@@ -92,7 +92,9 @@ create(store, {
     console.log(e)
     const add_option = this.data.add_option
     add_option.required = e.detail.value ? 1 : 0
-    this.setData({ add_option })
+    this.setData({
+      add_option
+    })
   },
   deleteOption(e) { // 删除选项
     console.log(e)
@@ -112,6 +114,7 @@ create(store, {
     this.setData({
       conditions
     })
+    this.prePageFn()
   },
   inputOnChange(e) { // 输入数据
     const value = e.detail.value
@@ -139,6 +142,7 @@ create(store, {
         name: "item" + itemIndex,
         type: 'text',
         required: 1,
+        selected: true,
         options: [{
           name: 'item01',
           value: ""
@@ -177,11 +181,7 @@ create(store, {
         add_type: '',
         add_option_index: 1
       })
-      const pages = getCurrentPages();
-      const prevPage = pages[pages.length - 2]; //上一页
-      console.log(prevPage.data)
-      prevPage.conditionsOnChange(conditions)
-      console.log(prevPage.data)
+      this.prePageFn()
     } else {
       wx.showToast({
         title: err_tip,
@@ -198,6 +198,14 @@ create(store, {
       modal_visible: false
     })
   },
+  prePageFn() {
+    const conditions = this.data.conditions
+    const pages = getCurrentPages();
+    const prevPage = pages[pages.length - 2]; //上一页
+    console.log(prevPage.data)
+    prevPage.conditionsOnChange(conditions)
+    console.log(prevPage.data)
+  },
   selectTab(e) { //选择选项属性
     console.log(e)
     const value = e.target.dataset.value
@@ -207,13 +215,14 @@ create(store, {
       add_option
     })
   },
-  tagItemOnClick(e){
+  tagItemOnClick(e) {
     const index = e.currentTarget.dataset.index
     const conditions = this.data.conditions
-    conditions[index].required = !conditions[index].required
+    conditions[index].selected = !conditions[index].selected
     this.setData({
       conditions
     })
+    this.prePageFn()
   },
   deleteTag(e) {
     const index = e.currentTarget.dataset.index
@@ -222,6 +231,7 @@ create(store, {
     this.setData({
       conditions
     })
+    this.prePageFn()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
