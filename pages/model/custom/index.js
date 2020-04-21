@@ -161,12 +161,18 @@ create(store, {
       }]
     })
   },
-  conditionsOnChange(arr){
+  conditionsOnChange(arr) {
+    if (!this.validLogin()) {
+      return
+    }
     this.setData({
       conditions: arr
     })
   },
   tagOnChange(e) {
+    if (!this.validLogin()) {
+      return
+    }
     const index = e.currentTarget.dataset.index
     let conditions = this.data.conditions
     conditions[index].selected = !conditions[index].selected
@@ -175,6 +181,9 @@ create(store, {
     })
   },
   editMoreInfo() {
+    if (!this.validLogin()) {
+      return
+    }
     const conditions = encodeURIComponent(JSON.stringify(this.data.conditions))
     console.log(conditions)
     wx.navigateTo({
@@ -252,18 +261,8 @@ create(store, {
   },
   validLogin() {
     if (!store.data.isLogin) {
-      wx.showModal({
-        title: '您还未登录',
-        content: '是否跳转登录',
-        success(res) {
-          if (res.confirm) {
-            wx.switchTab({
-              url: '../../user/user/index',
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
+      wx.navigateTo({
+        url: '/pages/login/login',
       })
       return false
     } else {

@@ -25,7 +25,8 @@
     "pages/about/download/index",
     "pages/public/rich-editor/index",
     "pages/public/location/index",
-    "pages/activities/map/index"
+    "pages/activities/map/index",
+    "pages/login/login"
   ],
   "permission": {
     "scope.userLocation": {

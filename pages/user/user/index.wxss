@@ -118,7 +118,17 @@
   line-height: 40rpx;
 }
 
-.login_fram {
+.login_frame {
   padding: 100rpx 200rpx;
+  text-align: center;
+}
+
+.login_frame .login_btn {
+  height: 60rpx;
+  border-radius: 10rpx;
+  border: solid 1rpx #ffa409;
+  color: #ffa409;
+  font-size: 28rpx;
+  line-height: 58rpx;
   text-align: center;
 }

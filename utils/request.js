@@ -32,6 +32,11 @@ function networkpost({
           wx.hideLoading()
         }, 500)
         //自行处理返回结果
+        if(res.data.e === 100){ // 未登录
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+        }
         console.log(des + '返回结果：')
         console.log(baseUrl.baseUrl + url)
         console.log(params)
@@ -65,6 +70,11 @@ function networkget({
       method: 'GET',
       success: function (res) {
         wx.hideLoading()
+        if(res.data.e === 100){ // 未登录
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+        }
         //返回结果自行处理
         wx.hideLoading()
         resolve(res);

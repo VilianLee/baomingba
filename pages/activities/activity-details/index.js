@@ -47,7 +47,20 @@ create(store, {
     qrCode: '',
     showEventLink: false
   },
+  validLogin() {
+    if (!store.data.isLogin) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+      return false
+    } else {
+      return true
+    }
+  },
   AjaxCreateLink(){
+    if (!this.validLogin()) {
+      return
+    }
     const params = {
       eventId: this.data.id
     }
@@ -60,32 +73,27 @@ create(store, {
       }
     })
   },
+  signUpLink(e) {
+    if (!this.validLogin()) {
+      return
+    }
+    const eventId = this.data.id
+    wx.navigateTo({
+      url: '../sign-up/sign-up?eventId=' + eventId,
+    })
+  },
   showEventLinkChange(){
+    if (!this.validLogin()) {
+      return
+    }
     this.setData({
       showEventLink: !this.data.showEventLink
     })
   },
-  validLogin() {
-    if (!store.data.isLogin) {
-      wx.showModal({
-        title: '您还未登录',
-        content: '是否跳转登录',
-        success(res) {
-          if (res.confirm) {
-            wx.switchTab({
-              url: '../../user/user/index',
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-      return false
-    } else {
-      return true
-    }
-  },
   showAutyFrame(e) {
+    if (!this.validLogin()) {
+      return
+    }
     const content = e.currentTarget.dataset.content
     console.log(content)
     this.setData({
@@ -94,11 +102,20 @@ create(store, {
     })
   },
   hideAutyFrame() {
+    if (!this.validLogin()) {
+      return
+    }
+    if (!this.validLogin()) {
+      return
+    }
     this.setData({
       autyShow: false
     })
   },
   showJoinCodeOnHide() {
+    if (!this.validLogin()) {
+      return
+    }
     if (!this.validLogin()) {
       return
     }
@@ -131,12 +148,18 @@ create(store, {
     })
   },
   previewImg(e){
+    if (!this.validLogin()) {
+      return
+    }
     const url = e.currentTarget.dataset.url
     wx.previewImage({
       urls: [url],
     })
   },
   getWxPayApi(obj) { //唤起微信支付
+    if (!this.validLogin()) {
+      return
+    }
     const _this = this
     console.log(obj)
     store.data.loading = true
@@ -339,6 +362,9 @@ create(store, {
     })
   },
   followOrganizer(e) { // 关注
+    if (!this.validLogin()) {
+      return
+    }
     const params = {
       userUid: e.currentTarget.dataset.id
     }
@@ -356,6 +382,9 @@ create(store, {
     })
   },
   AjaxUnFollow(e){ // 取关
+    if (!this.validLogin()) {
+      return
+    }
     const params = {
       userUid: e.currentTarget.dataset.id
     }
@@ -373,6 +402,9 @@ create(store, {
     })
   },
   makePhoneCall(e) { // 联系组织者
+    if (!this.validLogin()) {
+      return
+    }
     const phone = e.currentTarget.dataset.phone
     console.log(e)
     if (phone) {
@@ -454,7 +486,7 @@ create(store, {
   onShareAppMessage: function () {
     return {
       title: this.data.info.title,
-      imageUrl: this.data.baseUrl.imageUrl + this.data.info.photos[0].name
+      imageUrl: this.data.baseUrl.imageUrl + '/' + this.data.info.photos[0].name
     };
   }
 })

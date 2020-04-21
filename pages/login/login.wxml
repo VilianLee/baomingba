@@ -1,0 +1,25 @@
+<!--pages/login/login.wxml-->
+
+<view class="login">
+	<view class="app_logo">
+		<image src="../../images/mine/logo.png"></image>
+	</view>
+	<view class="app_name">
+		报名吧小程序登录
+	</view>
+	<view class="btn_wrap">
+		<view class="btn_row login_btn">
+			<button type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">立即登录</button>
+		</view>
+		<view class="btn_row cancel_btn">
+			<button bindtap="backPage">取消</button>
+		</view>
+	</view>
+</view>
+<i-modal title="小程序登录需要获取您的手机号码" visible="{{ getPhoneNumVisible }}" show-ok="{{false}}" show-cancel="{{false}}" actions="{{ allowActions }}">
+	<view class="modal">
+		<view class="btn_row login_btn">
+			<button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" binderror="openTypeError">允许</button>
+		</view>
+	</view>
+</i-modal>

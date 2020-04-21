@@ -30,9 +30,9 @@
       </navigator>
     </block>
     <block wx:else>
-      <view class="login_fram">
+      <view class="login_frame">
         <view class="btn-area">
-          <button type="primary" size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo">使用微信登录</button>
+          <navigator url="../../login/login" class="login_btn">立即登录</navigator>
         </view>
       </view>
     </block>
@@ -111,11 +111,3 @@
     </view>
   </view>
 </view>
-<i-modal title="需要获取您的手机号" visible="{{ getPhoneNumVisible }}" show-ok="{{false}}" show-cancel="{{false}}" actions="{{ allowActions }}">
-  <view>
-    <button size="mini" bindtap="alertHidden" style="margin-right: 20rpx">
-      取消
-    </button>
-    <button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" binderror="openTypeError">允许</button>
-  </view>
-</i-modal>

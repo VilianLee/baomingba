@@ -277,9 +277,9 @@
 							</navigator>
 						</block>
 						<block wx:elif="{{info.userStatus.signupStatus !== 7}}">
-							<navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
+							<view class="cancel_btn" bindtap="signUpLink">
 								{{info.signUpTitle}}
-							</navigator>
+							</view>
 						</block>
 					</block>
 					<block wx:elif="{{info.eventStatus.signUpCancellable}}">
