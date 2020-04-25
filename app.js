@@ -1,8 +1,27 @@
 //app.js
 import store from './store'
+import {
+  login
+} from './API/servers'
 App({
   onLaunch: function () {
     this.overShare()
+    console.log("onLaunch")
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log("login")
+        store.data.wxCode = res.code
+        store.update()
+        this.AjaxSilentLogin(res.code)
+      },
+      fail: res => {
+        $Toast({
+          content: res.message,
+          type: 'error'
+        });
+      }
+    })
   },
   globalData: {
     userInfo: null,
@@ -31,6 +50,18 @@ App({
             };
           }
         }
+      }
+    })
+  },
+  AjaxSilentLogin(code) {
+    login({
+      code: code
+    }, res => {
+      console.log(res)
+      if (res.e === 0) {
+        store.data.isLogin = true
+        store.data.sessionkey = res.sessionKey
+        store.update()
       }
     })
   },

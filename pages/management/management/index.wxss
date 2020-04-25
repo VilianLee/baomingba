@@ -19,7 +19,11 @@
   font-size: 32rpx;
   color: #333333;
 }
-
+.page_tips {
+  font-size: 24rpx;
+  color: #f45051;
+  padding: 0 30rpx;
+}
 .activity_base_info {
   display: flex;
   padding: 0 20rpx;

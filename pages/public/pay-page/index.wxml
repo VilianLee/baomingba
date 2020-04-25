@@ -1,0 +1,16 @@
+<!--pages/public/pay-page/index.wxml-->
+<view class="block">
+  <view class="pay_content">
+    <view class="pay_pic">
+      <image src="../../../images/icon_wallet.png"></image>
+    </view>
+    <view class="pay_text">
+      <view class="pay_type">
+        需要支付
+      </view>
+      <view class="pay_amount">{{payAmount}}元</view>
+    </view>
+  </view>
+</view>
+
+<view class="choose_tips">选择支付方式</view>

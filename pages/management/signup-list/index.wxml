@@ -105,7 +105,7 @@
     </view>
     <view class="cover_control">
       <view class="cover_btn cover_btn_cancel" bindtap="showRejectPayOnChange">取消</view>
-      <view class="cover_btn" bindtap="prePayForReject">确定</view>
+      <view class="cover_btn" bindtap="gotoPay">确定</view>
     </view>
   </view>
 </view>

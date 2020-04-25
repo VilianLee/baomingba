@@ -456,7 +456,54 @@ const checkVidCount = (params, success) => { // 查询实名认证包
   })
 }
 
+const payCancelAct = (params, success) => { // 取消活动——余额支付接口
+  const des = '取消活动——余额支付接口'
+  networkpost({
+    url: `/event/${params.eventId}/balance/act_cancel`,
+    params: params,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+function payRejectUser(params, success) { //拒绝用户——余额支付接口
+  const des = '拒绝用户——余额支付接口'
+  networkpost({
+    url: `/event/${params.eventId}/balance/reject`,
+    params: params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
+function payUserAgreeCancel(params, success) { //同意用户取消——余额支付接口
+  const des = '同意用户取消——余额支付接口'
+  networkpost({
+    url: `/event/${params.eventId}/balance/refund`,
+    params: params,
+    des
+  }).then(function(res) {
+    return success(res.data)
+  })
+}
+
+const checkWalletAmount = (params, success) => { // 钱包余额查询接口
+  const des = '钱包余额查询接口'
+  networkget({
+    url: `/cash/balance`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 module.exports = {
+  payCancelAct,
+  payRejectUser,
+  payUserAgreeCancel,
+  checkWalletAmount,
   followUser,
   unFollowUser,
   joinActivity,

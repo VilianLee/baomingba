@@ -26,6 +26,7 @@ create(store, {
     showEventLink: false,
     showCancelCover: false,
     cancelReason: '',
+    hasDeal: false,
     qrCode: ''
   },
 

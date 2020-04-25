@@ -7,11 +7,7 @@ import {
   exportListToEmail,
   rejectSignUp,
   rejectNeedPaySignUp,
-  rejectNeedPaySignUpPay
 } from '../../../API/servers'
-import {
-  formatTime
-} from '../../../utils/util.js'
 
 const app = getApp()
 
@@ -78,6 +74,9 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      signerList: []
+    })
     this.AjaxGetSignerList()
   },
 
@@ -216,18 +215,10 @@ create(store, {
     })
   },
 
-  prePayForReject() {
-    const params = {
-      eventId: this.data.eventId,
-      userId: this.data.selectSigner.userId,
-      ps: 5
-    }
+  gotoPay() {
     this.showRejectPayOnChange()
-    rejectNeedPaySignUpPay(params, res => {
-      if(res.e === 0) {
-        let obj = JSON.parse(res.orderResult)
-        this.getWxPayApi(obj)
-      }
+    wx.navigateTo({
+      url: `../../public/pay-page/index?eventId=${this.data.eventId}&payType=reject&amount=${this.data.selectSigner.charge}&userId=${this.data.selectSigner.id}`
     })
   },
 

@@ -1,0 +1,33 @@
+/* pages/public/pay-page/index.wxss */
+.pay_content {
+  display: flex;
+  padding: 20rpx;
+  margin-top: 20rpx;
+  justify-content: space-between;
+}
+
+.pay_content .pay_pic {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.pay_content .pay_text {
+  flex-grow: 1;
+  height: 120rpx;
+  padding-left: 20rpx;
+}
+
+.pay_content .pay_text .pay_type {
+  font-size: 32rpx;
+  color: #333333;
+  line-height: 40rpx;
+  margin-bottom: 50rpx;
+}
+
+.pay_content .pay_text .pay_amount {
+  font-size: 28rpx;
+  line-height: 30rpx;
+  color: #ffa404;
+}
