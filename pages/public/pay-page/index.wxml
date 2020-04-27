@@ -6,7 +6,7 @@
     </view>
     <view class="pay_text">
       <view class="pay_type">
-        需要支付
+        支付
       </view>
       <view class="pay_amount">{{payAmount}}元</view>
     </view>
@@ -14,3 +14,31 @@
 </view>
 
 <view class="choose_tips">选择支付方式</view>
+
+<view class="block">
+  <view class="way_row" data-pay-way="wallet" bindtap="selectPayWay">
+    <view class="way_icon">
+      <image src="../../../images/management/icon_wallet.png"></image>
+    </view>
+    <view class="way_content">
+      钱包余额：{{balance}}元
+    </view>
+    <view class="way_control">
+      <image src="../../../images/management/icon_payway_selected.png" wx:if="{{payWay === 'wallet'}}"></image>
+      <image src="../../../images/management/icon_payway_select.png" wx:else></image>
+    </view>
+  </view>
+  <view class="way_row" data-pay-way="wechat" bindtap="selectPayWay">
+    <view class="way_icon">
+      <image src="../../../images/management/icon_wepay.png"></image>
+    </view>
+    <view class="way_content">
+      微信支付
+    </view>
+    <view class="way_control">
+      <image src="../../../images/management/icon_payway_selected.png" wx:if="{{payWay === 'wechat'}}"></image>
+      <image src="../../../images/management/icon_payway_select.png" wx:else></image>
+    </view>
+  </view>
+</view>
+<view class="pay_btn" bindtap="clickPay">立即支付</view>

@@ -18,9 +18,10 @@ create(store, {
   data: {
     balance: 0,
     payAmount: 0,
-    payType: '',
+    payType: '', // 支付类型： reject--拒绝报名 cancel--取消活动 refund--同意用户取消
     eventId: '',
-    userId: ''
+    userId: '',
+    payWay: ''
   },
 
   /**
@@ -28,7 +29,7 @@ create(store, {
    */
   onLoad: function (options) {
     this.setData({
-      payAmount: options.amount,
+      payAmount: parseFloat(options.amount),
       payType: options.payType,
       eventId: options.eventId,
       userId: options.userId
@@ -42,19 +43,88 @@ create(store, {
     this.AjaxCheckAmount()
   },
 
-  AjaxCheckAmount() {
+  selectPayWay(e){ // 选择支付方式
+    const payWay = e.currentTarget.dataset.payWay
+    if(payWay === 'wallet' && this.balance < this.data.payAmount) {
+      return 
+    } else {
+      this.setData({
+        payWay
+      })
+    }
+  },
+
+  AjaxCheckAmount() { //查询钱包余额
     checkWalletAmount({}, res => {
       if (res.e === 0) {
         this.setData({
-          balance: res.balance
+          balance: res.balance,
+          payWay: res.balance < this.data.payAmount ? 'wechat' : 'wallet'
         })
       }
     })
   },
-  AjaxWxPrePay() {
+
+  clickPay(){ //点击支付
+    console.log(this.data.payWay)
+    if(this.data.payWay === 'wechat') {
+      this.AjaxWxPrePay()
+    } else if (this.data.payWay === 'wallet') {
+      this.PayFromWallet()
+    } else {
+      wx.showToast({
+        title: '未选择支付方式',
+      })
+    }
+  },
+
+  PayFromWallet(){ // 钱包支付
     const params = {
       eventId: this.data.eventId,
-      userId: this.data.selectSigner.userId,
+      userId: this.data.userId ? this.data.userId : null
+    }
+    if(this.data.payType === 'reject') {
+      this.AjaxPayRejectUser(params)
+    } else if(this.data.payType === 'cancel') {
+
+    } else if(this.data.payType === 'refund') {
+
+    }
+  },
+
+  AjaxPayRejectUser(params){ // 拒绝用户 钱包支付
+    store.data.loading = true
+    store.update()
+    payRejectUser(params, res => {
+      if(res.e === 0) {
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: '退款成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.navigateBack()
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '退款失败',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+
+  AjaxWxPrePay() { // 微信预支付
+    const params = {
+      eventId: this.data.eventId,
+      userId: this.data.userId,
       ps: 5
     }
     rejectNeedPaySignUpPay(params, res => { // 拒绝报名微信付款
@@ -86,6 +156,7 @@ create(store, {
         })
         setTimeout(() => {
           wx.hideToast()
+          wx.navigateBack()
         }, 2000)
       },
       'fail': function (res) {
