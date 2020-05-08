@@ -6,6 +6,7 @@ import {
   payRejectUser,
   payUserAgreeCancel,
   checkWalletAmount,
+  rejectNeedPaySignUpPay
 } from '../../../API/servers'
 
 

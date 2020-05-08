@@ -467,11 +467,13 @@ const payCancelAct = (params, success) => { // 取消活动——余额支付接
   })
 }
 
-function payRejectUser(params, success) { //拒绝用户——余额支付接口
+function payRejectUser(options, success) { //拒绝用户——余额支付接口
   const des = '拒绝用户——余额支付接口'
   networkpost({
-    url: `/event/${params.eventId}/balance/reject`,
-    params: params,
+    url: `/event/${options.eventId}/balance/reject`,
+    params: {
+      userId: options.userId
+    },
     des
   }).then(function(res) {
     return success(res.data)

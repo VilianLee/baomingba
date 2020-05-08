@@ -76,7 +76,25 @@
   line-height: 80rpx;
   font-size: 32rpx;
   color: #ffffff;
-  margin: 80rpx auto;
+  margin: 80rpx auto 40rpx;
   background-color: #ffa404;
   text-align: center;
+}
+
+.agreement_tips{
+  display:  flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 30rpx;
+}
+
+.agreement_tips .text{
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.agreement_tips .text .agreement {
+  color: #ffa404;
+  display:  inline-block;
 }
