@@ -217,8 +217,9 @@ create(store, {
 
   gotoPay() {
     this.showRejectPayOnChange()
+    console.log(this.data.selectSigner)
     wx.navigateTo({
-      url: `../../public/pay-page/index?eventId=${this.data.eventId}&payType=reject&amount=${this.data.selectSigner.charge}&userId=${this.data.selectSigner.id}`
+      url: `../../public/pay-page/index?eventId=${this.data.eventId}&payType=reject&amount=${this.data.selectSigner.charge}&userId=${this.data.selectSigner.userId}`
     })
   },
 

@@ -58,9 +58,10 @@ create(store, {
   AjaxCheckAmount() { //查询钱包余额
     checkWalletAmount({}, res => {
       if (res.e === 0) {
+        const balance = (res.balance / 100).toFixed(2)
         this.setData({
-          balance: res.balance,
-          payWay: res.balance < this.data.payAmount ? 'wechat' : 'wallet'
+          balance: balance,
+          payWay: balance < this.data.payAmount ? 'wechat' : 'wallet'
         })
       }
     })
