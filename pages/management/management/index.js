@@ -10,6 +10,7 @@ import {
   getQrCode,
   allowSignUp,
   cancelEvent,
+  cancelPayEvent,
   createActivityLink
 } from '../../../API/servers'
 
@@ -55,12 +56,12 @@ create(store, {
       })
     })
   },
-  AjaxCreateLink(){
+  AjaxCreateLink() {
     const params = {
       eventId: this.data.activityId
     }
     createActivityLink(params, res => {
-      if(res.e === 0) {
+      if (res.e === 0) {
         this.setData({
           qrCode: res.qrcode,
           showEventLink: true
@@ -87,18 +88,18 @@ create(store, {
       showQrCode: !this.data.showQrCode
     })
   },
-  showEventLinkChange(){
+  showEventLinkChange() {
     this.setData({
       showEventLink: !this.data.showEventLink
     })
   },
-  previewImage(e){
+  previewImage(e) {
     const url = e.currentTarget.dataset.qr
     wx.previewImage({
       urls: [url],
     })
   },
-  doAnything() { },
+  doAnything() {},
   showCancelChange() {
     this.setData({
       showCancelCover: !this.data.showCancelCover
@@ -169,7 +170,7 @@ create(store, {
       }
     })
   },
-  AjaxCancelActivity() { //取消活动
+  clickCancel() {
     if (this.data.cancelReason === '') {
       wx.showToast({
         title: '请输入取消原因',
@@ -180,34 +181,66 @@ create(store, {
         wx.hideToast()
       }, 2000)
     } else {
-      const params = {
-        eventId: this.data.activityId,
-        reason: this.data.cancelReason
+      if (this.data.activityInfo.needPay) {
+        this.AjaxCancelPayActivity()
+      } else {
+        this.AjaxCancelFreeActivity()
       }
-      cancelEvent(params, res => {
-        if (res.e === 0) {
-          wx.showToast({
-            title: '取消成功',
-            icon: 'none',
-            duration: 2000
-          })
-          setTimeout(() => {
-            wx.hideToast()
-            wx.switchTab({
-              url: '../../home/home/index',
-            })
-          }, 2000)
-        } else {
-          wx.showToast({
-            title: '取消失败',
-            icon: 'none'
-          })
-          setTimeout(() => {
-            wx.hideToast()
-          }, 2000)
-        }
-      })
     }
+  },
+  AjaxCancelPayActivity() { // 取消收费活动
+    const params = {
+      eventId: this.data.activityId,
+      reason: this.data.cancelReason
+    }
+    cancelPayEvent(params, res => {
+      if(res.e === 0) {
+        wx.navigateTo({
+          url: `../../public/pay-page/index?amount=${res.applicantTotal}&payType=cancel&eventId=${res.activityId}&userId=${res.userId}`,
+        })
+        this.setData({
+          showCancelCover: false,
+          cancelReason: ""
+        })
+      } else {
+        wx.showToast({
+          title: '取消失败',
+          icon: 'none'
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+  AjaxCancelFreeActivity() { //取消免费活动
+    const params = {
+      eventId: this.data.activityId,
+      reason: this.data.cancelReason
+    }
+    cancelEvent(params, res => {
+      if (res.e === 0) {
+        wx.showToast({
+          title: '取消成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.switchTab({
+            url: '../../home/home/index',
+          })
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '取消失败',
+          icon: 'none'
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面隐藏

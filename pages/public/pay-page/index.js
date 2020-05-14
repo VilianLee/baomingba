@@ -6,6 +6,7 @@ import {
   payRejectUser,
   payUserAgreeCancel,
   checkWalletAmount,
+  cancelNeedPayActPay,
   rejectNeedPaySignUpPay
 } from '../../../API/servers'
 
@@ -22,6 +23,8 @@ create(store, {
     payType: '', // 支付类型： reject--拒绝报名 cancel--取消活动 refund--同意用户取消
     eventId: '',
     userId: '',
+    agreementShow: false,
+    agree: false,
     payWay: ''
   },
 
@@ -44,10 +47,10 @@ create(store, {
     this.AjaxCheckAmount()
   },
 
-  selectPayWay(e){ // 选择支付方式
+  selectPayWay(e) { // 选择支付方式
     const payWay = e.currentTarget.dataset.payWay
-    if(payWay === 'wallet' && this.balance < this.data.payAmount) {
-      return 
+    if (payWay === 'wallet' && this.balance < this.data.payAmount) {
+      return
     } else {
       this.setData({
         payWay
@@ -55,21 +58,52 @@ create(store, {
     }
   },
 
+  showAgreement() {
+    this.setData({
+      agreementShow: true
+    })
+  },
+
+  readAndAgree() {
+    this.setData({
+      agree: true,
+      agreementShow: false
+    })
+  },
+
+  agreementOnClick() {
+    this.setData({
+      agree: !this.data.agree
+    })
+  },
+
   AjaxCheckAmount() { //查询钱包余额
     checkWalletAmount({}, res => {
       if (res.e === 0) {
         this.setData({
-          balance: res.balance,
-          payWay: res.balance < this.data.payAmount ? 'wechat' : 'wallet'
+          balance: (res.balance / 100).toFixed(2),
+          payWay: (res.balance / 100).toFixed(2) < this.data.payAmount ? 'wechat' : 'wallet'
         })
       }
     })
   },
 
-  clickPay(){ //点击支付
-    console.log(this.data.payWay)
-    if(this.data.payWay === 'wechat') {
-      this.AjaxWxPrePay()
+  clickPay() { //点击支付
+    if (!this.data.agree) {
+      const _this = this
+      wx.showModal({
+        title: '提示',
+        content: '请阅读并同意《报名吧协议》',
+        showCancel: false,
+        confirmColor: '#ffa404',
+        success: res => {
+          _this.showAgreement()
+        }
+      })
+      return
+    }
+    if (this.data.payWay === 'wechat') {
+      this.wxPrePay()
     } else if (this.data.payWay === 'wallet') {
       this.PayFromWallet()
     } else {
@@ -78,26 +112,25 @@ create(store, {
       })
     }
   },
-
-  PayFromWallet(){ // 钱包支付
+  PayFromWallet() { // 钱包支付
     const params = {
       eventId: this.data.eventId,
       userId: this.data.userId ? this.data.userId : null
     }
-    if(this.data.payType === 'reject') {
+    if (this.data.payType === 'reject') {
       this.AjaxPayRejectUser(params)
-    } else if(this.data.payType === 'cancel') {
-
-    } else if(this.data.payType === 'refund') {
+    } else if (this.data.payType === 'cancel') {
+      this.AjaxPayCancelAct(params)
+    } else if (this.data.payType === 'refund') {
 
     }
   },
 
-  AjaxPayRejectUser(params){ // 拒绝用户 钱包支付
+  AjaxPayCancelAct(params) {
     store.data.loading = true
     store.update()
-    payRejectUser(params, res => {
-      if(res.e === 0) {
+    payCancelAct(params, res => {
+      if (res.e === 0) {
         store.data.loading = false
         store.update()
         wx.showToast({
@@ -122,13 +155,60 @@ create(store, {
     })
   },
 
-  AjaxWxPrePay() { // 微信预支付
+  AjaxPayRejectUser(params) { // 拒绝用户 钱包支付
+    store.data.loading = true
+    store.update()
+    payRejectUser(params, res => {
+      if (res.e === 0) {
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: '退款成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.navigateBack()
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '退款失败',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+
+  wxPrePay() {
     const params = {
       eventId: this.data.eventId,
-      userId: this.data.userId,
+      userId: this.data.userId ? this.data.userId : null,
       ps: 5
     }
+    if (this.data.payType === 'reject') {
+      this.AjaxWxPrePay(params)
+    } else if (this.data.payType === 'cancel') {
+      this.AjaxCancelWxPrePay(params)
+    } else if (this.data.payType === 'refund') {
+
+    }
+  },
+  AjaxWxPrePay(params) { // 拒绝报名微信预支付
     rejectNeedPaySignUpPay(params, res => { // 拒绝报名微信付款
+      if (res.e === 0) {
+        let obj = JSON.parse(res.orderResult)
+        this.getWxPayApi(obj)
+      }
+    })
+  },
+
+  AjaxCancelWxPrePay(params) {
+    cancelNeedPayActPay(params, res => { // 拒绝报名微信付款
       if (res.e === 0) {
         let obj = JSON.parse(res.orderResult)
         this.getWxPayApi(obj)

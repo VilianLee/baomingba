@@ -14,6 +14,29 @@ const formatTime = (date, type, tag) => {
   }
 }
 
+const getLeftTime = (endTime) => {
+  let time = endTime / 1000; //距离结束的毫秒数
+  // 获取天、时、分、秒
+  let day = parseInt(time / (60 * 60 * 24));
+  let hou = parseInt(time % (60 * 60 * 24) / 3600);
+  let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+  let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+  // console.log(day + "," + hou + "," + min + "," + sec)
+  day = timeFormin(day),
+    hou = timeFormin(hou),
+    min = timeFormin(min),
+    sec = timeFormin(sec)
+  return timeFormat(hou) + '小时' + timeFormat(min) + '分' + timeFormat(sec) + '秒'
+}
+//小于10的格式化函数（2变成02）
+const timeFormat = (param) => {
+  return param < 10 ? '0' + param : param;
+}
+//小于0的格式化函数（不会出现负数）
+const timeFormin = (param) => {
+  return param < 0 ? 0 : param;
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -33,15 +56,16 @@ const getDate = (strDate) => {
 
 //深拷贝
 const DeepClone = (obj) => {
-	if (obj === null || typeof obj !== 'object') return obj;
-	var cpObj = obj instanceof Array ? [] : {};
-	for (var key in obj) cpObj[key] = DeepClone(obj[key]);
-	return cpObj;
+  if (obj === null || typeof obj !== 'object') return obj;
+  var cpObj = obj instanceof Array ? [] : {};
+  for (var key in obj) cpObj[key] = DeepClone(obj[key]);
+  return cpObj;
 }
 
 module.exports = {
   formatTime,
   formatNumber,
   getDate,
+  getLeftTime,
   DeepClone
 }

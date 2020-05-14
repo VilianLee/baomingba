@@ -98,3 +98,65 @@
   color: #ffa404;
   display:  inline-block;
 }
+.cover_bg{
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  left: 0; right: 0; bottom: 0; top: 0;
+}
+.agreement_modal{
+  position: fixed;
+  width: 690rpx;
+  height: 900rpx;
+  box-sizing: border-box;
+  left: calc(50% - 345rpx);
+  top: calc(50% - 450rpx);
+  border: solid 1rpx #cccccc;
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column
+}
+.agreement_modal_title {
+  font-size: 36rpx;
+  color: #333333;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  border-bottom: solid 1rpx #e5e5e5;
+}
+
+.agreement_modal_content {
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 30rpx;
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.agreement_modal_btn {
+  font-size: 32rpx;
+  color: #ffa404;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  border-top: solid 1rpx #e5e5e5;
+}
+
+.content_text{
+  line-height: 30rpx;
+  color: #333333;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+.content_text .strong {
+  font-weight: bold;
+}
+
+.content_title {
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 40rpx;
+  font-weight: bold;
+}

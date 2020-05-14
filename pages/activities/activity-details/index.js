@@ -15,7 +15,8 @@ import {
   cancelLiked
 } from '../../../API/servers'
 import {
-  formatTime
+  formatTime,
+  getLeftTime
 } from '../../../utils/util.js'
 import {
   baseUrl
@@ -45,6 +46,10 @@ create(store, {
     applicantId: '',
     cancelReason: "",
     qrCode: '',
+    signUpStartTime: '',
+    leftTime: '',
+    leftTimerStr: '',
+    secInday: '',
     showEventLink: false
   },
   validLogin() {
@@ -57,7 +62,7 @@ create(store, {
       return true
     }
   },
-  AjaxCreateLink(){
+  AjaxCreateLink() {
     if (!this.validLogin()) {
       return
     }
@@ -65,7 +70,7 @@ create(store, {
       eventId: this.data.id
     }
     createActivityLink(params, res => {
-      if(res.e === 0) {
+      if (res.e === 0) {
         this.setData({
           qrCode: res.qrcode,
           showEventLink: true
@@ -82,7 +87,7 @@ create(store, {
       url: '../sign-up/sign-up?eventId=' + eventId,
     })
   },
-  showEventLinkChange(){
+  showEventLinkChange() {
     if (!this.validLogin()) {
       return
     }
@@ -147,7 +152,7 @@ create(store, {
       }
     })
   },
-  previewImg(e){
+  previewImg(e) {
     if (!this.validLogin()) {
       return
     }
@@ -354,12 +359,36 @@ create(store, {
       if (event.actCat == 0 && pageLogic.isRecFlagNormalEvent) {
         pageLogic.showVoucher = event.isCheck ? event.userStatus.signupStatus == 2 : event.userStatus.signupStatus == 1
       }
+      let signUpStartTime = event.signUpStartTime ? event.signUpStartTime : 0
+      _this.getLeftTimeStr(signUpStartTime)
       _this.setData({
         info: event,
         applicantId: res.applicantId,
+        signUpStartTime,
         pageLogic
       })
     })
+  },
+  getLeftTimeStr(signUpStartTime) {
+    const secInday = 86400000
+    const nowTime = new Date()
+    let leftTime = signUpStartTime - nowTime.getTime()
+    let leftTimerStr = ""
+    if (leftTime > secInday) {
+      leftTimerStr = parseInt(leftTime / 86400000) + '天'
+    } else {
+      leftTimerStr = getLeftTime(leftTime)
+    }
+    const _this = this
+    this.setData({
+      leftTime,
+      leftTimerStr
+    })
+    if (leftTime > 0) {
+      setTimeout(() => {
+        _this.getLeftTimeStr(signUpStartTime)
+      }, 1000);
+    }
   },
   followOrganizer(e) { // 关注
     if (!this.validLogin()) {
@@ -369,7 +398,7 @@ create(store, {
       userUid: e.currentTarget.dataset.id
     }
     followUser(params, res => {
-      if(res.e === 0) {
+      if (res.e === 0) {
         wx.showToast({
           title: '关注成功',
           icon: 'success'
@@ -381,7 +410,7 @@ create(store, {
       }
     })
   },
-  AjaxUnFollow(e){ // 取关
+  AjaxUnFollow(e) { // 取关
     if (!this.validLogin()) {
       return
     }
@@ -389,7 +418,7 @@ create(store, {
       userUid: e.currentTarget.dataset.id
     }
     unFollowUser(params, res => {
-      if(res.e === 0) {
+      if (res.e === 0) {
         wx.showToast({
           title: '关注成功',
           icon: 'success'
@@ -409,7 +438,7 @@ create(store, {
     console.log(e)
     if (phone) {
       wx.makePhoneCall({
-        phoneNumber: phone 
+        phoneNumber: phone
       })
     } else {
       wx.showToast({
@@ -421,9 +450,9 @@ create(store, {
       }, 2000)
     }
   },
-  seeMap(){
+  seeMap() {
     const address = this.data.info.address
-    const url=`../map/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
+    const url = `../map/index?longAddress=${address.longAddress}&longitude=${address.longitude}&latitude=${address.latitude}`
     wx.navigateTo({
       url: url,
     })

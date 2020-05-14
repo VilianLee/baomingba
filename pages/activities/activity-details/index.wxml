@@ -253,49 +253,51 @@
 			</block>
 		</block>
 		<block wx:else>
-
 			<!-- 显示一个按钮 -->
 			<block wx:if="{{pageLogic.isArticle}}">
-				<view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
+				<view class="single_btn" wx:if="{{pageLogic.isFollowed}}">
 					已关注组织号
 				</view>
-				<view class="cancel_btn" wx:else>
+				<view class="single_btn" wx:else>
 					关注组织号
 				</view>
 			</block>
 			<block wx:else>
 				<block wx:if="{{info.countDown}}">
-					<view class="cancel_btn">
-						离报名开始还有{{info.countDown}}
+					<navigator url="../sign-up/sign-up?eventId={{id}}" class="single_btn" wx:if="{{lefttime < 0}}">
+						开始报名
+					</navigator>
+					<view class="single_btn" wx:else>
+						离开始报名还有{{leftTimerStr}}
 					</view>
 				</block>
 				<block wx:else>
 					<block wx:if="{{info.eventStatus.signUpVisible}}">
 						<block wx:if="{{info.userStatus.signupStatus !== 7 && info.signUpRemark}}">
-							<navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
+							<navigator url="../sign-up/sign-up?eventId={{id}}" class="single_btn">
 								{{info.signUpRemark}}
 							</navigator>
 						</block>
 						<block wx:elif="{{info.userStatus.signupStatus !== 7}}">
-							<view class="cancel_btn" bindtap="signUpLink">
+							<view class="single_btn" bindtap="signUpLink">
 								{{info.signUpTitle}}
 							</view>
 						</block>
 					</block>
 					<block wx:elif="{{info.eventStatus.signUpCancellable}}">
 						<block wx:if="{{info.eventStatus.signUpRefundApplied}}">
-							<view class="cancel_btn">
+							<view class="single_btn">
 								取消报名(已申请）
 							</view>
 						</block>
 						<block wx:else>
-							<view class="cancel_btn">
+							<view class="single_btn">
 								取消报名
 							</view>
 						</block>
 					</block>
 					<block wx:elif="{{!info.eventStatus.signUpVisible && !info.eventStatus.signUpCancellable}}">
-						<view class="cancel_btn">
+						<view class="single_btn">
 							{{info.signUpRemark}}
 						</view>
 					</block>

@@ -129,7 +129,7 @@
 			</view>
 			<view class="cover_control">
 				<view class="cover_btn cover_btn_cancel" bindtap="showCancelChange">取消</view>
-				<view class="cover_btn" bindtap="AjaxCancelActivity">确定</view>
+				<view class="cover_btn" bindtap="clickCancel">确定</view>
 			</view>
 		</view>
 	</view>

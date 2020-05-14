@@ -307,6 +307,17 @@ page {
   white-space: nowrap;
   width: 255rpx;
 }
+.single_btn {
+  height: 90rpx;
+  line-height: 90rpx;
+  float: right;
+  background: #8ea5e9;
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+  white-space: nowrap;
+  width: 510rpx;
+}
 
 .pay_btn {
   height: 90rpx;
