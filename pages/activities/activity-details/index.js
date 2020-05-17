@@ -128,6 +128,14 @@ create(store, {
       showJoinCode: false
     })
   },
+  payForJoin(){
+    if (!this.validLogin()) {
+      return
+    }
+    wx.navigateTo({
+      url: `../../public/pay-page/index?amount=${this.data.info.charge}&payType=join&eventId=${this.data.applicantId}`,
+    })
+  },
   AjaxGetPreOrder() { // 预下单
     if (!this.validLogin()) {
       return

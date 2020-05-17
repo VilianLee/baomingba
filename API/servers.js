@@ -491,6 +491,17 @@ const payCancelAct = (params, success) => { // 取消活动——余额支付接
   })
 }
 
+const payJoinAct = (params, success) => { // 活动报名——余额支付接口
+  const des = '活动报名——余额支付接口'
+  networkpost({
+    url: `/event/${params.eventId}/balance/signup`,
+    params: {},
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 function payRejectUser(options, success) { //拒绝用户——余额支付接口
   const des = '拒绝用户——余额支付接口'
   networkpost({
@@ -529,6 +540,7 @@ module.exports = {
   payCancelAct,
   payRejectUser,
   payUserAgreeCancel,
+  payJoinAct,
   checkWalletAmount,
   followUser,
   unFollowUser,

@@ -141,7 +141,9 @@ create(store, {
       if (res.e === 0) {
         if (parseFloat(res.signupFee) > 0) {
           console.log(res.applicantId)
-          this.AjaxGetPreOrder(res.applicantId)
+          wx.navigateTo({
+            url: `../../public/pay-page/index?amount=${res.signupFee}&payType=join&eventId=${res.applicantId}`,
+          })
         } else {
           wx.showToast({
             title: '报名成功',

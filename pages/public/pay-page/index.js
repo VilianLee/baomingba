@@ -5,6 +5,8 @@ import {
   payCancelAct,
   payRejectUser,
   payUserAgreeCancel,
+  payJoinAct,
+  getPreOrderInfo,
   checkWalletAmount,
   cancelNeedPayActPay,
   rejectNeedPaySignUpPay
@@ -122,11 +124,39 @@ create(store, {
       this.AjaxPayRejectUser(params)
     } else if (this.data.payType === 'cancel') {
       this.AjaxPayCancelAct(params)
-    } else if (this.data.payType === 'refund') {
-
+    } else if (this.data.payType === 'join') {
+      this.AjaxPayJoinAct(params)
     }
   },
 
+  AjaxPayJoinAct(params) {
+    store.data.loading = true
+    store.update()
+    payJoinAct(params, res => {
+      if (res.e === 0) {
+        store.data.loading = false
+        store.update()
+        wx.showToast({
+          title: '报名成功',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+          wx.navigateBack()
+        }, 2000)
+      } else {
+        wx.showToast({
+          title: '报名失败',
+          icon: 'none',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
   AjaxPayCancelAct(params) {
     store.data.loading = true
     store.update()
@@ -195,8 +225,8 @@ create(store, {
       this.AjaxWxPrePay(params)
     } else if (this.data.payType === 'cancel') {
       this.AjaxCancelWxPrePay(params)
-    } else if (this.data.payType === 'refund') {
-
+    } else if (this.data.payType === 'join') {
+      this.AjaxGetPreOrder(params)
     }
   },
   AjaxWxPrePay(params) { // 拒绝报名微信预支付
@@ -204,6 +234,15 @@ create(store, {
       if (res.e === 0) {
         let obj = JSON.parse(res.orderResult)
         this.getWxPayApi(obj)
+      } else {
+        wx.showToast({
+          title: '预下单异常，请重试',
+          icon: 'error',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
       }
     })
   },
@@ -213,6 +252,37 @@ create(store, {
       if (res.e === 0) {
         let obj = JSON.parse(res.orderResult)
         this.getWxPayApi(obj)
+      } else {
+        wx.showToast({
+          title: '预下单异常，请重试',
+          icon: 'error',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
+      }
+    })
+  },
+
+  AjaxGetPreOrder(params) { // 报名预下单
+    console.log()
+    const param = {
+      applicantid: params.eventId
+    }
+    getPreOrderInfo(param, res => {
+      if (res.e === 0) {
+        let obj = JSON.parse(res.orderResult)
+        this.getWxPayApi(obj)
+      } else {
+        wx.showToast({
+          title: '预下单异常，请重试',
+          icon: 'error',
+          duration: 2000
+        })
+        setTimeout(() => {
+          wx.hideToast()
+        }, 2000)
       }
     })
   },
@@ -232,13 +302,12 @@ create(store, {
         store.data.loading = false
         store.update()
         wx.showToast({
-          title: '退款成功',
+          title: '支付成功',
           icon: 'none',
           duration: 2000
         })
         setTimeout(() => {
           wx.hideToast()
-          wx.navigateBack()
         }, 2000)
       },
       'fail': function (res) {
