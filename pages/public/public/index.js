@@ -43,6 +43,7 @@ create(store, {
     endTimeInput: false,
     startYear: 2000,
     endYear: 2050,
+    modalHasShown: false,
     financial: 0,
     joinerNum: 0,
     pravicy_arr: ["私密活动", "公开可见", "仅粉丝可见"],
@@ -173,15 +174,15 @@ create(store, {
     arr = arr.filter(item => {
       item.selected = true
       let repeat = false
-      conditions.forEach((filter,index) => {
+      conditions.forEach((filter, index) => {
         filter.selected = false
         console.log(item.text === filter.text)
-        if(item.text === filter.text || item.name === filter.name) {
+        if (item.text === filter.text || item.name === filter.name) {
           repeat = true
           repeatPosition.push(index)
         }
       })
-      if(!repeat) return item
+      if (!repeat) return item
     })
     repeatPosition.forEach(item => conditions[item].selected = true)
     console.log(arr)
@@ -326,22 +327,34 @@ create(store, {
       }
     } else if (key === 'payPath') {
       if (value === '3') {
-        wx.showModal({
-          title: '提示',
-          content: '使用"报名吧"线上收费功能提现时需支付0.60%交易收付费，该手续费为微信交易手续费',
-          cancelText: '放弃',
-          confirmText: '同意支付',
-          confirmColor: '#fda402',
-          success: () => {
-            console.log(activity)
-            console.log(key)
-            console.log(value)
-            activity[key] = value
-            this.setData({
-              activity
-            })
-          }
-        })
+        if (!this.data.modalHasShown) {
+          wx.showModal({
+            title: '提示',
+            content: '使用"报名吧"线上收费功能提现时需支付0.60%交易收付费，该手续费为微信交易手续费',
+            cancelText: '放弃',
+            confirmText: '同意支付',
+            confirmColor: '#fda402',
+            success: () => {
+              console.log(activity)
+              console.log(key)
+              console.log(value)
+              this.setData({
+                modalHasShown: true
+              })
+              if (res.confirm) {
+                activity[key] = value
+                this.setData({
+                  activity
+                })
+              }
+            }
+          })
+        } else {
+          activity[key] = value
+          this.setData({
+            activity
+          })
+        }
       } else {
         activity[key] = value
       }

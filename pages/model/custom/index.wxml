@@ -101,7 +101,7 @@
 				线上支付
 			</view>
 			<view class="form_item">
-				<input value="{{activity.charge}}" placeholder="限1元" data-name="charge" bindinput="inputOnChange" wx:if="{{activity.payPath == '3'}}" />
+				<input value="{{activity.charge}}" adjust-position="true" cursor-spacing="30" placeholder="限1元" data-name="charge" bindinput="inputOnChange" wx:if="{{activity.payPath == '3'}}" />
 			</view>
 			<radio value="3" hidden="{{true}}"></radio>
 		</label>

@@ -259,10 +259,12 @@ page {
   background: #fafafa;
   height: 90rpx;
   box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .base_btn {
-  float: left;
   width: 120rpx;
   height: 90rpx;
   padding: 10rpx 0 0;
@@ -284,7 +286,6 @@ page {
 .join_btn {
   height: 90rpx;
   line-height: 90rpx;
-  float: right;
   background: #ffa404;
   color: #fff;
   font-size: 40rpx;
@@ -299,7 +300,6 @@ page {
 .cancel_btn {
   height: 90rpx;
   line-height: 90rpx;
-  float: right;
   background: #8ea5e9;
   color: #fff;
   font-size: 30rpx;
@@ -316,7 +316,7 @@ page {
   font-size: 30rpx;
   text-align: center;
   white-space: nowrap;
-  width: 510rpx;
+  flex-grow: 1;
 }
 
 .pay_btn {
