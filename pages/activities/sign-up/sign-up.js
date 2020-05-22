@@ -142,7 +142,7 @@ create(store, {
         if (parseFloat(res.signupFee) > 0) {
           console.log(res.applicantId)
           wx.navigateTo({
-            url: `../../public/pay-page/index?amount=${res.signupFee}&payType=join&eventId=${res.applicantId}`,
+            url: `../../public/pay-page/index?amount=${res.signupFee}&payType=join&eventId=${this.data.event.id}`,
           })
         } else {
           wx.showToast({
