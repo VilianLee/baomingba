@@ -133,7 +133,7 @@ create(store, {
       return
     }
     wx.navigateTo({
-      url: `../../public/pay-page/index?amount=${this.data.info.charge}&payType=join&eventId=${this.data.applicantId}`,
+      url: `../../public/pay-page/index?amount=${this.data.info.charge}&payType=join&eventId=${this.data.info.id}`,
     })
   },
   clickGoEdit() {
