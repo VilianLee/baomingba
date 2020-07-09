@@ -32,7 +32,7 @@ function networkpost({
           wx.hideLoading()
         }, 500)
         //自行处理返回结果
-        if(res.data.e === 100){ // 未登录
+        if(res.data.e === 100 || res.data.e === 140){ // 未登录
           wx.navigateTo({
             url: '/pages/login/login',
           })

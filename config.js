@@ -1,8 +1,10 @@
 const baseUrl = {
-  // baseUrl: 'https://xcxtest.51bmb.com', //开发
-  baseUrl: 'https://xcx.51bmb.com', //生产
-  imageUrl: 'http://upload.bmbee.cn',
-  webViewUrl: 'https://xcx.51bmb.com',
+  baseUrl: 'https://xcxtest.51bmb.com', //开发
+  imageUrl: 'http://upload.bmbee.cn', //开发
+  webViewUrl: 'https://xcxtest.51bmb.com',//开发
+  // baseUrl: 'https://xcx.51bmb.com', //生产
+  // webViewUrl: 'https://xcx.51bmb.com',//生产
+  // imageUrl: 'http://upload.bmbee.cn',//生产
   uploadUrl: 'upload.qiniup.com'
 };
 module.exports = { baseUrl }

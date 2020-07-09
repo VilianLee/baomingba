@@ -1,14 +1,14 @@
-const baseUrl = 'https://xcxtest.51bmb.com'
+import {baseUrl} from '../config'
 
 module.exports.Login = ({url,headers,des}) => {
   let promise = new Promise(function(resolve, reject) {
     wx.request({
-      url: baseUrl + url,
+      url: baseUrl.baseUrl + url,
       method: 'GET',
       success: function(res) {
         //自行处理返回结果
         console.log(des + '返回结果：')
-        console.log(baseUrl + url)
+        console.log(baseUrl.baseUrl + url)
         console.log(res.header["Set-Cookie"])
         wx.setStorageSync("_baomingbaCookie", res.header["Set-Cookie"])
         console.log(wx.getStorageSync("_baomingbaCookie"))
@@ -32,7 +32,7 @@ module.exports.Author = ({
 }) => {
   let promise = new Promise(function(resolve, reject) {
     wx.request({
-      url: baseUrl + url,
+      url: baseUrl.baseUrl + url,
       method: 'POST',
       data: params,
       success: function(res) {
