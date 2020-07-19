@@ -128,13 +128,20 @@ create(store, {
       showJoinCode: false
     })
   },
-  payForJoin(){
+  payForJoin() {
     if (!this.validLogin()) {
       return
     }
     wx.navigateTo({
       url: `../../public/pay-page/index?amount=${this.data.info.charge}&payType=join&eventId=${this.data.info.id}`,
     })
+  },
+  clickGoEdit() {
+    if (this.data.info.status !== 4) {
+      wx.navigateTo({
+        url: '../../public/public/index?type=edit&eventId=' + this.data.id,
+      })
+    }
   },
   AjaxGetPreOrder() { // 预下单
     if (!this.validLogin()) {

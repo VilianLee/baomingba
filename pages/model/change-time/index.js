@@ -19,6 +19,7 @@ create(store, {
     nowDate: '',
     nowTime: '',
     nowTimeStap: 0,
+    endTime: '',
     timeStap: null,
     dateStap: 0,
     key: '',
@@ -33,7 +34,8 @@ create(store, {
     this.setData({
       key: options.key,
       showTime: options.showTime === 'false' ? false : true,
-      timeStap: options.timeStap === 'null' ? null : parseInt(options.timeStap)
+      timeStap: options.timeStap === 'null' ? null : parseInt(options.timeStap),
+      endTime: options.endTime === 'null' ? null : parseInt(options.endTime)
     })
   },
 
@@ -41,19 +43,23 @@ create(store, {
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let date
+    let date, endDate
     const nowDate = new Date()
     if(this.data.timeStap) {
       date = new Date(this.data.timeStap)
     }
+    if(this.data.endTime) {
+      endDate = new Date(this.data.endTime)
+    }
     console.log(typeof(this.data.timeStap))
-    console.log(!this.data.timeStap)
+    console.log(this.data.endTime)
     this.setData({
       dateStr: formatTime(this.data.timeStap ? date : nowDate, 'date', 'picker'),
       nowDate: formatTime(nowDate, 'date', 'picker'),
       timeStr: formatTime(this.data.timeStap ? date : nowDate, 'time', 'picker'),
       nowTime: formatTime(nowDate, 'time', 'picker'),
-      nowTimeStap: nowDate.getTime()
+      nowTimeStap: nowDate.getTime(),
+      endTimeStr: this.data.endTime ? formatTime(endDate, 'date', 'picker') : "",
     })
   },
 

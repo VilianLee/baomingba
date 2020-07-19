@@ -10,7 +10,7 @@
           选择日期
         </view>
         <view class="form_item">
-          <picker mode="date" value="{{dateStr}}" start="{{nowDate}}" data-key="dateStr" bindchange="pickerOnChange">
+          <picker mode="date" value="{{dateStr}}" start="{{nowDate}}" end="{{endTimeStr}}" data-key="dateStr" bindchange="pickerOnChange">
             {{dateStr}}
           </picker>
         </view>

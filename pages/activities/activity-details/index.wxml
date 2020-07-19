@@ -206,46 +206,46 @@
 			<view class="pay_btn" wx:elif="{{pageLogic.isPayPending}}" bindtap="payForJoin">立即支付</view>
 			<!-- 第一个按钮 -->
 			<block wx:if="{{pageLogic.isArticle}}">
-				<view class="cancel_btn" wx:if="{{pageLogic.isFollowed}}">
+				<view class="single_btn" wx:if="{{pageLogic.isFollowed}}">
 					已关注组织号
 				</view>
-				<view class="cancel_btn" wx:else>
+				<view class="single_btn" wx:else>
 					关注组织号
 				</view>
 			</block>
 			<block wx:else>
 				<block wx:if="{{info.countDown}}">
-					<view class="cancel_btn">
+					<view class="single_btn">
 						离报名开始还有{{info.countDown}}
 					</view>
 				</block>
 				<block wx:else>
 					<block wx:if="{{info.eventStatus.signUpVisible}}">
 						<block wx:if="{{info.userStatus.signupStatus != 7 && info.signUpRemark}}">
-							<view class="cancel_btn">
+							<view class="single_btn">
 								{{info.signUpRemark}}
 							</view>
 						</block>
 						<block wx:elif="{{info.userStatus.signupStatus != 7}}">
-							<navigator url="../sign-up/sign-up?eventId={{id}}" class="cancel_btn">
+							<navigator url="../sign-up/sign-up?eventId={{id}}" class="single_btn">
 								{{info.signUpTitle}}
 							</navigator>
 						</block>
 					</block>
 					<block wx:elif="{{info.eventStatus.signUpCancellable}}">
 						<block wx:if="{{info.eventStatus.signUpRefundApplied}}">
-							<view class="cancel_btn" bindtap="cancelOnClick">
+							<view class="single_btn" bindtap="cancelOnClick">
 								取消报名(已申请）
 							</view>
 						</block>
 						<block wx:else>
-							<view class="cancel_btn" bindtap="cancelOnClick">
+							<view class="single_btn" bindtap="cancelOnClick">
 								取消报名
 							</view>
 						</block>
 					</block>
 					<block wx:elif="{{!info.eventStatus.signUpVisible && !info.eventStatus.signUpCancellable}}">
-						<view class="cancel_btn">
+						<view class="single_btn">
 							{{info.signUpRemark}}
 						</view>
 					</block>
@@ -254,6 +254,9 @@
 		</block>
 		<block wx:else>
 			<!-- 显示一个按钮 -->
+			<block wx:if="{{info.userStatus.owned}}">
+				<view class="pay_btn" bindtap="clickGoEdit">编辑活动</view>
+			</block>
 			<block wx:if="{{pageLogic.isArticle}}">
 				<view class="single_btn" wx:if="{{pageLogic.isFollowed}}">
 					已关注组织号
@@ -318,8 +321,8 @@
 					</view>
 				</view>
 				<view class="cover_control">
-					<view class="cover_cancel_btn cover_btn_cancel" bindtap="cancelOnClick">取消</view>
-					<view class="cover_cancel_btn" bindtap="AjaxCancelJoin">确定</view>
+					<view class="cover_single_btn cover_btn_cancel" bindtap="cancelOnClick">取消</view>
+					<view class="cover_single_btn" bindtap="AjaxCancelJoin">确定</view>
 				</view>
 			</view>
 		</view>

@@ -50,6 +50,7 @@ create(store, {
     uploadFileUrls: [],
     enCodeIntro: '',
     getPhoneNumVisible: false,
+    modalHasShown: false,
     activity: {
       createSource: 2, //创建源,(安卓，ios还是h5)
       title: null, //活动标题
@@ -440,22 +441,32 @@ create(store, {
       }
     } else if (key === 'payPath') {
       if (value === '3') {
-        wx.showModal({
-          title: '提示',
-          content: '使用"报名吧"线上收费功能提现时需支付0.60%交易收付费，该手续费为微信交易手续费',
-          cancelText: '放弃',
-          confirmText: '同意支付',
-          confirmColor: '#fda402',
-          success: () => {
-            console.log(activity)
-            console.log(key)
-            console.log(value)
-            activity[key] = value
-            this.setData({
-              activity
-            })
-          }
-        })
+        if (!this.data.modalHasShown) {
+          wx.showModal({
+            title: '提示',
+            content: '使用"报名吧"线上收费功能提现时需支付0.60%交易收付费，该手续费为微信交易手续费',
+            cancelText: '放弃',
+            confirmText: '同意支付',
+            confirmColor: '#fda402',
+            success: res => {
+              console.log(activity)
+              console.log(key)
+              console.log(value)
+              if (res.confirm) {
+                activity[key] = value
+                this.setData({
+                  activity,
+                  modalHasShown: true
+                })
+              }
+            }
+          })
+        } else {
+          activity[key] = value
+          this.setData({
+            activity
+          })
+        }
       } else {
         activity[key] = value
       }
