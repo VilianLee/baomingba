@@ -42,10 +42,3 @@ page {
   color: #ffa409;
 }
 
-.modal {
-  padding: 40rpx 40rpx 0;
-}
-
-.modal .login_btn button {
-  width: 280rpx;
-}

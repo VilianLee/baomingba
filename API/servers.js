@@ -22,7 +22,7 @@ const bindPhoneNo = (params, success) => { // 绑定手机号
 function login(params, success) { //登录
   const des = '登录'
   Login({
-    url: '/login/wechatxcx?code=' + params.code,
+    url: '/login/wechat/xcx?code=' + params.code,
     des
   }).then(function (res) {
     return success(res.data)
@@ -302,6 +302,15 @@ function cancelNeedPayActPay(params, success) { //取消收费活动预支付
   })
 }
 
+function getJoinInfo(params, success) {
+  const des = '获取报名信息'
+  networkget({
+    url: `/event/${params.eventId}/signup`,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
 
 function joinActivity(params, success) { //活动报名
   const des = '活动报名'
@@ -586,5 +595,6 @@ module.exports = {
   getQiniuCloudToken,
   getHeadPicQiniuCloudToken,
   getQrCodeResult,
-  signupOnQrCode
+  signupOnQrCode,
+  getJoinInfo
 }

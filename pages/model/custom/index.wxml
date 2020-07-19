@@ -165,3 +165,10 @@
 		</i-col>
 	</i-row>
 </view>
+<i-modal title="小程序登录需要获取您的手机号码" visible="{{ getPhoneNumVisible }}" show-ok="{{false}}" show-cancel="{{false}}" actions="{{ allowActions }}">
+	<view class="bind_phone_modal">
+		<view class="btn_row login_btn">
+			<button type="primary" size="mini" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" binderror="openTypeError">允许</button>
+		</view>
+	</view>
+</i-modal>

@@ -5,7 +5,8 @@ import create from '../../../utils/create'
 import {
   publicActivity,
   getEventInfo,
-  checkVidCount
+  checkVidCount,
+  bindPhoneNo
 } from '../../../API/servers'
 import {
   uploadFile
@@ -48,6 +49,7 @@ create(store, {
     real_name: "1",
     uploadFileUrls: [],
     enCodeIntro: '',
+    getPhoneNumVisible: false,
     activity: {
       createSource: 2, //创建源,(安卓，ios还是h5)
       title: null, //活动标题
@@ -544,20 +546,27 @@ create(store, {
     publicActivity(params, res => {
       console.log(res)
       if (res.e === 0) {
-        wx.showToast({
-          title: '发布成功！',
-          icon: 'success',
-          mask: true
-        })
-        store.data.activity = params
-        store.update()
-        setTimeout(() => {
-          wx.hideToast()
-          wx.redirectTo({
-            url: '../../activities/activity-details/index?id=' + res.eventId,
+        if(res.phone) {
+          wx.showToast({
+            title: '发布成功！',
+            icon: 'success',
+            mask: true
           })
-          store.data.activity = deepCopy(initPublic)
-        }, 2000)
+          store.data.activity = params
+          store.update()
+          setTimeout(() => {
+            wx.hideToast()
+            wx.redirectTo({
+              url: '../../activities/activity-details/index?id=' + res.eventId,
+            })
+            store.data.activity = deepCopy(initPublic)
+          }, 2000)
+        } else {
+          this.setData({
+            getPhoneNumVisible: true
+          })
+        }
+        
       } else {
         wx.showToast({
           title: res.msg,
@@ -566,6 +575,26 @@ create(store, {
         })
       }
     })
+  },
+  getPhoneNumber(e) { //绑定手机
+    console.log(e)
+    if (e.detail.iv) {
+      const params = {
+        sessionkey: store.data.sessionkey,
+        iv: e.detail.iv,
+        encryptedData: e.detail.encryptedData,
+      }
+      console.log(params)
+      bindPhoneNo(params, res => {
+        if (res.e === 0) {
+          this.setData({
+            getPhoneNumVisible: false
+          })
+        }
+      })
+    } else {
+      this.alertHidden()
+    }
   },
   addPic() {
     if (!this.validLogin()) {

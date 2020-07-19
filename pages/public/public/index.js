@@ -4,7 +4,8 @@ import store from '../../../store'
 import create from '../../../utils/create'
 import {
   publicActivity,
-  getEventInfo
+  getEventInfo,
+  bindPhoneNo
 } from '../../../API/servers'
 import {
   uploadFile
@@ -90,7 +91,8 @@ create(store, {
       introType: 1, //介绍类型
       photos: [],
       isShare: 0, //是否可以分享
-      conditions: []
+      conditions: [],
+      getPhoneNumVisible: false
     }
   },
 
@@ -104,7 +106,26 @@ create(store, {
     })
     this.AjaxGetEventInfo()
   },
-
+  getPhoneNumber(e) { //绑定手机
+    console.log(e)
+    if (e.detail.iv) {
+      const params = {
+        sessionkey: store.data.sessionkey,
+        iv: e.detail.iv,
+        encryptedData: e.detail.encryptedData,
+      }
+      console.log(params)
+      bindPhoneNo(params, res => {
+        if (res.e === 0) {
+          this.setData({
+            getPhoneNumVisible: false
+          })
+        }
+      })
+    } else {
+      this.alertHidden()
+    }
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -215,6 +236,11 @@ create(store, {
       eventId: this.data.eventId
     }, res => {
       if (res.e === 0) {
+        if(!res.phone) {
+          this.setData({
+            getPhoneNumVisible: true
+          })
+        }
         let activity = res.event
         activity.beginTimeStr = formatTime(new Date(activity.beginTime))
         activity.endTimeStr = formatTime(new Date(activity.endTime))

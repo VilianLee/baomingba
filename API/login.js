@@ -1,9 +1,12 @@
-const baseUrl = 'https://xcxtest.51bmb.com'
+// const baseUrl = 'https://xcxtest.51bmb.com'
+
+import {baseUrl} from '../config'
 
 module.exports.Login = ({url,headers,des}) => {
+  console.log(baseUrl.baseUrl + url)
   let promise = new Promise(function(resolve, reject) {
     wx.request({
-      url: baseUrl + url,
+      url: baseUrl.baseUrl + url,
       method: 'GET',
       success: function(res) {
         //自行处理返回结果

@@ -216,6 +216,16 @@ button::after {
     animation-iteration-count: infinite;
 }
 
+.bind_phone_modal {
+  padding: 40rpx 40rpx 0;
+}
+
+.bind_phone_modal .login_btn button {
+  width: 280rpx;
+  background-color: #ffa409;
+  color: #ffffff;
+}
+
 @keyframes loading-spin {
     0% {
         transform: rotate(0);

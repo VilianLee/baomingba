@@ -25,7 +25,7 @@
               未认证
             </view>
           </view>
-          <view class="phoneNum">{{userInfo.telephone}}</view>
+          <view class="phoneNum">{{userInfo.telephone || ''}}</view>
         </view>
       </navigator>
     </block>

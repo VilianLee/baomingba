@@ -10,6 +10,8 @@ import {
 import {
   getActivityDetails,
   getPreOrderInfo,
+  bindPhoneNo,
+  getJoinInfo,
   getUserInfo,
   joinActivity
 } from '../../../API/servers'
@@ -28,7 +30,40 @@ create(store, {
     eventId: '',
     event: {},
     userInfo: {},
-    baseUrl: baseUrl
+    baseUrl: baseUrl,
+    getPhoneNumVisible: false
+  },
+  AjaxGetJoinInfo() {
+    const params = {
+      eventId: this.data.eventId
+    }
+    getJoinInfo(params, res=> {
+      if(!res.phoneBound) {
+        this.setData({
+          getPhoneNumVisible: true
+        })
+      }
+    })
+  },
+  getPhoneNumber(e) { //绑定手机
+    console.log(e)
+    if (e.detail.iv) {
+      const params = {
+        sessionkey: store.data.sessionkey,
+        iv: e.detail.iv,
+        encryptedData: e.detail.encryptedData,
+      }
+      console.log(params)
+      bindPhoneNo(params, res => {
+        if (res.e === 0) {
+          this.setData({
+            getPhoneNumVisible: false
+          })
+        }
+      })
+    } else {
+      this.alertHidden()
+    }
   },
   deleteImage(e) { // 删除图片
     const index = e.currentTarget.dataset.index // 报名项下标
@@ -37,14 +72,16 @@ create(store, {
     let option = event.conditions[index]
     option.value = option.value.filter((item, imageIndex) => imageIndex !== position)
     console.log(option)
-    this.setData({event})
+    this.setData({
+      event
+    })
   },
-  postImage(e){ // 上传图片
+  postImage(e) { // 上传图片
     const position = e.currentTarget.dataset.position
     let event = this.data.event
     let item = event.conditions[position]
     console.log(item)
-    if(!item.value) {
+    if (!item.value) {
       item.value = []
     }
     let _this = this
@@ -62,7 +99,7 @@ create(store, {
   uploadFiles(tempFiles, position) {
     let event = this.data.event
     let option = event.conditions[position]
-    if(!option.value) {
+    if (!option.value) {
       option.value = []
     }
     tempFiles.forEach(item => { //格式化接口返回的文件对象
@@ -73,7 +110,9 @@ create(store, {
         }
         option.value.push(obj)
         console.log(option)
-        this.setData({event})
+        this.setData({
+          event
+        })
       })
     })
   },
@@ -82,7 +121,9 @@ create(store, {
     const value = e.detail.value
     let event = this.data.event
     event.conditions[index].value = value
-    this.setData({ event })
+    this.setData({
+      event
+    })
   },
   selectOnChange(e) { // 选择数据
     console.log(e)
@@ -91,7 +132,9 @@ create(store, {
     let event = this.data.event
     event.conditions[index].select = position
     event.conditions[index].value = event.conditions[index].options[position].value
-    this.setData({ event })
+    this.setData({
+      event
+    })
   },
   checkOnChange(e) { // 多选
     console.log(e)
@@ -99,7 +142,9 @@ create(store, {
     let event = this.data.event
     event.conditions[index].value = e.detail.value
     console.log(e.detail.value)
-    this.setData({ event })
+    this.setData({
+      event
+    })
   },
   AjaxSignUpActivity() { // 提交报名表单
     const _this = this
@@ -245,7 +290,9 @@ create(store, {
         }
       })
 
-      _this.setData({ event })
+      _this.setData({
+        event
+      })
     })
   },
 
@@ -277,12 +324,12 @@ create(store, {
       eventId: options.eventId
     })
     this.AjaxGetUser()
+    this.AjaxGetJoinInfo()
   },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
