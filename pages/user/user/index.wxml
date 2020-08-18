@@ -8,7 +8,7 @@
         </view>
         <view class="personal_base_info_content">
           <view class="name">
-            {{userInfo.name}}
+            {{userInfo.name || '游客'}}
             <view class="authentication" wx:if="{{userInfo.authenticateStatus.authStatus === 2}}">
               <view class="icon">
                 <image src="../../../images/activities/icon_authed.png"></image>

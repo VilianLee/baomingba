@@ -56,7 +56,7 @@
 
 <view class="cover_view" wx:if="{{showEmailInput}}">
   <view class="cancel_frame">
-    <view class="cover_view_title">确定取消活动</view>
+    <view class="cover_view_title">导出到邮箱</view>
     <view class="cancel_cover_content">
       <view class="cancel_input">
         <input type="text" maxlength="30" placeholder="请输入e-mail" value="{{postEmail}}" data-key="postEmail" bindinput="inputOnChange"></input>

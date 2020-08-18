@@ -87,7 +87,8 @@ create(store, {
       photos: [],
       isShare: 0 //是否可以分享
     },
-    conditions: []
+    conditions: [],
+    hasBindPhone: false
   },
 
   /**
@@ -259,6 +260,9 @@ create(store, {
   onShow: function () {
     if (!this.data.activity.beginTime) {
       this.setBeginTime()
+    }
+    if (!store.data.hasBindPhone) {
+
     }
     console.log(this.data.activity)
   },
@@ -557,27 +561,20 @@ create(store, {
     publicActivity(params, res => {
       console.log(res)
       if (res.e === 0) {
-        if(res.phone) {
-          wx.showToast({
-            title: '发布成功！',
-            icon: 'success',
-            mask: true
+        wx.showToast({
+          title: '发布成功！',
+          icon: 'success',
+          mask: true
+        })
+        store.data.activity = params
+        store.update()
+        setTimeout(() => {
+          wx.hideToast()
+          wx.redirectTo({
+            url: '../../activities/activity-details/index?id=' + res.eventId,
           })
-          store.data.activity = params
-          store.update()
-          setTimeout(() => {
-            wx.hideToast()
-            wx.redirectTo({
-              url: '../../activities/activity-details/index?id=' + res.eventId,
-            })
-            store.data.activity = deepCopy(initPublic)
-          }, 2000)
-        } else {
-          this.setData({
-            getPhoneNumVisible: true
-          })
-        }
-        
+          store.data.activity = deepCopy(initPublic)
+        }, 2000)
       } else {
         wx.showToast({
           title: res.msg,
@@ -601,6 +598,8 @@ create(store, {
           this.setData({
             getPhoneNumVisible: false
           })
+          store.data.hasBindPhone = true
+          store.update()
         }
       })
     } else {

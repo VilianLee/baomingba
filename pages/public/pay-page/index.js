@@ -143,7 +143,9 @@ create(store, {
         })
         setTimeout(() => {
           wx.hideToast()
-          wx.navigateBack()
+          wx.navigateBack({
+            delta: 2,
+          })
         }, 2000)
       } else {
         wx.showToast({
@@ -268,7 +270,7 @@ create(store, {
   AjaxGetPreOrder(params) { // 报名预下单
     console.log()
     const param = {
-      applicantid: params.eventId
+      applicantid: parseInt(params.eventId)
     }
     getPreOrderInfo(param, res => {
       if (res.e === 0) {
@@ -308,6 +310,9 @@ create(store, {
         })
         setTimeout(() => {
           wx.hideToast()
+          wx.navigateBack({
+            delta: 2,
+          })
         }, 2000)
       },
       'fail': function (res) {

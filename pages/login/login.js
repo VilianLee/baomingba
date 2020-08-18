@@ -36,6 +36,8 @@ create(store, {
             isLogin: true,
             getPhoneNumVisible: false
           })
+          store.data.hasBindPhone = true
+          store.update()
           wx.navigateBack()
         }
       })

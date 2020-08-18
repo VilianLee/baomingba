@@ -59,6 +59,8 @@ create(store, {
           this.setData({
             getPhoneNumVisible: false
           })
+          store.data.hasBindPhone = true
+          store.update()
         }
       })
     } else {

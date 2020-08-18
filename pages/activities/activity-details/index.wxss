@@ -527,7 +527,7 @@ page {
   border-top:  solid 1rpx #e5e5e5;
 }
 
-.cover_cancel_btn {
+.cover_single_btn {
   width: 50%;
   border-left: solid 1rpx #e5e5e5;
   text-align: center;

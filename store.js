@@ -43,6 +43,7 @@ export default {
     },
     wxCode: '',
     unionId: '',
+    hasBindPhone: false,
     isLogin: false,
     pageLoading: false,
     unReadMsgNum: 0,

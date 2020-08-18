@@ -1,6 +1,7 @@
 // const baseUrl = 'https://xcxtest.51bmb.com'
 
 import {baseUrl} from '../config'
+import store from '../store'
 
 module.exports.Login = ({url,headers,des}) => {
   console.log(baseUrl.baseUrl + url)
@@ -14,6 +15,8 @@ module.exports.Login = ({url,headers,des}) => {
         console.log(baseUrl.baseUrl + url)
         console.log(res.header["Set-Cookie"])
         wx.setStorageSync("_baomingbaCookie", res.header["Set-Cookie"])
+        store.data.hasBindPhone = res.phonebind
+        store.update()
         console.log(wx.getStorageSync("_baomingbaCookie"))
         console.log(res.data)
         if (res.statusCode == 200) {
