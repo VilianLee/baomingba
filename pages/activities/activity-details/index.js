@@ -34,6 +34,7 @@ create(store, {
     loading: false,
     userInfo: {},
     info: {},
+    applicantid: null,
     pageLogic: {},
     btnDisable: false,
     showJoinCode: false,
@@ -132,8 +133,9 @@ create(store, {
     if (!this.validLogin()) {
       return
     }
+    console.log(this.data.applicantId)
     wx.navigateTo({
-      url: `../../public/pay-page/index?amount=${this.data.info.charge}&payType=join&eventId=${this.data.info.id}`,
+      url: `../../public/pay-page/index?amount=${this.data.info.charge}&payType=join&eventId=${this.data.info.id}&applicantid=${this.data.applicantId}`,
     })
   },
   clickGoEdit() {

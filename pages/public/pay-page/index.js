@@ -25,6 +25,7 @@ create(store, {
     payType: '', // 支付类型： reject--拒绝报名 cancel--取消活动 refund--同意用户取消
     eventId: '',
     userId: '',
+    applicantid: '',
     agreementShow: false,
     agree: false,
     payWay: ''
@@ -34,11 +35,13 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     this.setData({
       payAmount: parseFloat(options.amount),
       payType: options.payType,
       eventId: options.eventId,
-      userId: options.userId
+      userId: options.userId,
+      applicantid: options.applicantid
     })
   },
 
@@ -221,6 +224,7 @@ create(store, {
     const params = {
       eventId: this.data.eventId,
       userId: this.data.userId ? this.data.userId : null,
+      applicantid: this.data.applicantid,
       ps: 5
     }
     if (this.data.payType === 'reject') {
@@ -268,9 +272,9 @@ create(store, {
   },
 
   AjaxGetPreOrder(params) { // 报名预下单
-    console.log()
+    console.log(params)
     const param = {
-      applicantid: parseInt(params.eventId)
+      applicantid: params.applicantid
     }
     getPreOrderInfo(param, res => {
       if (res.e === 0) {

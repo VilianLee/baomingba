@@ -399,6 +399,7 @@ function feedBack(params, success) { //意见反馈
 }
 
 function getPreOrderInfo(params, success) { //支付生成预订单接口
+  debugger
   const des = '支付生成预订单接口'
   networkget({
     url: `/event/pay/weixinxcx/${params.applicantid}`,
