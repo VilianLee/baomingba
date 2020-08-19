@@ -362,7 +362,7 @@ create(store, {
             cancelText: '放弃',
             confirmText: '同意支付',
             confirmColor: '#fda402',
-            success: () => {
+            success: (res) => {
               console.log(activity)
               console.log(key)
               console.log(value)
@@ -574,7 +574,7 @@ create(store, {
     wx.showModal({
       title: '提示',
       content: '是否确定删除这张图片',
-      success(res) {
+      success: (res) => {
         if (res.confirm) {
           //console.log('用户点击确定')
           const newPhotos = photos.filter((item, index) => index !== picIndex)

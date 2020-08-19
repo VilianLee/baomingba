@@ -42,7 +42,7 @@
 	</navigator>
 	<navigator url="../../model/change-time/index?key=endTime" class="content_input">
 		<view class="time_picker_content" wx:if="{{activity.endTimeStr !== ''}}">
-			{{activity.endTimeStr === '1970-01-01 08:00' ? "不限结束时间" : activity.endTimeStr + '结束'}} 
+			{{activity.endTimeStr === '1970-01-01 08:00' ? "不限结束时间" : activity.endTimeStr + '结束'}}
 			<view class="clear_selct" catchtap="clearEndTime">
 				<icon type="clear" size="20" color="#d5d5d5" />
 			</view>
@@ -50,27 +50,27 @@
 		<view class="time_picker_placeholder" wx:else>活动结束时间（选填）</view>
 	</navigator>
 	<view bindtap="setAddress" class="content_input">
-    <i-icon type="coordinates_fill" size="48" class="input_icon" />
-    <block wx:if="{{activity.address.longAddress}}">
-      {{activity.address.longAddress}}
-    </block>
-    <block wx:else>
-      <text style="color:#999999">请选择地址</text>
-    </block>
-  </view>
+		<i-icon type="coordinates_fill" size="48" class="input_icon" />
+		<block wx:if="{{activity.address.longAddress}}">
+			{{activity.address.longAddress}}
+		</block>
+		<block wx:else>
+			<text style="color:#999999">请选择地址</text>
+		</block>
+	</view>
 </view>
 
 <view class="theme_content">
 	<navigator url="../rich-editor/index?content={{enCodeIntro}}" class="theme_rich_text">
-    <block wx:if="{{activity.intro}}">
-      <rich-text nodes="{{activity.intro}}"></rich-text>
-    </block>
-    <block wx:else>
-      <view class="content_placeholder">
-        输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦
-      </view>
-    </block>
-  </navigator>
+		<block wx:if="{{activity.intro}}">
+			<rich-text nodes="{{activity.intro}}"></rich-text>
+		</block>
+		<block wx:else>
+			<view class="content_placeholder">
+				输入活动介绍（选填）。详细精彩的活动描述可以吸引更多人哦
+			</view>
+		</block>
+	</navigator>
 	<view class="content_input" bindtap="financialSettingVisibleChange">
 		<i-icon type="financial_fill" size="48" class="input_icon" />
 		<view class="content_cell">
@@ -78,7 +78,7 @@
 			<block wx:if="{{activity.payPath == '0'}}">免费</block>
 			<block wx:elif="{{activity.payPath == '1'}}"></block>
 			<block wx:else>{{activity.charge ? activity.charge : 0}}元</block>
-			<!-- {{joinerNum === 0 ? "人数不限" : joinerNum}} -->
+			{{activity.signUpLimit == 0 ? "人数不限" : '限' + activity.signUpLimit + '人'}}
 		</view>
 	</view>
 	<radio-group wx:if="{{financialSetting}}" class="input_cell" data-name="payPath" bindchange="inputOnChange">
@@ -106,6 +106,16 @@
 			<radio value="3" hidden="{{true}}"></radio>
 		</label>
 	</radio-group>
+	<view class="input_cell" wx:if="{{financialSetting}}">
+		<view class="input_cell_row">
+			<view class="label">
+				人数限制
+			</view>
+			<view class="form_item">
+				<input value="{{activity.signUpLimit}}" adjust-position="true" cursor-spacing="30" data-name="signUpLimit" bindinput="inputOnChange" />
+			</view>
+		</view>
+	</view>
 </view>
 
 <view class="theme_content senior_setting">

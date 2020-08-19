@@ -78,7 +78,7 @@
 			<block wx:if="{{activity.payPath == '0'}}">免费</block>
 			<block wx:elif="{{activity.payPath == '1'}}"></block>
 			<block wx:else>{{activity.charge ? activity.charge : 0}}元</block>
-			<!-- {{joinerNum === 0 ? "人数不限" : joinerNum}} -->
+			{{activity.signUpLimit == 0 ? "人数不限" : '限' + activity.signUpLimit + '人'}}
 		</view>
 	</view>
 	<radio-group wx:if="{{financialSetting}}" class="input_cell" data-name="payPath" bindchange="inputOnChange">
@@ -106,6 +106,16 @@
 			<radio value="3" hidden="{{true}}"></radio>
 		</label>
 	</radio-group>
+	<view class="input_cell" wx:if="{{financialSetting}}">
+		<view class="input_cell_row">
+			<view class="label">
+				人数限制
+			</view>
+			<view class="form_item">
+				<input value="{{activity.signUpLimit}}" adjust-position="true" cursor-spacing="30" data-name="signUpLimit" bindinput="inputOnChange" />
+			</view>
+		</view>
+	</view>
 </view>
 
 <view class="theme_content senior_setting">
