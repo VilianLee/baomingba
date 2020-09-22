@@ -83,12 +83,7 @@
 					<view class="organizer_info">
 						<view class="organizer_name">{{item.name ? item.name : "未知用户"}}</view>
 						<view class="auth_type clearfix">
-							<block wx:if="{{item.authStatus === 3}}">
-								<view class="auty_type_tag tag_unauth" catchtap="showAutyFrame" data-content="{{item.authenticateStatus}}">
-									<view class="type_icon_err">!</view>未认证
-								</view>
-							</block>
-							<block wx:else>
+							<block wx:if="{{item.authStatus === 2}}">
 								<view class="auty_type_tag tag_authed" wx:if="{{item.authType === 1}}">
 									<view class="type_icon_authed">
 										<image src="../../../images/activities/icon_authed.png"></image>
@@ -103,6 +98,11 @@
 									<view class="type_icon_authed">
 										<image src="../../../images/activities/icon_authed.png"></image>
 									</view>组织认证
+								</view>
+							</block>
+							<block wx:else>
+								<view class="auty_type_tag tag_unauth" catchtap="showAutyFrame" data-content="{{item.authenticateStatus}}">
+									<view class="type_icon_err">!</view>未认证
 								</view>
 							</block>
 

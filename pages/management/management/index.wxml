@@ -114,7 +114,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="page_tips" wx:if="{{activityInfo.hasDeal}}">
+	<view class="page_tips" wx:if="{{!activityInfo.hasDeal}}">
 		该活动有退款或有用户申请取消未处理，请前往APP操作。
 	</view>
 	<view class="manage_btn" bindtap="showCancelChange" wx:if="{{activityInfo.status === 1 || activityInfo.status === 2}}">取消活动</view>

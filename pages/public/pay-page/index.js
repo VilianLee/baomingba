@@ -35,7 +35,7 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    console.log(options.applicantid)
     this.setData({
       payAmount: parseFloat(options.amount),
       payType: options.payType,
@@ -43,6 +43,7 @@ create(store, {
       userId: options.userId,
       applicantid: options.applicantid
     })
+    console.log('applicantid:', this.data.applicantid)
   },
 
   /**
@@ -227,6 +228,8 @@ create(store, {
       applicantid: this.data.applicantid,
       ps: 5
     }
+    console.log('applicantid:', this.data.applicantid)
+    console.log(params)
     if (this.data.payType === 'reject') {
       this.AjaxWxPrePay(params)
     } else if (this.data.payType === 'cancel') {

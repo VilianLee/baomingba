@@ -52,7 +52,7 @@ create(store, {
     getPhoneNumVisible: false,
     modalHasShown: false,
     activity: {
-      createSource: 2, //创建源,(安卓，ios还是h5)
+      createSource: 7, //创建源,(安卓，ios还是h5)
       title: null, //活动标题
       beginTime: null, //活动开始时间
       beginTimeStr: '',
