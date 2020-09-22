@@ -120,7 +120,7 @@ create(store, {
         })
         setTimeout(() => {
           wx.hideToast()
-          this.prePageRefresh()
+          // this.prePageRefresh()
           wx.switchTab({
             url: '../user/index',
           })
