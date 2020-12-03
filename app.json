@@ -1,33 +1,8 @@
 {
   "pages": [
-    "pages/hot/hot",
     "pages/home/home/index",
-    "pages/management/management/index",
-    "pages/public/public/index",
-    "pages/user/user/index",
-    "pages/model/custom/index",
-    "components/title-bar/title-bar",
-    "pages/model/seniorSetting/index",
-    "pages/model/joinerInfo/index",
-    "pages/activities/activity-details/index",
-    "pages/user/personal-info/index",
-    "pages/about/about-us/index",
-    "pages/about/contact/index",
-    "pages/about/feedback/index",
-    "pages/activities/sign-up/sign-up",
-    "pages/model/change-time/index",
-    "pages/model/address-edit/index",
-    "pages/user/wallet/index",
     "pages/web-view/index",
-    "pages/management/signup-list/index",
-    "pages/user/auty-detail/index",
-    "pages/user/official/index",
-    "pages/about/download/index",
-    "pages/public/rich-editor/index",
-    "pages/public/location/index",
-    "pages/activities/map/index",
-    "pages/login/login",
-    "pages/public/pay-page/index"
+    "pages/login/login"
   ],
   "permission": {
     "scope.userLocation": {
@@ -41,26 +16,7 @@
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {
-    "mp-navigation-bar": "/weui/navigation-bar/navigation-bar",
-    "i-tabs": "dist/tabs/index",
-    "i-tab": "dist/tab/index",
-    "i-row": "/dist/row/index",
-    "i-col": "/dist/col/index",
-    "i-icon": "/dist/icon/index",
-    "i-grid": "/dist/grid/index",
-    "i-grid-item": "/dist/grid-item/index",
-    "i-grid-icon": "/dist/grid-icon/index",
-    "i-grid-label": "/dist/grid-label/index",
-    "title-bar": "/components/title-bar/title-bar",
-    "auty-frame": "/components/auty-frame/index",
-    "i-button": "/dist/button/index",
-    "i-cell-group": "/dist/cell-group/index",
-    "i-cell": "/dist/cell/index",
-    "i-checkbox-group": "/dist/checkbox-group/index",
-    "i-checkbox": "/dist/checkbox/index",
-    "i-modal": "/dist/modal/index",
-    "i-spin": "dist/spin/index",
-    "i-toast": "dist/toast/index"
+    "i-modal": "/dist/modal/index"
   },
   "tabBar": {
     "color": "#888888",
@@ -72,27 +28,16 @@
         "pagePath": "pages/home/home/index",
         "iconPath": "images/icon_home.png",
         "selectedIconPath": "images/icon_home_focuse.png",
-        "text": "报名吧"
+        "text": "首页"
       },
       {
-        "pagePath": "pages/model/custom/index",
-        "iconPath": "images/icon_edit.png",
-        "selectedIconPath": "images/icon_edit_focuse.png",
-        "text": "发布"
-      },
-      {
-        "pagePath": "pages/hot/hot",
-        "iconPath": "images/icon_management.png",
-        "selectedIconPath": "images/icon_management_focuse.png",
-        "text": "热门"
-      },
-      {
-        "pagePath": "pages/user/user/index",
+        "pagePath": "pages/home/home/index",
         "iconPath": "images/icon_user.png",
         "selectedIconPath": "images/icon_user_focuse.png",
         "text": "我"
       }
-    ]
+    ],
+    "custom": true
   },
   "sitemapLocation": "sitemap.json"
 }

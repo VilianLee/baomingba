@@ -1,11 +1,10 @@
 const baseUrl = {
-  // webViewUrl: 'https://xcxtest.51bmb.com', //开发
-  // imageUrl: 'http://upload.bmbee.cn',//开发
-  // baseUrl: 'https://xcxtest.51bmb.com', //开发
-  webViewUrl: 'https://xcx.51bmb.com',//生产
-  imageUrl: 'https://upload.51bmb.com',//生产
-  baseUrl: 'https://xcx.51bmb.com', //生产
-  uploadUrl: 'upload.qiniup.com'
+  webViewUrl: 'https://demo.xt-kp.com', //开发
+  imageUrl: 'https://demo.xt-kp.com', //开发
+  baseUrl: 'https://demo.xt-kp.com', //开发
+  // webViewUrl: 'https://xt-kp.solidace.cn',//生产
+  // imageUrl: 'https://xt-kp.solidace.cn',//生产
+  // baseUrl: 'https://xt-kp.solidace.cn', //生产
 };
 module.exports = { baseUrl }
 

@@ -1,26 +1,31 @@
 //app.js
 import store from './store'
 import {
-  login
+  login,
+  getToken
 } from './API/servers'
 App({
   onLaunch: function () {
     this.overShare()
     console.log("onLaunch")
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log("login")
-        store.data.wxCode = res.code
-        store.update()
-        this.AjaxSilentLogin(res.code)
-      },
-      fail: res => {
-        $Toast({
-          content: res.message,
-          type: 'error'
-        });
-      }
+    getToken({}, res => {
+      store.data.token = res.data.token
+      console.log(store)
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          console.log("login")
+          store.data.wxCode = res.code
+          store.update()
+          this.AjaxSilentLogin(res.code)
+        },
+        fail: res => {
+          $Toast({
+            content: res.message,
+            type: 'error'
+          });
+        }
+      })
     })
   },
   globalData: {
@@ -44,8 +49,8 @@ App({
           view.onShareAppMessage = function () {
             //你的分享配置
             return {
-              title: '报名吧',
-              path: '/pages/hot/hot',
+              title: '宜路行',
+              path: '/pages/home/home/index',
               imageUrl: '/images/share_img.png'
             };
           }
@@ -55,13 +60,17 @@ App({
   },
   AjaxSilentLogin(code) {
     login({
-      code: code
+      jsCode: code
     }, res => {
       console.log(res)
-      if (res.e === 0) {
+      if (res.data.openid) {
         store.data.isLogin = true
-        store.data.sessionkey = res.sessionKey
+        store.data.openid = res.data.openid
         store.update()
+      } else {
+        wx.navigateTo({
+          url: '/pages/login/login',
+        })
       }
     })
   },
@@ -69,7 +78,7 @@ App({
     title_height: "64",
     statusbarHeight: "24",
     titleIcon_height: "32",
-    title_top: "24", 
+    title_top: "24",
     prefix: 24
   }
 })

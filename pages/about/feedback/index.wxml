@@ -1,7 +1,0 @@
-<!--pages/about/feedback/index.wxml-->
-
-<view class="feedback_block">
-  <textarea value="{{feedback}}" placeholder="您的意见与反馈我们会及时为您解答。建议您附上联系方式，方便我们适时回访。" bindinput="textOnChange"></textarea>
-</view>
-
-<view class="submit_btn" bindtap="AjaxFeedBack">提交</view>

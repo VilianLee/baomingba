@@ -5,7 +5,7 @@
 		<image src="../../images/mine/logo.png"></image>
 	</view>
 	<view class="app_name">
-		报名吧小程序登录
+		宜路行小程序登录
 	</view>
 	<view class="btn_wrap">
 		<view class="btn_row login_btn">

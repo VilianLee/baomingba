@@ -2,6 +2,10 @@ import store from '../store.js'
 import {
   baseUrl
 } from '../config'
+import {
+  timeFormat,
+  generateSign
+} from 'util.js'
 
 const errCode = {
   100: "需要登录进行操作但检测到未登录",
@@ -74,16 +78,17 @@ const errCode = {
 function networkpost({
   url,
   headers,
-  params,
+  data,
   app,
   des
 }) {
   // console.log(baseUrl)
   let localHeader = {
     'content-type': 'application/json',
-    'cookie': wx.getStorageSync("_baomingbaCookie")
   }
-  console.log(localHeader)
+  data.timestamp = timeFormat('ms')
+  data.sign = generateSign(data)
+  data.token = store.data.token
   wx.showLoading({
     title: '加载中',
     mask: true
@@ -92,9 +97,14 @@ function networkpost({
     wx.request({
       url: baseUrl.baseUrl + url,
       header: headers ? headers : localHeader,
-      data: params,
+      data: data,
       method: 'POST',
       success: function (res) {
+        console.log(des + '返回结果：')
+        console.log(baseUrl.baseUrl + url)
+        console.log(data)
+        console.log(res)
+        resolve(res);
         setTimeout(() => {
           wx.hideLoading()
         }, 500)
@@ -105,14 +115,9 @@ function networkpost({
               url: '/pages/login/login',
             })
           } else {
-            res.data.msg = errCode[res.data.e]
+            res.data.msg = res.data.errmsg
           }
         }
-        console.log(des + '返回结果：')
-        console.log(baseUrl.baseUrl + url)
-        console.log(params)
-        console.log(res.data)
-        resolve(res);
       }
     })
   });

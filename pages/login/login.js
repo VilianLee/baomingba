@@ -1,14 +1,9 @@
 // pages/login/login.js
 import store from '../../store'
 import create from '../../utils/create'
-import {
-  Login
-} from '../../API/login'
-
 const app = getApp()
 
 import {
-  getUserInfo,
   login,
   authUser,
   bindPhoneNo
@@ -19,24 +14,25 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    getPhoneNumVisible: false
+    getPhoneNumVisible: false,
+    wxopenid: ''
   },
   getPhoneNumber(e) { //绑定手机
     console.log(e)
     if (e.detail.iv) {
       const params = {
-        sessionkey: store.data.sessionkey,
+        wxopenid: this.data.wxopenid,
         iv: e.detail.iv,
         encryptedData: e.detail.encryptedData,
       }
-      console.log(params)
       bindPhoneNo(params, res => {
-        if (res.e === 0) {
+        console.log(res.data.openid)
+        if (res.data.openid) {
           this.setData({
             isLogin: true,
             getPhoneNumVisible: false
           })
-          store.data.hasBindPhone = true
+          store.data.openid = res.data.openid
           store.update()
           wx.navigateBack()
         }
@@ -76,52 +72,24 @@ create(store, {
   },
   AjaxSilentLogin(code) {
     login({
-      code: code
+      jsCode: code
     }, res => {
       console.log(res)
-      if (res.e === 0) {
+      store.data.sessionkey = res.data.wxopenid
+      if (res.data.openid) {
         store.data.isLogin = true
-        store.data.sessionkey = res.sessionKey
+        store.data.openid = res.data.openid
         store.update()
         wx.navigateBack()
       } else {
-        this.AjaxAuthorUser()
-      }
-    })
-  },
-  AjaxAuthorUser() {
-    const info = this.data.userData
-    wx.login({
-      success: resp => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(resp.code)
-        store.data.wxCode = resp.code
-        store.update()
-        const params = {
-          id: 'wx7758de782c51657c',
-          code: resp.code,
-          rawData: info.detail.rawData,
-          signature: info.detail.signature,
-          iv: info.detail.iv,
-          encryptedData: info.detail.encryptedData
-        }
-        console.log(params)
-        authUser(params, res => {
-          console.log(res)
-          if (res.e === 0) {
-            store.data.isLogin = true
-            store.data.sessionkey = res.sessionkey
-            store.update()
-            this.setData({
-              isLogin: true,
-              getPhoneNumVisible: true
-            })
-          }
+        this.setData({
+          wxopenid: res.data.wxopenid,
+          getPhoneNumVisible: true
         })
       }
     })
   },
-  backPage(){
+  backPage() {
     wx.navigateBack({
       complete: (res) => {},
     })

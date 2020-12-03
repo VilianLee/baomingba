@@ -1,2 +1,0 @@
-<!--pages/user/official/index.wxml-->
-<official-account bindload="officialLoad" binderror="officialLoad"></official-account>
