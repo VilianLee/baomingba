@@ -5,7 +5,6 @@ const app = getApp()
 
 import {
   login,
-  authUser,
   bindPhoneNo
 } from '../../API/servers'
 create(store, {
@@ -33,6 +32,7 @@ create(store, {
             getPhoneNumVisible: false
           })
           store.data.openid = res.data.openid
+          store.data.mobile = res.data.mobile
           store.update()
           wx.navigateBack()
         }
@@ -48,11 +48,6 @@ create(store, {
   },
   getUserInfo(info) { //获取用户信息
     if (info.detail.userInfo) {
-      const userInfo = info.detail.userInfo
-      console.log(info)
-      this.setData({
-        userData: info
-      })
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -79,6 +74,7 @@ create(store, {
       if (res.data.openid) {
         store.data.isLogin = true
         store.data.openid = res.data.openid
+        store.data.mobile = res.data.mobile
         store.update()
         wx.navigateBack()
       } else {
@@ -89,6 +85,7 @@ create(store, {
       }
     })
   },
+
   backPage() {
     wx.navigateBack({
       complete: (res) => {},

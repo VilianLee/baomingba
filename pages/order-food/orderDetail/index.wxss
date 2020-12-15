@@ -1,0 +1,133 @@
+/* pages/order-food/orderDetail/index.wxss */
+page {
+  height: 100%;
+  background: #f7f7f7;
+}
+
+.submit_order {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+.page_tips {
+  padding: 20rpx 40rpx;
+  background: #FFE4CF;
+  font-size: 24rpx;
+  color: #333333;
+  line-height: 30rpx;
+  margin-bottom: 40rpx;
+}
+
+.page_content {
+  padding: 30rpx 30rpx;
+}
+
+.page_title {
+  padding: 0 30rpx;
+  font-size: 32rpx;
+  margin-bottom: 15rpx;
+  color: #b9b9b9;
+}
+
+.food_list {
+  padding: 10rpx 0;
+}
+
+.food_list .food_info {
+  display: flex;
+  padding: 20rpx 30rpx;
+  justify-content: space-between;
+  align-items: stretch;
+
+}
+
+.food_list .food_info .food_pic {
+  width: 110rpx;
+  height: 110rpx;
+  background: #f2f2f2;
+}
+
+.food_list .food_info .food_content {
+  padding: 0 30rpx;
+  width: 300rpx;
+  flex-grow: 1;
+}
+
+.food_list .food_info .food_content .food_name {
+  font-size: 30rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.food_list .food_info .food_content .food_name .number {
+  color: #999999;
+  font-size: 24rpx;
+}
+
+.food_list .food_info .food_content .food_price {
+  text-align: right;
+  font-size: 36rpx;
+  line-height: 40rpx;
+  color: #FB4C43;
+}
+
+
+.bottom_control {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 106rpx;
+  background: #323232;
+  display: flex;
+  align-items: center;
+}
+
+.bottom_control .icon_box {
+  width: 158rpx;
+  height: 52rpx;
+  position: relative;
+  line-height: 52rpx;
+  color: #ffffff;
+  font-size: 36rpx;
+  text-align: center;
+  border-right: solid 1rpx #ffffff;
+}
+
+.bottom_control .control_text {
+  width: 100rpx;
+  flex-grow: 1;
+  padding: 18rpx 20rpx;
+}
+
+.control_text .tips {
+  font-size: 24rpx;
+  color: #ffffff;
+  line-height: 30rpx;
+}
+
+.bottom_control .control_btn {
+  width: 230rpx;
+  text-align: center;
+  height: 106rpx;
+  font-size: 38rpx;
+  color: #ffffff;
+  background: #FB4C43;
+  text-align: center;
+  line-height: 106rpx;
+}
+
+.page_content .input_cell .input_cell_row {
+  border-bottom: none;
+}
+
+
+.page_content .input_cell .input_cell_row .form_item {
+  color: #999999;
+}

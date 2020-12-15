@@ -1,11 +1,21 @@
 <!--pages/home/home/index.wxml-->
 <view class="home">
-	<!-- <view class="btn_block" bindtap="chargeOnClick">
-		<image src="../../../images/mine/icon_mobile_charge.png"></image>
+	<view class="banner">
+		<swiper indicator-dots="{{sliderList.length > 1}}"
+        autoplay="{{true}}">
+        <block wx:for="{{sliderList}}" wx:key="index">
+          <swiper-item class="banner_item">
+            <image mode="aspectFill" src="{{item.picurl}}" class="banner_img"></image>
+          </swiper-item>
+        </block>
+      </swiper>
 	</view>
-	<view class="btn_block" bindtap="orderFoodOnClick">
-		<image src="../../../images/mine/icon_order_food.png"></image>
-	</view> -->
-	<image src="../../../images/pic_waiting.jpg"></image>
+	<view class="func_list">
+		<view class="func_item" wx:for="{{functionList}}" wx:key="index" bindtap="funcOnClick" data-func="{{item}}">
+			<view class="func_icon">
+				<image src="{{item.icon}}"></image>
+			</view>
+			<view class="func_name">{{item.name}}</view>
+		</view>
+	</view>
 </view>
-<official-account class="official" bindload="officialLoad" binderror="officialLoad"></official-account>

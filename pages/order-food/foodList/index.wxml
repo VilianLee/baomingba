@@ -1,0 +1,65 @@
+<!--pages/order-food/foodList/index.wxml-->
+<block wx:if="{{goodsList.length > 0 || loading}}">
+  <view class="food_list">
+    <view class='pro-left font28 color9'>
+      <view wx:for="{{foodList}}" wx:key="index" class='pro-title {{index==currentLeft ? "bgWhite" : ""}}'
+        bindtap='proItemTap' data-pos='{{index}}'>{{item.desc}}</view>
+    </view>
+    <!-- 右侧列表 -->
+    <scroll-view class='pro-right' scroll-y scroll-with-animation="true" scroll-into-view="{{selectId}}"
+      bindscroll="scrollEvent" scroll-top="{{scrollTop}}">
+      <!-- id要用来实现点击左侧右侧滚动至相应位置的效果；class（pro-box）要用来计算右侧对应左侧某一分类的高度 -->
+      <!-- id: item0, item1, item2... （注意：不能直接使用数字或汉字做id）-->
+      <view id='{{"item"+index}}' class='pro-box' wx:for="{{foodList}}" wx:key="index" wx:for-index="index"
+        wx:for-item="item">
+        <!-- 右侧列表里的标题，高度为50px -->
+        <view class="item-title font30">{{item.desc}}</view>
+        <view class='pro-item' wx:for="{{item.foods}}" wx:key="idx" wx:for-index="idx" wx:for-item="food">
+          <view class='pro-img'>
+            <image src='{{food.dishpicurl}}' mode="aspectFill"></image>
+            <view class="img_cover" wx:if="{{!food.remains}}">
+              已售罄
+            </view>
+          </view>
+          <view class='pro-text'>
+            <view class='item-name color3 font32'>{{food.dishname}}</view>
+            <view class='pro-tag'>
+              现有{{food.remains}}份
+            </view>
+            <view class='pro-bottom'>
+              <text style='color:#FB4C43;' class='font32'>¥{{food.priceStr}}</text>
+              <view class='count font30 color6'>
+                <text catchtap='subCount' data-pos='{{idx}}' data-index='{{index}}' data-sid='{{food.id}}'>-</text>
+                <text class='color3'>{{food.num?food.num:0}}</text>
+                <text catchtap='addCount' data-pos='{{idx}}' data-index='{{index}}' data-sid='{{food.id}}'>+</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="bottom_control">
+    <view class="icon_box">
+      <view class="icon">
+        <image src="/images/order/cart_r@2x.png"></image>
+      </view>
+    </view>
+    <view class="control_text">
+      <view class="price">
+        ￥{{totalPriceStr}}
+      </view>
+      <view class="tips">优惠在支付时自动减免</view>
+    </view>
+    <view class="control_btn" bindtap="clickForOrder">下单</view>
+  </view>
+</block>
+<block wx:else>
+  <view class="list_null">
+    <view class="list_null_image">
+      <image src="/images/order/list_null.png"></image>
+    </view>
+    <view class="list_null_text">暂未查到数据</view>
+  </view>
+</block>

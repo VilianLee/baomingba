@@ -60,6 +60,7 @@
         {
           "name": "pages/home/home/index",
           "pathName": "pages/home/home/index",
+          "query": "",
           "scene": 1011
         }
       ]

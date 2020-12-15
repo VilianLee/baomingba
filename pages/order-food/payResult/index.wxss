@@ -1,0 +1,29 @@
+/* pages/order-food/pay/index.wxss */
+.result{
+  padding: 40rpx 80rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.result .result_pic {
+  width: 196rpx;
+  height: 176rpx;
+  margin: 0 auto 30rpx;
+}
+.result .result_text {
+  font-size: 36rpx;
+  color: #333333;
+}
+
+.control_row {
+  padding: 80rpx 230rpx 0;
+}
+
+.control_row .control_btn {
+  height: 90rpx;
+  border-radius: 45rpx;
+  text-align: center;
+  line-height: 88rpx;
+  border: solid 1rpx #FB5D55;
+  color: #FB5D55;
+  font-size: 36rpx;
+}

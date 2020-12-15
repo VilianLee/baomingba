@@ -1,0 +1,13 @@
+<!--pages/settings/settings/index.wxml-->
+<view class="block">
+  <view class="input_cell">
+    <view data-url="setting/h5-view/about" bindtap="clickToWebview" class="input_cell_row is_link">
+      <view class="label">
+        关于我们
+      </view>
+    </view>
+  </view>
+</view>
+<view class="control_row">
+  <button style="width: 100%" type="warn" bindtap="logout">退出登录</button>
+</view>

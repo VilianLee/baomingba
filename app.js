@@ -10,7 +10,6 @@ App({
     console.log("onLaunch")
     getToken({}, res => {
       store.data.token = res.data.token
-      console.log(store)
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -66,6 +65,7 @@ App({
       if (res.data.openid) {
         store.data.isLogin = true
         store.data.openid = res.data.openid
+        store.data.mobile = res.data.mobile
         store.update()
       } else {
         wx.navigateTo({

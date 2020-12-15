@@ -1,0 +1,5 @@
+/* pages/settings/settings/index.wxss */
+
+.control_row{
+  padding: 60rpx 80rpx 0;
+}

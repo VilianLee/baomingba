@@ -1,0 +1,29 @@
+/* pages/user/index.wxss */
+.user_info{
+  padding: 40rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  margin: 0 auto 20rpx;
+}
+.user_info .user_photo {
+  width: 110rpx;
+  height: 110rpx;
+}
+.user_info .user_content {
+  padding: 20rpx 30rpx;
+  width: 300rpx;
+  flex-grow: 1;
+}
+
+.user_info .user_content .user_name {
+  font-size: 32rpx;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.user_info .user_content .vip {
+  width: 80rpx;
+  height: 30rpx;
+}

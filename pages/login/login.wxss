@@ -33,12 +33,12 @@ page {
 }
 
 .login_btn button {
-  background-color: #ffa409;
+  background-color: #638EF6;
 }
 
 .cancel_btn button {
-  border: solid 1rpx #ffa409;
+  border: solid 1rpx #638EF6;
   background-color: transparent;
-  color: #ffa409;
+  color: #638EF6;
 }
 

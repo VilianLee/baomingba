@@ -1,0 +1,23 @@
+<!--pages/user/index.wxml-->
+<view class="user_info">
+  <view class="user_photo">
+    <image src="/images/user/user@2x.png"></image>
+  </view>
+  <view class="user_content">
+    <view class="user_name">{{userInfo.mobile}}</view>
+    <view class="vip">
+      <image src="/images/user/vip_n@2x.png"></image>
+    </view>
+  </view>
+</view>
+<view class="block">
+  <view class="input_cell">
+    <navigator url="/pages/settings/settings/index" class="input_cell_row is_link">
+      <view class="label">
+        <view class="input_cell_icon">
+          <image src="/images/user/setting@2x.png"></image>
+        </view>设置
+      </view>
+    </navigator>
+  </view>
+</view>

@@ -1,35 +1,52 @@
 /* pages/home/home/index.wxss */
 
 page{
-  background: #ffffff;
   height: 100%;
+  background: linear-gradient(316deg, #5B67F2 0%, #83C2FF 100%);
 }
 .home{
-  /* display: flex;
   height: 100%;
+  padding: 20rpx;
+}
+
+.banner {
+  height: 302rpx;
+  margin-bottom: 20rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.banner swiper {
+  height: 302rpx;
+}
+
+.banner .banner_item {
+  height: 302rpx;
+}
+
+.func_list {
+  padding: 60rpx 30rpx 2rpx;
+  background: #ffffff;
+  border-radius: 16rpx;
+  display: flex;
   align-items: center;
-  flex-direction: column;
-  justify-content: center; */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 84px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-.official{
-  position: fixed;
-  bottom: 0;
-  left: 0;
+
+.func_list .func_item {
+  width: 33.3333%;
+  margin-bottom: 60rpx;
+  text-align: center;
 }
-/* .home .btn_block {
-  width: 300rpx;
-  height: 300rpx;
-  margin: 40rpx auto;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 100% 100%;
+
+.func_list .func_item .func_icon {
+  width: 110rpx;
+  height: 110rpx;
+  margin: 0 auto 20rpx;
 }
-.home .btn_block image {
-  display: block;
-  width: 100%;
-} */
+
+.func_list .func_item .func_name {
+  font-size: 28rpx;
+  color: #333333;
+}

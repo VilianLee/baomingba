@@ -1,12 +1,6 @@
 import {
   networkpost,
-  networkget,
-  networkUpload
-} from '../utils/request.js'
-import {
-  Login,
-  Author
-} from 'login.js'
+} from './request.js'
 
 
 export const getToken = (param, success) => { // 获取token
@@ -57,11 +51,180 @@ export const login = (param, success) => { //登录
   })
 }
 
-export const authUser = (params, success) => { //授权注册
-  const des = '授权注册'
-  Author({
-    url: `/auth/wechat/xcx`,
-    params,
+export const getHomeSlide = (param, success) => { //获取首页banner图
+  const des = '获取首页banner图'
+  const data = Object.assign({}, {
+    command: "6001",
+    param
+  });
+  networkpost({
+    url: `/Operation/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const queryTrainList = (param, success) => { //车次模糊查询
+  const des = '车次模糊查询'
+  const data = Object.assign({}, {
+    command: "4017",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getFoodTypes = (param, success) => { //查询餐品分类
+  const des = '查询餐品分类'
+  const data = Object.assign({}, {
+    command: "4001",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getFoodList = (param, success) => { //查询餐品列表
+  const des = '查询餐品列表'
+  const data = Object.assign({}, {
+    command: "4002",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getQuery = (param, success) => { //查询餐品校验
+  const des = '查询餐品校验'
+  const data = Object.assign({}, {
+    command: "4013",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const submitFoodOrder = (param, success) => { //订餐订单提交
+  const des = '订餐订单提交'
+  const data = Object.assign({}, {
+    command: "4002",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getTravellerInfo = (param, success) => { //获取用户订餐信息
+  const des = '获取用户订餐信息'
+  const data = Object.assign({}, {
+    command: "4015",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const submitOrder = (param, success) => { //提交订单
+  const des = '提交订单'
+  const data = Object.assign({}, {
+    command: "4005",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getOrderList = (param, success) => { //获取订单列表
+  const des = '获取订单列表'
+  const data = Object.assign({}, {
+    command: "4007",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getOrderDetail = (param, success) => { //获取订单详情
+  const des = '获取订单详情'
+  const data = Object.assign({}, {
+    command: "4006",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const cancelOrder = (param, success) => { //取消订单
+  const des = '取消订单'
+  const data = Object.assign({}, {
+    command: "4008",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getPersonInfo = (param, success) => { //查询我的资料
+  const des = '查询我的资料'
+  const data = Object.assign({}, {
+    command: "2023",
+    param
+  });
+  networkpost({
+    url: `/user/member/doAction`,
+    data,
     des
   }).then(function (res) {
     return success(res.data)

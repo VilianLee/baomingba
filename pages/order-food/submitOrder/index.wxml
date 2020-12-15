@@ -1,0 +1,90 @@
+<!--pages/order-food/submitOrder/index.wxml-->
+<view class="submit_order">
+  <view class="page_tips">
+    订单将在餐服务员接单半小时内配送(用餐高峰期1小时内配送),实际以餐服务员接单配送时间为准
+  </view>
+  <view class="page_content">
+    <view class="page_title">
+      订单信息
+    </view>
+    <view class="block food_list">
+      <view class="food_info" wx:for="{{submitOrderInfo.dish}}" wx:key="index">
+        <view class="food_pic">
+          <image src="{{item.dishpicurl}}" mode="aspectFill"></image>
+        </view>
+        <view class="food_content">
+          <view class="food_name">
+            <view>
+              {{item.dishname}}
+            </view>
+            <view class="number">
+              x{{item.num}}
+            </view>
+          </view>
+          <view class="food_price">
+            {{item.priceStr}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="page_title">
+      车次信息
+    </view>
+    <view class="block">
+      <view class="input_cell">
+        <view class="input_cell_row">
+          <view class="label">乘车日期</view>
+          <view class="form_item">{{submitOrderInfo.starttime}}</view>
+        </view>
+        <view class="input_cell_row">
+          <view class="label">车次</view>
+          <view class="form_item">{{submitOrderInfo.trainno}}</view>
+        </view>
+        <view class="input_cell_row is_link">
+          <view class="label">车厢席位</view>
+          <view class="form_item">
+            <picker mode="multiSelector" range="{{seatData}}" range-key="text" bindcolumnchange="seatColumnChange"
+              bindchange="seatOnChange">
+              <view class="picker" wx:if="{{submitOrderInfo.carno}}">
+                {{submitOrderInfo.carno}}车{{submitOrderInfo.tseat}}
+              </view>
+              <view class="placeholder" wx:else>请选择车厢号</view>
+            </picker>
+          </view>
+        </view>
+        <view class="input_cell_row">
+          <view class="label">姓名</view>
+          <view class="form_item">
+            <input type="text" model:value="{{submitOrderInfo.traveller}}" placeholder="请输入乘客姓名" />
+          </view>
+        </view>
+        <view class="input_cell_row">
+          <view class="label">手机号</view>
+          <view class="form_item">
+            <input type="text" model:value="{{submitOrderInfo.contactmobile}}" placeholder="请输入乘客联系方式" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="block">
+      <view class="input_cell">
+        <view class="input_cell_rich_row">
+          <view class="label">备注</view>
+          <view class="content">
+            <textarea placeholder="可添加备注信息，如饮料不要冰镇等" />
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="bottom_control">
+  <view class="icon_box">
+    ￥{{submitOrderInfo.totalPriceStr}}
+  </view>
+  <view class="control_text">
+    <view class="tips">优惠在支付时自动减免</view>
+  </view>
+  <view class="control_btn" bindtap="makeSureOrderInfo">去支付</view>
+</view>

@@ -1,6 +1,15 @@
 // pages/home/home/index.js
 import store from '../../../store'
 import create from '../../../utils/create'
+import {
+  createAdvert
+} from "../../../utils/data";
+import {
+  getHomeSlide
+} from '../../../API/servers'
+import {
+  functionList
+} from '../../../cantants/contants'
 
 const app = getApp()
 
@@ -9,7 +18,8 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    loading: false,
+    sliderList: [],
+    functionList: functionList
   },
 
   /**
@@ -20,46 +30,66 @@ create(store, {
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () {
+    this.waitForToken()
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {},
-  chargeOnClick() {
-    console.log('open')
-    wx.navigateToMiniProgram({
-      appId: 'wx2d4bbccf6006b283',
-      success(res) {
-        // 打开成功
-        console.log(res)
-      }
-    })
-  },
-  officialLoad(e){
-    console.log('公众号')
-    console.log(e)
-    if(e.detail.status !== 0) {
+  funcOnClick(e) {
+    if(!store.data.isLogin) {
+      wx.navigateTo({
+        url: '/pages/login/login'
+      })
+      return
+    }
+    const {func} = e.currentTarget.dataset
+    if(func.type === 'local') {
+      wx.navigateTo({
+        url: func.path,
+      })
+    } else {
       wx.showToast({
-        title: e.detail.errMsg,
+        title: '功能正在开发中，请耐心等待',
         icon: 'none',
-        duration: 2000,
-        mask: true
+        duration: 2000
       })
     }
   },
-  orderFoodOnClick() {
-    // wx.navigateToMiniProgram({
-    //   appId: 'wx74268c2c92bc7cbf',
-    //   success(res) {
-    //     // 打开成功
-    //     console.log(res)
-    //   }
-    // })
-    let webUrl = encodeURI("https://demo.xt-kp.com/xtkp/index.html")
-    wx.navigateTo({
-      url: '/pages/web-view/index?url=' + webUrl,
-    })
+  waitForToken() {
+    const {
+      token
+    } = store.data
+    if (token) {
+      this.AjaxGetHomeSlide()
+    } else {
+      setTimeout(() => {
+        this.waitForToken()
+      }, 200)
+    }
+  },
+  AjaxGetUserInfo(){
+    
+  },
+  AjaxGetHomeSlide() {
+    getHomeSlide({}, res => {
+      let homeSlide = this._normalizeData(res.data.result);
+      homeSlide.forEach(item => {
+        item.link = item.link.replace("mobile=%s", "mobile=" + this.phone);
+      });
+      this.setData({
+        sliderList: homeSlide
+      })
+    });
+  },
+  _normalizeData(datas) {
+    let ret = [];
+    datas.forEach(item => {
+      ret.push(createAdvert(item));
+    });
+    return ret;
   },
 
   /**

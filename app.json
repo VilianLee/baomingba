@@ -2,7 +2,16 @@
   "pages": [
     "pages/home/home/index",
     "pages/web-view/index",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/order-food/index/index",
+    "pages/user/index",
+    "pages/order-food/foodList/index",
+    "pages/order-food/foodDetail/index",
+    "pages/order-food/submitOrder/index",
+    "pages/order-food/payResult/index",
+    "pages/order-food/orderList/index",
+    "pages/order-food/orderDetail/index",
+    "pages/settings/settings/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -20,7 +29,7 @@
   },
   "tabBar": {
     "color": "#888888",
-    "selectedColor": "#fda402",
+    "selectedColor": "#409bdb",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
@@ -31,13 +40,12 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/home/home/index",
+        "pagePath": "pages/user/index",
         "iconPath": "images/icon_user.png",
         "selectedIconPath": "images/icon_user_focuse.png",
-        "text": "我"
+        "text": "我的"
       }
-    ],
-    "custom": true
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

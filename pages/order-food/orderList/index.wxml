@@ -1,0 +1,53 @@
+<!--pages/order-food/orderList/index.wxml-->
+<view class="tab">
+  <view class="tab_item {{selectTable == '' ? 'active' : ''}}" bindtap="tabOnClick" data-tab="">全部订单</view>
+  <view class="tab_item {{selectTable == '1' ? 'active' : ''}}" bindtap="tabOnClick" data-tab="1">待支付</view>
+  <view class="tab_item {{selectTable == '2' ? 'active' : ''}}" bindtap="tabOnClick" data-tab="2">待接单</view>
+  <view class="tab_item {{selectTable == '4' ? 'active' : ''}}" bindtap="tabOnClick" data-tab="4">待配送</view>
+</view>
+<view class="order_list" wx:if="{{list.length > 0}}">
+  <view class="order_card" wx:for="{{list}}" wx:key="index" data-order-id="{{item.orderid}}" bindtap="cardOnClick">
+    <view class="card_title">
+      <view class="title_main">
+        <view class="order_icon">
+          <image src="/images/order/ico_food.png"></image>
+        </view>
+        点餐服务{{item.orderid}}
+      </view>
+      <view class="title_status">
+        {{orderStatus[item.status]}}
+      </view>
+    </view>
+    <view class="input_cell">
+      <view class="input_cell_row">
+        <view class="label">席位信息</view>
+        <view class="form_item">{{item.trainno + '  '}} {{item.carno}}车{{item.tseat}}</view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">下单时间</view>
+        <view class="form_item">{{item.createtime}}</view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">订单号</view>
+        <view class="form_item">{{item.orderid}}</view>
+      </view>
+      <view class="input_cell_row">
+        <view class="label">订单金额</view>
+        <view class="form_item">￥{{item.moneyStr}}</view>
+      </view>
+    </view>
+    <view class="card_control" wx:if="{{item.cancelstatus==1 || item.status == '1'}}">
+      <view class="btn" catchtap="cancelOrder" data-order-id="{{item.orderid}}" wx:if="{{item.cancelstatus==1}}">取消订单</view>
+      <view class="btn full_btn" catchtap="payForOrder" data-order="{{index}}" wx:if="{{item.status==1}}">立即支付</view>
+    </view>
+  </view>
+</view>
+
+<block wx:else>
+  <view class="list_null">
+    <view class="list_null_image">
+      <image src="/images/order/list_null.png"></image>
+    </view>
+    <view class="list_null_text">暂未查到数据</view>
+  </view>
+</block>

@@ -1,0 +1,117 @@
+/* pages/order-food/index/index.wxss */
+page {
+  height: 100%;
+  background: #f7f7f7;
+}
+
+.page_tips {
+  padding: 20rpx 40rpx;
+  background: #FFE4CF;
+  font-size: 24rpx;
+  color: #333333;
+  line-height: 30rpx;
+  margin-bottom: 40rpx;
+}
+
+.page_content {
+  padding: 0 30rpx;
+}
+
+.page_title {
+  padding: 0 30rpx;
+  font-size: 32rpx;
+  margin-bottom: 15rpx;
+  color: #b9b9b9;
+}
+
+.form_box {
+  background: #ffffff;
+  padding: 10rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form_content {
+  width: 200rpx;
+  flex-grow: 1;
+}
+
+.form_content .form_item {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  padding: 25rpx 0;
+}
+
+.form_content .form_item .label {
+  width: 150rpx;
+  font-size: 30rpx;
+  color: #333333;
+  line-height: 40rpx;
+}
+
+.form_content .form_item .input_box {
+  width: 130rpx;
+  flex-grow: 1;
+  line-height: 40rpx;
+}
+
+.form_content .form_item .input_box input, .form_content .form_item .input_box picker {
+  width: 100%;
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 40rpx;
+  height: 40rpx;
+}
+
+.form_content .form_item:first-child {
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.form_button {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 90rpx;
+  padding: 17rpx;
+  background: #FFEDC2;
+}
+
+.form_button .form_button_inside {
+  height: 100%;
+  background: #FFB400;
+  border-radius: 50%;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.order_btn{
+  position: fixed;
+  bottom: 140rpx;
+  right: 200rpx;
+  left: 200rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #409bdb;
+}
+
+.submit_btn {
+  position: fixed;
+  bottom: 0;
+  height: 106rpx;
+  line-height: 106rpx;
+  text-align: center;
+  font-size: 38rpx;
+  color: #ffffff;
+  background: #FB4C43;
+  left: 0;
+  right: 0;
+}
