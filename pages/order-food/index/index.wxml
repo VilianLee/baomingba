@@ -18,7 +18,7 @@
     <view class="form_item">
       <view class="label">车次</view>
       <view class="input_box">
-        <input type="text" model:value="{{tranNo}}" placeholder="请填写车次号"/>
+        <input type="text" model:value="{{tranNo}}" placeholder="请填写车次号" confirm-type="search" bindconfirm="AjaxQueryTrainList"/>
       </view>
     </view>
   </view>
