@@ -1,18 +1,37 @@
 // pages/order-food/foodDetail/index.js
-Page({
+import store from '../../../store'
+import create from '../../../utils/create'
+import {
+  getFoodDetail
+} from '../../../API/servers'
+const app = getApp()
+
+create(store, {
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    foodDetail: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.foodId = options
+    this.AjaxGetFoodDetail(options)
+  },
 
+  AjaxGetFoodDetail(params){
+    getFoodDetail(params, res => {
+      this.setData({
+        foodDetail: res.data
+      })
+      wx.setNavigationBarTitle({
+        title: res.data.dishname,
+      })
+    })
   },
 
   /**

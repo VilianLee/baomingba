@@ -66,6 +66,7 @@ App({
         store.data.isLogin = true
         store.data.openid = res.data.openid
         store.data.mobile = res.data.mobile
+        store.data.wxopenid = res.data.wxopenid
         store.update()
       } else {
         wx.navigateTo({

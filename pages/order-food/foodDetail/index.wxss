@@ -1,1 +1,33 @@
 /* pages/order-food/foodDetail/index.wxss */
+.banner{
+  height: 750rpx;
+  background: #f2f2f2;
+}
+.food_name{
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
+  padding: 30rpx 30rpx 20rpx;
+}
+.food_price {
+  font-size: 28rpx;
+  color: #FB4C43;
+  padding: 0 30rpx 30rpx;
+}
+
+.food_pics_title  {
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.food_pics image{
+  width: 100%;
+  height: auto;
+}
+
+.food_detail .list_null {
+  padding-top: 40rpx;
+}

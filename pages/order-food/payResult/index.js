@@ -2,7 +2,7 @@
 import store from '../../../store'
 import create from '../../../utils/create'
 import {
-  submitOrder
+  getPayResult
 } from '../../../API/servers'
 const app = getApp()
 
@@ -21,12 +21,18 @@ create(store, {
    */
   onLoad: function (options) {
     this.setData({
-      orderId: options.orderId
+      orderId: options.orderid
     })
+    this.AjaxGetPayResult(options.orderid)
   },
 
   AjaxGetPayResult(orderid){
     const params = {orderid}
+    getPayResult(params, res => {
+      this.setData({
+        result: res.data.trade_state
+      })
+    })
   },
 
   /**

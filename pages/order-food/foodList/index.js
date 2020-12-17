@@ -72,6 +72,13 @@ create(store, {
 
   },
 
+  foodOnClick(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/order-food/foodDetail/index?dishid=${id}&trainno=${this.data.trainNo}&traindate=${this.data.nowDate}`,
+    })
+  },
+
   totalComputer() {
     const {
       foodList

@@ -1,13 +1,14 @@
 <!--pages/order-food/pay/index.wxml-->
 <view class="block result">
   <view class="result_pic">
-    <image src="/images/order/pay_suc@2x.png"></image>
+    <image src="/images/order/pay_suc@2x.png" wx:if="{{result === 'SUCCESS'}}"></image>
+    <image src="/images/order/pay_fail@2x.png" wx:else></image>
   </view>
   <view class="result_text">
-    支付成功
+    {{result === 'SUCCESS' ? '支付成功' : '支付失败'}}
   </view>
 </view>
 
 <view class="control_row">
-  <navigator url="/pages/order-food/orderDetail/index?orderId={{orderId}}" class="control_btn">查看订单</navigator>
+  <navigator open-type="redirect" url="/pages/order-food/orderDetail/index?orderId={{orderId}}" class="control_btn">查看订单</navigator>
 </view>

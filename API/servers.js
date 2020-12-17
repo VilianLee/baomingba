@@ -111,6 +111,21 @@ export const getFoodList = (param, success) => { //查询餐品列表
   })
 }
 
+export const getFoodDetail = (param, success) => { //查询餐品详情
+  const des = '查询餐品详情'
+  const data = Object.assign({}, {
+    command: "4003",
+    param
+  });
+  networkpost({
+    url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
 export const getQuery = (param, success) => { //查询餐品校验
   const des = '查询餐品校验'
   const data = Object.assign({}, {
@@ -134,6 +149,37 @@ export const submitFoodOrder = (param, success) => { //订餐订单提交
   });
   networkpost({
     url: `/Food/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const payOrder = (param, success) => { //统一下单
+  const des = '统一下单'
+  param.wxPayType = '2'
+  const data = Object.assign({}, {
+    command: "5001",
+    param
+  });
+  networkpost({
+    url: `/Pay/Pay/doAction`,
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data)
+  })
+}
+
+export const getPayResult = (param, success) => { //查询支付结果
+  const des = '查询支付结果'
+  const data = Object.assign({}, {
+    command: "5002",
+    param
+  });
+  networkpost({
+    url: `/Pay/Pay/doAction`,
     data,
     des
   }).then(function (res) {

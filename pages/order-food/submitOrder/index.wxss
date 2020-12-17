@@ -1,13 +1,13 @@
 /* pages/order-food/submitOrder/index.wxss */
 page {
-  height: 100%;
+  min-height: 100%;
   background: #f7f7f7;
 }
 
 .submit_order {
   position: relative;
   z-index: 1;
-  height: calc(100% - 106rpx);
+  padding-bottom: 140rpx;
 }
 
 .page_tips {

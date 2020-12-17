@@ -2,7 +2,9 @@
 import store from '../../../store'
 import create from '../../../utils/create'
 import {
-  getOrderList, cancelOrder
+  getOrderList,
+  cancelOrder,
+  payOrder
 } from '../../../API/servers'
 import {
   orderStatus
@@ -46,7 +48,9 @@ create(store, {
   },
 
   tabOnClick(e) {
-    const {tab} = e.currentTarget.dataset
+    const {
+      tab
+    } = e.currentTarget.dataset
     this.setData({
       selectTable: tab
     })
@@ -68,23 +72,63 @@ create(store, {
     })
   },
 
-  cancelOrder(e) {
-    const {mobile} = this.data
-    const {orderId} = e.currentTarget.dataset
-    const params = {
-      mobile,
-      orderid: orderId
-    }
-    cancelOrder(params, res => {
-      wx.showToast({
-        title: '订单已取消',
-        duration: 2000
-      })
-      this.initPage()
+  cancelOnClick(e) {
+    const {
+      mobile
+    } = this.data
+    const {
+      orderId
+    } = e.currentTarget.dataset
+    wx.showModal({
+      title: '操作确认',
+      content: '是否确认取消订单',
+      success: res => {
+        if (res.confirm) {
+          const params = {
+            mobile,
+            orderid: orderId
+          }
+          cancelOrder(params, res => {
+            wx.showToast({
+              title: '订单已取消',
+              duration: 2000
+            })
+            this.initPage()
+          })
+        }
+      }
     })
   },
 
-  payForOrder(e) {},
+  payForOrder(e) {
+    const orderid = e.currentTarget.dataset.orderid
+    const params = {
+      orderid,
+      desc: '订餐',
+      attach: '1',
+      wxopenid: store.data.wxopenid
+    }
+    this.AjaxPayOrder(params, orderid)
+  },
+
+  AjaxPayOrder(params, orderid) {
+    payOrder(params, res => {
+      wx.requestPayment({
+        ...res.data,
+        success(res) {
+          wx.reLaunch({
+            url: '/pages/order-food/payResult/index?orderid=' + orderid
+          })
+        },
+        fail(res) {
+          console.log(res)
+          wx.reLaunch({
+            url: '/pages/order-food/payResult/index?orderid=' + orderid
+          })
+        }
+      })
+    })
+  },
 
   AjaxGetOrderList() {
     const params = {

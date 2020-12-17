@@ -14,7 +14,7 @@
         wx:for-item="item">
         <!-- 右侧列表里的标题，高度为50px -->
         <view class="item-title font30">{{item.desc}}</view>
-        <view class='pro-item' wx:for="{{item.foods}}" wx:key="idx" wx:for-index="idx" wx:for-item="food">
+        <view class='pro-item' wx:for="{{item.foods}}" wx:key="idx" wx:for-index="idx" wx:for-item="food" catchtap="foodOnClick" data-id="{{food.id}}">
           <view class='pro-img'>
             <image src='{{food.dishpicurl}}' mode="aspectFill"></image>
             <view class="img_cover" wx:if="{{!food.remains}}">

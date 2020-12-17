@@ -29,9 +29,31 @@ page {
   margin-bottom: 15rpx;
   color: #b9b9b9;
 }
+.card_title {
+  height: 80rpx;
+  display: flex;
+  border-bottom: solid 1rpx #e6e6e6;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx;
+}
 
-.food_list {
-  padding: 10rpx 0;
+.card_title .title_main {
+  font-size: 28rpx;
+  color: #333333;
+  display: flex;
+  align-items: center;
+}
+
+.card_title .title_main .order_icon {
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 20rpx;
+}
+
+.card_title .title_status {
+  font-size: 24rpx;
+  color: #666666;
 }
 
 .food_list .food_info {

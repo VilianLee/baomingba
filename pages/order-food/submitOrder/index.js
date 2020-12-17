@@ -2,7 +2,8 @@
 import store from '../../../store'
 import create from '../../../utils/create'
 import {
-  submitOrder
+  submitOrder,
+  payOrder
 } from '../../../API/servers'
 const app = getApp()
 
@@ -114,7 +115,33 @@ create(store, {
 
   AjaxSubmitOrder() {
     submitOrder(store.data.submitOrderInfo, res => {
-      const orderId = res.data.orderid
+      const orderid = res.data.orderid
+      const params = {
+        orderid,
+        desc: '订餐',
+        attach: '1',
+        wxopenid: store.data.wxopenid
+      }
+      this.AjaxPayOrder(params, orderid)
+    })
+  },
+
+  AjaxPayOrder(params, orderid) {
+    payOrder(params, res => {
+      wx.requestPayment({
+        ...res.data,
+        success(res) {
+          wx.redirectTo({
+            url: '/pages/order-food/payResult/index?orderid=' + orderid
+          })
+        },
+        fail(res) {
+          console.log(res)
+          wx.redirectTo({
+            url: '/pages/order-food/payResult/index?orderid=' + orderid
+          })
+        }
+      })
     })
   },
 

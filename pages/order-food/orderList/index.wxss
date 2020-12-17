@@ -50,6 +50,7 @@
 .order_card .input_cell .input_cell_row {
   border-bottom: none;
   padding: 0;
+  padding-right: 30rpx;
   height: 60rpx;
 }
 

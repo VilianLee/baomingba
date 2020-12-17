@@ -14,6 +14,8 @@ export const commadList = [
   '1002', // 获取微信 access_token
   '1004', // 获取微信 jssdk config 方法的配置对象
   '1005', // 获取云闪付 jssdk config 方法的配置对象
+  '6001', // 获取首页banner图
+  '6011', // 查询小程序广告位信息
   '200201', // 获取 redirectUri，进而获取云闪付网页授权 code
   '200202', // 微信小程序登录（使用微信小程序的 code 登录）
   '200203', // 微信小程序绑定手机号
@@ -51,9 +53,13 @@ export const payTypes = {
 export const functionList = [{
   icon: '/images/index/icon_mobile_recharge.png',
   name: '手机充值',
+  type: 'webview',
+  url: 'https://www.alipay.com'
 }, {
   icon: '/images/index/icon_chair.png',
-  name: '按摩椅'
+  name: '按摩椅',
+  type: 'miniProgram',
+  appid: 'wxdksuioenf829387'
 }, {
   icon: '/images/index/icon_food.png',
   name: '列车点餐',

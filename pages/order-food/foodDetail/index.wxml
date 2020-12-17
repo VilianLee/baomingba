@@ -1,2 +1,18 @@
 <!--pages/order-food/foodDetail/index.wxml-->
-<text>pages/order-food/foodDetail/index.wxml</text>
+<view class="block">
+  <view class="banner">
+    <image src="{{foodDetail.dishpicurl}}" mode="aspectFit"></image>
+  </view>
+  <view class="food_name">
+    {{foodDetail.dishname}}
+  </view>
+  <view class="food_price">
+    ￥{{foodDetail.dishprice/100}}
+  </view>
+</view>
+<view class="block food_detail">
+  <view class="food_pics_title">商品详情</view>
+  <view class="food_pics" wx:if="{{foodDetail.dishImgList && foodDetail.dishImgList.length > 0}}">
+    <image mode="widthFix" wx:for="{{foodDetail.dishImgList}}" wx:key="index" src="{{item}}"></image>
+  </view>
+</view>

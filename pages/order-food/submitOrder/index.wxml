@@ -71,7 +71,7 @@
         <view class="input_cell_rich_row">
           <view class="label">备注</view>
           <view class="content">
-            <textarea placeholder="可添加备注信息，如饮料不要冰镇等" />
+            <textarea model:value="{{submitOrderInfo.remark}}" placeholder="可添加备注信息，如饮料不要冰镇等" />
             </view>
         </view>
       </view>

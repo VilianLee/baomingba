@@ -12,7 +12,7 @@
         <view class="order_icon">
           <image src="/images/order/ico_food.png"></image>
         </view>
-        点餐服务{{item.orderid}}
+        点餐服务
       </view>
       <view class="title_status">
         {{orderStatus[item.status]}}
@@ -37,8 +37,8 @@
       </view>
     </view>
     <view class="card_control" wx:if="{{item.cancelstatus==1 || item.status == '1'}}">
-      <view class="btn" catchtap="cancelOrder" data-order-id="{{item.orderid}}" wx:if="{{item.cancelstatus==1}}">取消订单</view>
-      <view class="btn full_btn" catchtap="payForOrder" data-order="{{index}}" wx:if="{{item.status==1}}">立即支付</view>
+      <view class="btn" catchtap="cancelOnClick" data-order-id="{{item.orderid}}" wx:if="{{item.cancelstatus==1}}">取消订单</view>
+      <view class="btn full_btn" catchtap="payForOrder" data-orderid="{{item.orderid}}" wx:if="{{item.status==1}}">立即支付</view>
     </view>
   </view>
 </view>
