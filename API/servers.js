@@ -1,11 +1,12 @@
 import {
   networkpost,
 } from './request.js'
+import {commonData} from '../cantants/contants'
 
 
 export const getToken = (param, success) => { // 获取token
   const des = '获取token'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "1001",
     param: {
       appid: '35385640507',
@@ -23,7 +24,7 @@ export const getToken = (param, success) => { // 获取token
 
 export const bindPhoneNo = (param, success) => { // 绑定手机号
   const des = '绑定手机号'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "200203",
     param
   });
@@ -38,7 +39,7 @@ export const bindPhoneNo = (param, success) => { // 绑定手机号
 
 export const login = (param, success) => { //登录
   const des = '登录'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "200202",
     param
   });
@@ -53,7 +54,7 @@ export const login = (param, success) => { //登录
 
 export const getHomeSlide = (param, success) => { //获取首页banner图
   const des = '获取首页banner图'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "6001",
     param
   });
@@ -68,7 +69,7 @@ export const getHomeSlide = (param, success) => { //获取首页banner图
 
 export const queryTrainList = (param, success) => { //车次模糊查询
   const des = '车次模糊查询'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4017",
     param
   });
@@ -83,7 +84,7 @@ export const queryTrainList = (param, success) => { //车次模糊查询
 
 export const getFoodTypes = (param, success) => { //查询餐品分类
   const des = '查询餐品分类'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4001",
     param
   });
@@ -98,7 +99,7 @@ export const getFoodTypes = (param, success) => { //查询餐品分类
 
 export const getFoodList = (param, success) => { //查询餐品列表
   const des = '查询餐品列表'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4002",
     param
   });
@@ -113,7 +114,7 @@ export const getFoodList = (param, success) => { //查询餐品列表
 
 export const getFoodDetail = (param, success) => { //查询餐品详情
   const des = '查询餐品详情'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4003",
     param
   });
@@ -128,7 +129,7 @@ export const getFoodDetail = (param, success) => { //查询餐品详情
 
 export const getQuery = (param, success) => { //查询餐品校验
   const des = '查询餐品校验'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4013",
     param
   });
@@ -143,7 +144,7 @@ export const getQuery = (param, success) => { //查询餐品校验
 
 export const submitFoodOrder = (param, success) => { //订餐订单提交
   const des = '订餐订单提交'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4002",
     param
   });
@@ -159,7 +160,7 @@ export const submitFoodOrder = (param, success) => { //订餐订单提交
 export const payOrder = (param, success) => { //统一下单
   const des = '统一下单'
   param.wxPayType = '2'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "5001",
     param
   });
@@ -174,7 +175,7 @@ export const payOrder = (param, success) => { //统一下单
 
 export const getPayResult = (param, success) => { //查询支付结果
   const des = '查询支付结果'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "5002",
     param
   });
@@ -189,7 +190,7 @@ export const getPayResult = (param, success) => { //查询支付结果
 
 export const getTravellerInfo = (param, success) => { //获取用户订餐信息
   const des = '获取用户订餐信息'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4015",
     param
   });
@@ -204,7 +205,7 @@ export const getTravellerInfo = (param, success) => { //获取用户订餐信息
 
 export const submitOrder = (param, success) => { //提交订单
   const des = '提交订单'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4005",
     param
   });
@@ -219,7 +220,7 @@ export const submitOrder = (param, success) => { //提交订单
 
 export const getOrderList = (param, success) => { //获取订单列表
   const des = '获取订单列表'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4007",
     param
   });
@@ -234,7 +235,7 @@ export const getOrderList = (param, success) => { //获取订单列表
 
 export const getOrderDetail = (param, success) => { //获取订单详情
   const des = '获取订单详情'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4006",
     param
   });
@@ -249,7 +250,7 @@ export const getOrderDetail = (param, success) => { //获取订单详情
 
 export const cancelOrder = (param, success) => { //取消订单
   const des = '取消订单'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "4008",
     param
   });
@@ -264,7 +265,7 @@ export const cancelOrder = (param, success) => { //取消订单
 
 export const getPersonInfo = (param, success) => { //查询我的资料
   const des = '查询我的资料'
-  const data = Object.assign({}, {
+  const data = Object.assign({},commonData, {
     command: "2023",
     param
   });

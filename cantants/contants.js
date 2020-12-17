@@ -50,6 +50,12 @@ export const payTypes = {
   '3': '银联支付'
 }
 
+export const commonData = {
+  ver: '1.0',
+  // sign: 'MD5MD5MD',
+  timestamp: '137889283'
+}
+
 export const functionList = [{
   icon: '/images/index/icon_mobile_recharge.png',
   name: '手机充值',
