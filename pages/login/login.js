@@ -31,6 +31,7 @@ create(store, {
             isLogin: true,
             getPhoneNumVisible: false
           })
+          store.data.isLogin = true
           store.data.openid = res.data.openid
           store.data.mobile = res.data.mobile
           store.update()
@@ -83,6 +84,8 @@ create(store, {
           wxopenid: res.data.wxopenid,
           getPhoneNumVisible: true
         })
+        store.data.wxopenid= res.data.wxopenid
+        store.update()
       }
     })
   },

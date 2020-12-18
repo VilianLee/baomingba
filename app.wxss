@@ -227,7 +227,7 @@ button::after {
 
 .bind_phone_modal .login_btn button {
   width: 280rpx;
-  background-color: #ffa409;
+  background-color: #2d8cf0;
   color: #ffffff;
 }
 

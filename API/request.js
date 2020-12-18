@@ -28,8 +28,6 @@ function networkpost({
   let localHeader = {
     'content-type': 'application/json',
   }
-  data.timestamp = timeFormat('ms')
-  data.sign = generateSign(data)
   const {
     token,
     openid
@@ -47,6 +45,8 @@ function networkpost({
   }
   data.token = token
   data.openid = openid
+  data.timestamp = timeFormat('ms')
+  data.sign = generateSign(data)
   wx.showLoading({
     title: '加载中',
     mask: true
