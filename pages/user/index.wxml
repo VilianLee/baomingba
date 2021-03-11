@@ -3,15 +3,18 @@
   <view class="user_photo">
     <image src="/images/user/user@2x.png"></image>
   </view>
-  <view class="user_content">
+  <view class="user_content" wx:if="{{isLogin}}">
     <view class="user_name">{{userInfo.mobile}}</view>
     <view class="vip">
       <image src="/images/user/vip_n@2x.png"></image>
     </view>
   </view>
+  <view class="user_content" wx:else>
+    <view class="login_btn" bindtap="showLoginModal">立即登录</view>
+  </view>
 </view>
 <view class="block">
-  <view class="input_cell">
+  <view class="input_cell" wx:if="{{isLogin}}">
     <navigator url="/pages/settings/settings/index" class="input_cell_row is_link">
       <view class="label">
         <view class="input_cell_icon">
@@ -21,3 +24,28 @@
     </navigator>
   </view>
 </view>
+
+<view class="cover" wx:if="{{showLogin}}">
+	<view class="login_box">
+		<image src="../../images/login_box.png"></image>
+		<view class="login_content">
+			<view class="login_title">您还未登录</view>
+			<view class="login_text">请登录后再进行操作</view>
+			<view class="control_row">
+				<view class="btn" bindtap="cancelLogin">暂不登录</view>
+				<button class="btn full_btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</button>
+			</view>
+		</view>
+	</view>
+</view>
+
+
+<i-modal title="小程序登录需要获取您的手机号码" visible="{{ getPhoneNumVisible }}" show-ok="{{false}}" show-cancel="{{false}}"
+	actions="{{ allowActions }}">
+	<view class="bind_phone_modal">
+		<view class="btn_row login_btn">
+			<button class="btn full_btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"
+				binderror="openTypeError">允许</button>
+		</view>
+	</view>
+</i-modal>

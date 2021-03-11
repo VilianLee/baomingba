@@ -1,14 +1,13 @@
 <!--pages/home/home/index.wxml-->
 <view class="home">
 	<view class="banner">
-		<swiper indicator-dots="{{sliderList.length > 1}}"
-        autoplay="{{true}}">
-        <block wx:for="{{sliderList}}" wx:key="index">
-          <swiper-item class="banner_item">
-            <image mode="aspectFill" src="{{item.picurl}}" class="banner_img"></image>
-          </swiper-item>
-        </block>
-      </swiper>
+		<swiper indicator-dots="{{sliderList.length > 1}}" autoplay="{{true}}">
+			<block wx:for="{{sliderList}}" wx:key="index">
+				<swiper-item class="banner_item">
+					<image mode="aspectFill" src="{{item.picurl}}" class="banner_img"></image>
+				</swiper-item>
+			</block>
+		</swiper>
 	</view>
 	<view class="func_list">
 		<view class="func_item" wx:for="{{functionList}}" wx:key="index" bindtap="funcOnClick" data-func="{{item}}">
@@ -19,3 +18,37 @@
 		</view>
 	</view>
 </view>
+
+<view class="cover" wx:if="{{showCover}}" bindtap="hideCover">
+	<view class="cover_box" catchtap="jumpToMinProgram">
+		<view class="icon">
+			<image src="{{coverItem.icon}}"></image>
+		</view>
+		<view class="name">{{coverItem.name}}</view>
+	</view>
+</view>
+
+<view class="cover" wx:if="{{showLogin}}">
+	<view class="login_box">
+		<image src="../../../images/login_box.png"></image>
+		<view class="login_content">
+			<view class="login_title">您还未登录</view>
+			<view class="login_text">请登录后再进行操作</view>
+			<view class="control_row">
+				<view class="btn" bindtap="cancelLogin">暂不登录</view>
+				<button class="btn full_btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</button>
+			</view>
+		</view>
+	</view>
+</view>
+
+
+<i-modal title="小程序登录需要获取您的手机号码" visible="{{ getPhoneNumVisible }}" show-ok="{{false}}" show-cancel="{{false}}"
+	actions="{{ allowActions }}">
+	<view class="bind_phone_modal">
+		<view class="btn_row login_btn">
+			<button class="btn full_btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"
+				binderror="openTypeError">允许</button>
+		</view>
+	</view>
+</i-modal>

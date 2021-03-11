@@ -103,8 +103,9 @@ create(store, {
       return
     }
     wx.showModal({
-      title: '请确认您的送餐信息',
-      content: `乘车日期：${submitOrderInfo.starttime}\r\n乘车车次：${submitOrderInfo.trainno}\r\n席位信息：${submitOrderInfo.carno + submitOrderInfo.tseat}\r\n姓名：${submitOrderInfo.traveller}\r\n手机号：${submitOrderInfo.contactmobile}\r\n`,
+      title: '温馨提示',
+      content: `11:30-13:00为用餐高峰期，劳烦您到餐吧取餐；其他时段，餐服员为您送餐到座，感谢您的支持。`,
+      showCancel: false,
       success: res => {
         if (res.confirm) {
           this.AjaxSubmitOrder()

@@ -26,6 +26,7 @@ create(store, {
     store.data.openid = null
     store.data.wxCode = null
     store.data.userInfo = {}
+    store.data.hasUserInfo = false
     store.update()
     wx.switchTab({
       url: '/pages/home/home/index',

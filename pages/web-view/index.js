@@ -18,9 +18,9 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(decodeURI(options.url))
+    console.log(decodeURIComponent(options.url))
     this.setData({
-      url: decodeURI(options.url)
+      url: decodeURIComponent(options.url)
     })
   },
 

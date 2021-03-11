@@ -1,10 +1,11 @@
 /* pages/home/home/index.wxss */
 
-page{
+page {
   height: 100%;
   background: linear-gradient(316deg, #5B67F2 0%, #83C2FF 100%);
 }
-.home{
+
+.home {
   height: 100%;
   padding: 20rpx;
 }
@@ -49,4 +50,83 @@ page{
 .func_list .func_item .func_name {
   font-size: 28rpx;
   color: #333333;
+}
+
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover .cover_box {
+  width: 180rpx;
+}
+
+.cover .cover_box .icon {
+  width: 180rpx;
+  height: 180rpx;
+  margin-bottom: 30rpx;
+}
+
+.cover .cover_box .name {
+  font-size: 32rpx;
+  color: #ffffff;
+  text-align: center;
+}
+
+.cover .login_box {
+  width: 616rpx;
+  height: 750rpx;
+  position: relative;
+}
+
+.login_box .login_content {
+  position: absolute;
+  left: 30rpx;
+  bottom: 68rpx;
+  right: 30rpx;
+  top: 380rpx;
+}
+
+.login_content .login_title {
+  font-size: 40rpx;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.login_content .login_text {
+  font-size: 30rpx;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 110rpx;
+}
+
+.login_content .control_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  width: 260rpx;
+  height: 80rpx;
+  border-radius: 14rpx;
+  text-align: center;
+  line-height: 76rpx;
+  font-size: 30rpx;
+  background: #ffffff;
+  border: solid 2rpx #638EF6;
+  color: #638EF6;
+}
+
+.btn.full_btn{
+  background: #638EF6;
+  color: #ffffff;
 }

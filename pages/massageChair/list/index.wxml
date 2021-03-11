@@ -1,0 +1,58 @@
+<!--pages/massageChair/list/index.wxml-->
+<view class="search_box">
+  <view class="input_box">
+    <input type="text" placeholder="输入兑换码" />
+  </view>
+  <view class="search_btn">兑换</view>
+</view>
+<view class="title_box">
+  <view class="title_line"></view>
+  <view class="title_text">套餐选择</view>
+  <view class="title_line"></view>
+</view>
+
+<view class="product_list">
+  <block wx:for="{{chairList}}" wx:key="index">
+    <view class="product_item {{selectItem === index ? 'selected' : ''}}" data-index="{{index}}" bindtap="cardOnClick">
+      <view class="icon">
+        <image src="/images/chair/massage-icon-1.png"></image>
+      </view>
+      <view class="name">{{item.modelName}}</view>
+      <view class="time">{{item.duration}}分钟</view>
+      <view class="price">{{item.price}}元</view>
+      <view class="foot_mark" wx:if="{{item.cornerMark}}">
+        <view class="mark_text">
+          {{item.cornerMark}}
+        </view>
+        <view class="mark_bg">
+          <image src="/images/chair/icon_tip_on.png"></image>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="agreement">
+  <view class="radio" bindtap="agreeOnChange">
+    <image src="/images/chair/dagou.png" wx:if="{{agree}}"></image>
+    <image src="/images/chair/normal.png" wx:else></image>
+  </view>
+  <view class="text" bindtap="agreeOnChange">我已阅读并同意</view>
+  <navigator url="/pages/massageChair/agreement/index">《服务协议》</navigator>
+</view>
+
+<view class="pay_btn" bindtap="payOnClick">立即支付</view>
+
+<view class="page_tips">
+  全国招商热线：13091768885
+</view>
+<view class="page_tips">
+  客服热线：400-100-1090
+</view>
+
+<!-- <navigator url="../orders/index" class="float_btn">
+  <view class="btn_icon">
+    <image src="/images/chair/icon_my.png"></image>
+  </view>
+  <view class="btn_text">订单记录</view>
+</navigator> -->

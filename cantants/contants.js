@@ -50,27 +50,39 @@ export const payTypes = {
   '3': '银联支付'
 }
 
+export const APP_ID = '35385640507'
+
 export const commonData = {
   ver: '1.0',
   // sign: 'MD5MD5MD',
   timestamp: '137889283'
 }
 
+export const commonDataDp = {
+  merchantCode: APP_ID,
+  merchantName: '携程订票系统'
+}
+
 export const functionList = [{
-  icon: '/images/index/icon_mobile_recharge.png',
-  name: '手机充值',
-  type: 'webview',
-  url: 'https://www.alipay.com'
-}, {
-  icon: '/images/index/icon_chair.png',
-  name: '按摩椅',
-  type: 'miniProgram',
-  appid: 'wxdksuioenf829387'
-}, {
   icon: '/images/index/icon_food.png',
   name: '列车点餐',
   type: 'local',
   path: '/pages/order-food/index/index'
+}, {
+  icon: '/images/index/icon_mobile_recharge.png',
+  name: '手机充电',
+  function: 'EnergyMonster',
+  type: 'scan',
+  scanType: 'miniProgram',
+  appid: 'wxb57627a2a7e9cb59',
+  jumpPath: '/PagesB/WaitPower/waitPower'
+}, {
+  icon: '/images/index/icon_chair.png',
+  name: '按摩椅',
+  type: 'scan',
+  function: 'wxChart',
+  scanType: 'local',
+  path: '/pages/massageChair/list/index'
 }, {
   icon: '/images/index/icon_ticket.png',
   name: '订火车票'
@@ -85,8 +97,20 @@ export const functionList = [{
   name: '行李寄存'
 }, {
   icon: '/images/index/icon_singer.png',
-  name: '共享唱吧'
+  name: '西银线开通',
+  type: 'local',
+  path: '/pages/vidios/index'
 }, {
   icon: '/images/index/icon_vending_machine.png',
   name: '自动售卖机'
 }]
+
+const scanType = { // 跳转方式
+  'local': '本地页面',
+  'webview': '内嵌H5页面',
+  'minProgram': '跳转小程序'
+}
+
+//scanType == 'local'，需要带参数 path="path"
+//scanType == 'webview'，需要带参数url="fullUrl" --fullUrl必须是encode转码后的值
+//scanType == 'minProgram'，需要带参数appid="appid"、jumpPath={path} -- path为跳转的目标小程序的页面路径、query={query} -- query是跳转外部小程序时需要带的参数，必须是encode转码后的值

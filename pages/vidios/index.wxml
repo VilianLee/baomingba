@@ -1,0 +1,4 @@
+<!--pages/vidios/index.wxml-->
+	<view class="vidio_box">
+		<video id="myvideo" src="https://xt-kp.solidace.cn/20210106.mp4" autoplay></video>
+	</view>

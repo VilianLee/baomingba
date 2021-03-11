@@ -1,7 +1,7 @@
 import {
   networkpost,
 } from './request.js'
-import {commonData} from '../cantants/contants'
+import {commonData, commonDataDp} from '../cantants/contants'
 
 
 export const getToken = (param, success) => { // 获取token
@@ -275,5 +275,26 @@ export const getPersonInfo = (param, success) => { //查询我的资料
     des
   }).then(function (res) {
     return success(res.data)
+  })
+}
+
+
+
+export const getUrlQueryInfo = (param, success) => { //小程序链接解密
+  const des = '小程序链接解密'
+  const data = Object.assign({},commonData, {
+    command: "101001"
+  });
+  data.param =Object.assign({},commonDataDp, {...param});
+  console.log(data)
+  networkpost({
+    url: `/applets/Common/getQueryInfo.json`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data,
+    des
+  }).then(function (res) {
+    return success(res.data.data)
   })
 }

@@ -1,0 +1,79 @@
+/* pages/massageChair/payOrder/index.wxss */
+page {
+  background: #ffffff;
+}
+.order_info{
+  display: flex;
+  margin: 0 30rpx 20rpx;
+  border-bottom: solid 1rpx #e5e5e5;
+  justify-content: space-between;
+  align-items: center;
+  height: 96rpx;
+}
+
+.order_info .info {
+  font-size: 32rpx;
+  color: #333333;
+  line-height: 40rpx
+}
+
+.order_info .info text {
+  font-size: 24rpx;
+  color: #666666;
+  margin-left: 10rpx;
+}
+
+.order_info .change_btn{
+  padding: 0 15rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  border: solid 2rpx #dddddd;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.order_info .change_btn .icon {
+  width: 36rpx;
+  height: 28rpx;
+  margin-left: 10rpx;
+}
+
+.bottom_box{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  border-top: solid 2rpx #dddddd;
+  align-items: center;
+}
+.bottom_box .pay_info {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #333333;
+  width: 200rpx;
+  display: flex;
+  align-items: center;
+}
+
+.bottom_box .pay_info text {
+  font-size: 30rpx;
+  color: #feac00;
+  margin-left: 20rpx;
+}
+
+.bottom_box .btn {
+  width: 220rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #333333;
+  background: #fce245;
+}

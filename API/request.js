@@ -51,11 +51,14 @@ function networkpost({
     title: '加载中',
     mask: true
   })
+  if(headers) {
+    data.param = JSON.stringify(data.param)
+  }
   let promise = new Promise(function (resolve, reject) {
     wx.request({
       url: baseUrl + url,
       header: headers ? headers : localHeader,
-      data: data,
+      data,
       method: 'POST',
       success: function (response) {
         const res = response.data

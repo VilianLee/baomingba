@@ -1,0 +1,153 @@
+/* pages/massageChair/orderResult/index.wxss */
+
+page {
+  background: #ffffff;
+}
+
+.page_title {
+  font-size: 36rpx;
+  color: #e8b349;
+  text-align: center;
+  margin: 60rpx auto;
+}
+
+.countdown_box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 60rpx;
+}
+
+.countdown_box .coundown_item .item_time {
+  display: flex;
+  margin-bottom: 30rpx;
+}
+
+.countdown_box .coundown_item .item_unit {
+  font-size: 36rpx;
+  color: #e8b349;
+  text-align: center;
+}
+
+.countdown_box .coundown_item .item_time .card {
+  height: 106rpx;
+  width: 78rpx;
+  line-height: 106rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  box-shadow: inset -5rpx -5rpx 5rpx rgba(0, 0, 0, 0.05);
+  color: #493b1e;
+  font-size: 48rpx;
+  position: relative;
+  font-weight: bold;
+  margin: 0 5rpx;
+  background: #f8e445;
+  overflow: hidden;
+}
+
+.countdown_box .coundown_item .item_time .card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  background: #ffffff;
+  opacity: 0.35;
+  z-index: 2;
+}
+
+.countdown_box .coundown_text {
+  height: 106rpx;
+  line-height: 106rpx;
+  font-size: 48rpx;
+  color: #373737;
+  margin: 0 10px;
+}
+
+.order_name {
+  font-size: 36rpx;
+  color: #373737;
+  text-align: center;
+  margin-bottom: 60rpx;
+  padding-bottom: 60rpx;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.order_card {
+  margin: 0 30rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.order_card .card_inside {
+  position: relative;
+  padding: 30rpx 60rpx 20rpx;
+  border: solid 1rpx #e6e6e6;
+  border-radius: 20rpx;
+}
+
+.card_inside::before {
+  content: '';
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  border: solid 1rpx #e6e6e6;
+  top: 130rpx;
+  left: -25rpx;
+  background: #ffffff;
+  z-index: 5;
+}
+
+.card_inside::after {
+  content: '';
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+  border: solid 1rpx #e6e6e6;
+  top: 130rpx;
+  right: -25rpx;
+  background: #ffffff;
+  z-index: 5;
+}
+
+.order_card .card_top {
+  padding-bottom: 30rpx;
+  border-bottom: dashed 1rpx #e6e6e6;
+}
+
+.order_card .card_title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #373737;
+  margin-bottom: 20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+}
+
+.order_card .card_des {
+  line-height: 36rpx;
+  height: 36rpx;
+  font-size: 32rpx;
+  color: #373737;
+}
+
+.order_card .card_bottom {
+  padding-top: 30rpx;
+}
+
+.order_card .card_bottom .order_info {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.order_card .card_bottom .order_info span {
+  color: #373737;
+}
+
+.order_card .card_bottom .order_info span.price {
+  color: #e8b349;
+}

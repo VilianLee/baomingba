@@ -11,7 +11,13 @@
     "pages/order-food/payResult/index",
     "pages/order-food/orderList/index",
     "pages/order-food/orderDetail/index",
-    "pages/settings/settings/index"
+    "pages/settings/settings/index",
+    "pages/vidios/index",
+    "pages/massageChair/list/index",
+    "pages/massageChair/agreement/index",
+    "pages/massageChair/payOrder/index",
+    "pages/massageChair/orders/index",
+    "pages/massageChair/orderResult/index"
   ],
   "permission": {
     "scope.userLocation": {

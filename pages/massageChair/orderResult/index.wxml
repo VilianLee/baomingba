@@ -1,0 +1,51 @@
+<!--pages/massageChair/orderResult/index.wxml-->
+<view class="page_title">享受时光</view>
+<view class="countdown_box">
+  <view class="coundown_item">
+    <view class="item_time">
+      <view class="card" wx:for="{{countDownData.hours}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="item_unit">时</view>
+  </view>
+  <view class="coundown_text">:</view>
+  <view class="coundown_item">
+    <view class="item_time">
+      <view class="card" wx:for="{{countDownData.minutes}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="item_unit">分</view>
+  </view>
+  <view class="coundown_text">:</view>
+  <view class="coundown_item">
+    <view class="item_time">
+      <view class="card" wx:for="{{countDownData.seconds}}" wx:key="index">{{item}}</view>
+    </view>
+    <view class="item_unit">秒</view>
+  </view>
+</view>
+<view class="order_name">
+  摩享时光 · {{orderInfo.productName}}
+</view>
+
+<view class="order_card">
+  <view class="card_inside">
+    <view class="card_top">
+      <view class="card_title">
+        {{orderInfo.productName}}
+      </view>
+      <view class="card_des">
+        {{orderInfo.bname}}
+      </view>
+    </view>
+    <view class="card_bottom">
+      <view class="order_info">
+        订单编号：<span>{{orderInfo.saleOrderNo}}</span>
+      </view>
+      <view class="order_info">
+        支付时间：<span>{{orderInfo.paymentTime}}</span>
+      </view>
+      <view class="order_info">
+        实际支付：<span class="price">{{orderInfo.paymentAamount}}元</span>
+      </view>
+    </view>
+  </view>
+</view>

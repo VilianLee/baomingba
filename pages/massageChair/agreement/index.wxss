@@ -1,0 +1,17 @@
+/* pages/massageChair/agreement/index.wxss */
+page {
+  background: #ffffff;
+  padding: 0 30rpx;
+}
+.title {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  margin: 20rpx auto 50rpx;
+  text-align: center;
+  color: #333333;
+}
+.text {
+  line-height: 40rpx;
+  font-size: 24rpx;
+  color: #666666;
+}

@@ -20,7 +20,7 @@ page {
 .page_title {
   padding: 0 30rpx;
   font-size: 32rpx;
-  margin-bottom: 15rpx;
+  margin: 15rpx 0;
   color: #b9b9b9;
 }
 

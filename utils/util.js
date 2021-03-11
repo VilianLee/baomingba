@@ -63,9 +63,24 @@ const generateSign = (data) => {
   return sign + ''
 }
 
+const getHrefParam = (paramStr, equal = "=", and = "&") => {
+  if (!paramStr) {
+    return {}
+  }
+  const paramArr = paramStr.split(and)
+  console.log(paramArr)
+  let ret = {}
+  paramArr.forEach(param => {
+    param = param.split(equal)
+    ret[param[0]] = param[1]
+  })
+  return ret
+}
+
 module.exports = {
   getDate,
   DeepClone,
   timeFormat,
-  generateSign
+  generateSign,
+  getHrefParam
 }

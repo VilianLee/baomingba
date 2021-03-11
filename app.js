@@ -2,12 +2,12 @@
 import store from './store'
 import {
   login,
-  getToken
+  getToken,
+  getPersonInfo
 } from './API/servers'
 App({
   onLaunch: function () {
     this.overShare()
-    console.log("onLaunch")
     getToken({}, res => {
       store.data.token = res.data.token
       store.update()
@@ -58,6 +58,13 @@ App({
       }
     })
   },
+  AjaxGetUserInfo() {
+    getPersonInfo({}, res => {
+      store.data.userInfo = res.data
+      store.data.hasUserInfo = true
+      store.update()
+    })
+  },
   AjaxSilentLogin(code) {
     login({
       jsCode: code
@@ -69,11 +76,13 @@ App({
         store.data.mobile = res.data.mobile
         store.data.wxopenid = res.data.wxopenid
         store.update()
-      } else {
-        wx.navigateTo({
-          url: '/pages/login/login',
-        })
-      }
+        this.AjaxGetUserInfo()
+      } 
+      // else {
+      //   wx.navigateTo({
+      //     url: '/pages/login/login',
+      //   })
+      // }
     })
   },
   config: {

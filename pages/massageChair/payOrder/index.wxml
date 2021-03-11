@@ -1,0 +1,21 @@
+<!--pages/massageChair/payOrder/index.wxml-->
+<view class="order_info">
+  <view class="info">
+    {{orderInfo.modelName}}
+    <text>{{orderInfo.price}}元{{orderInfo.duration}}分钟套餐</text>
+  </view>
+  <view class="change_btn" bindtap="changeOrder">
+    更换套餐
+    <view class="icon">
+      <image src="/images/chair/sync-alt.png"></image>
+    </view>
+  </view>
+</view>
+
+<view class="bottom_box">
+  <view class="pay_info">
+    <view>应付：</view>
+    <text>￥{{orderInfo.price}}</text>
+  </view>
+  <view class="btn" bindtap="AjaxPayOrder">开始按摩</view>
+</view>
